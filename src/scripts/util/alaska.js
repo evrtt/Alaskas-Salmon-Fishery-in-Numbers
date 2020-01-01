@@ -214,7 +214,8 @@ export const renderAK = () => {
     .data(alaskaGeoJson.features)
     .join("path")
     .attr("d", (feature) => path(feature))
-    .attr("fill", "white")
+    .attr("fill", "rgb(50, 50, 50)")
+    .attr("stroke", "white")
 
   const rectGenerator = d3.area()
   const lineGenerator = d3.line()
@@ -230,8 +231,8 @@ export const renderAK = () => {
       .attr('id', `${area.title}-rect`)
       .attr('class', 'unzoomed-rect visible-rect')
       .attr('d', lines)
-      .attr("stroke", "grey")
-      .attr("fill", "grey")
+      .attr("stroke", "white")
+      .attr("fill", "white")
       .attr("fill-opacity", "0.1")
       .attr('cursor', 'pointer')
       .on("click", () => zoom(area, path))
@@ -265,7 +266,7 @@ const hover = (title) => {
     .attr('font-size', '20px')
 
   document.getElementById(`${title}-rect`)
-    .style.fill = 'yellow'
+    .style.fillOpacity = '0.3'
 }
 
 const unhover = (title) => {
@@ -275,7 +276,7 @@ const unhover = (title) => {
     .attr('font-size', '0px')
 
   document.getElementById(`${title}-rect`)
-    .style.fill = 'grey'
+    .style.fillOpacity = '0.2'
 }
 
 const zoom = (area, alaska) => {
@@ -320,7 +321,7 @@ const zoom = (area, alaska) => {
     d3.select("#alaska-svg")
       .transition()
       .duration(1000)
-      .style("stroke-width", `${3 / scale}px`)
+      .style("stroke-width", `1px`)
       .attr("transform", `translate(${translate})scale(${scale})`)
   }
 }

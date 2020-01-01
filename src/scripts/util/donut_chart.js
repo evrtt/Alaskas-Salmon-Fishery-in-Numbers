@@ -30,13 +30,23 @@ const fishColor = (species) => {
   switch (species) {
     case "Chinook":
       return "#BF9AC4";
+    case "Chinook / King":
+      return "#BF9AC4";
     case "Chum":
+      return "#9AC4A8";
+    case "Chum / Dog":
       return "#9AC4A8";
     case "Coho":
       return "#A0A0A0";
+    case "Coho / Silver":
+      return "#A0A0A0";
     case "Pink":
       return "#ECCECE";
+    case "Pink / Humpy":
+      return "#ECCECE";
     case "Sockeye":
+      return "#E28989";
+    case "Sockeye / Red":
       return "#E28989";
     default:
       return null
@@ -47,82 +57,109 @@ const rScale = d3.scaleSqrt()
 .domain([0, 300000000])
 .range([0, 50])
 
-const keyInit = [
+const colorKeyCircleX = projection([-177, 69.3])[0]
+const colorKey = [
+  { species: "Chinook / King", y: projection([-177, 69.3])[1] },
+  { species: "Chum / Dog", y: projection([-177, 69.3])[1] + 80 },
+  { species: "Coho / Silver", y: projection([-177, 69.3])[1] + 160 },
+  { species: "Pink / Humpy", y: projection([-177, 69.3])[1] + 240 },
+  { species: "Sockeye / Red", y: projection([-177, 69.3])[1] + 320 },
+]
+
+const sizeKey = [
   {
     r: rScale(100000), 
-    circlePositionY: projection([-139.95846010445326, 61.565309246028966])[1],
-    circlePositionX: projection([-139.95846010445326, 61.565309246028966])[0] + rScale(100000),
-    textPositionY: projection([-139.95846010445326, 61.565309246028966])[1] + 2 * rScale(100000) + 20,
-    textPositionX: projection([-139.95846010445326, 61.565309246028966])[0],
+    circlePositionY: projection([-140, 61.3])[1],
+    circlePositionX: projection([-140, 61.3])[0] + rScale(100000),
+    textPositionY: projection([-140, 61.3])[1] + 15,
+    textPositionX: projection([-140, 61.3])[0],
     pounds: '100,000 lbs'
   },
   {
     r: rScale(500000), 
-    circlePositionY: projection([-139.95846010445326, 61.565309246028966])[1] - 30 - 2 * rScale(100000) - rScale(500000),
-    circlePositionX: projection([-139.95846010445326, 61.565309246028966])[0] + rScale(500000),
-    textPositionY: projection([-139.95846010445326, 61.565309246028966])[1] - 10 - 2 * rScale(100000),
-    textPositionX: projection([-139.95846010445326, 61.565309246028966])[0],
+    circlePositionY: projection([-140, 61.3])[1] - 30 - 2 * rScale(100000) - rScale(500000),
+    circlePositionX: projection([-140, 61.3])[0] + rScale(500000),
+    textPositionY: projection([-140, 61.3])[1] - 15 - 2 * rScale(100000),
+    textPositionX: projection([-140, 61.3])[0],
     pounds: '500,000 lbs'
   },
   {
-    r: rScale(1000000), 
-    circlePositionY: projection([-139.95846010445326, 61.565309246028966])[1] - 60 - 2 * rScale(100000) - 2 * rScale(500000) - rScale(1000000),
-    circlePositionX: projection([-139.95846010445326, 61.565309246028966])[0] + rScale(1000000),
-    textPositionY: projection([-139.95846010445326, 61.565309246028966])[1] - 40 - 2 * rScale(100000) - 2 * rScale(500000),
-    textPositionX: projection([-139.95846010445326, 61.565309246028966])[0],
-    pounds: '1,000,000 lbs'
+    r: rScale(2500000), 
+    circlePositionY: projection([-140, 61.3])[1] - 60 - 2 * rScale(100000) - 2 * rScale(500000) - rScale(2500000),
+    circlePositionX: projection([-140, 61.3])[0] + rScale(2500000),
+    textPositionY: projection([-140, 61.3])[1] - 45 - 2 * rScale(100000) - 2 * rScale(500000),
+    textPositionX: projection([-140, 61.3])[0],
+    pounds: '2,500,000 lbs'
   },
   {
-    r: rScale(5000000), 
-    circlePositionY: projection([-139.95846010445326, 61.565309246028966])[1] - 90 - 2 * rScale(100000) - 2 * rScale(500000) - 2 * rScale(1000000) - rScale(5000000),
-    circlePositionX: projection([-139.95846010445326, 61.565309246028966])[0] + rScale(5000000),
-    textPositionY: projection([-139.95846010445326, 61.565309246028966])[1] - 70 - 2 * rScale(100000) - 2 * rScale(500000) - 2 * rScale(1000000),
-    textPositionX: projection([-139.95846010445326, 61.565309246028966])[0],
-    pounds: '5,000,000 lbs'
+    r: rScale(12500000), 
+    circlePositionY: projection([-140, 61.3])[1] - 90 - 2 * rScale(100000) - 2 * rScale(500000) - 2 * rScale(2500000) - rScale(12500000),
+    circlePositionX: projection([-140, 61.3])[0] + rScale(12500000),
+    textPositionY: projection([-140, 61.3])[1] - 75 - 2 * rScale(100000) - 2 * rScale(500000) - 2 * rScale(2500000),
+    textPositionX: projection([-140, 61.3])[0],
+    pounds: '12,500,000 lbs'
   },
   {
-    r: rScale(10000000), 
-    circlePositionY: projection([-139.95846010445326, 61.565309246028966])[1] - 120 - 2 * rScale(100000) - 2 * rScale(500000) - 2 * rScale(1000000) - 2 * rScale(5000000) - rScale(10000000),
-    circlePositionX: projection([-139.95846010445326, 61.565309246028966])[0] + rScale(10000000),
-    textPositionY: projection([-139.95846010445326, 61.565309246028966])[1] - 100 - 2 * rScale(100000) - 2 * rScale(500000) - 2 * rScale(1000000) - 2 * rScale(5000000),
-    textPositionX: projection([-139.95846010445326, 61.565309246028966])[0],
-    pounds: '10,000,000 lbs'
+    r: rScale(62500000), 
+    circlePositionY: projection([-140, 61.3])[1] - 120 - 2 * rScale(100000) - 2 * rScale(500000) - 2 * rScale(2500000) - 2 * rScale(12500000) - rScale(62500000),
+    circlePositionX: projection([-140, 61.3])[0] + rScale(62500000),
+    textPositionY: projection([-140, 61.3])[1] - 105 - 2 * rScale(100000) - 2 * rScale(500000) - 2 * rScale(2500000) - 2 * rScale(12500000),
+    textPositionX: projection([-140, 61.3])[0],
+    pounds: '62,500,000 lbs'
   },
   {
-    r: rScale(50000000), 
-    circlePositionY: projection([-139.95846010445326, 61.565309246028966])[1] - 150 - 2 * rScale(100000) - 2 * rScale(500000) - 2 * rScale(1000000) - 2 * rScale(5000000) - 2 * rScale(10000000)  - rScale(50000000),
-    circlePositionX: projection([-139.95846010445326, 61.565309246028966])[0] + rScale(50000000),
-    textPositionY: projection([-139.95846010445326, 61.565309246028966])[1] - 130 - 2 * rScale(100000) - 2 * rScale(500000) - 2 * rScale(1000000) - 2 * rScale(5000000) - 2 * rScale(10000000),
-    textPositionX: projection([-139.95846010445326, 61.565309246028966])[0],
-    pounds: '50,000,000 lbs'
-  },
-  {
-    r: rScale(100000000), 
-    circlePositionY: projection([-139.95846010445326, 61.565309246028966])[1] - 180 - 2 * rScale(100000) - 2 * rScale(500000) - 2 * rScale(1000000) - 2 * rScale(5000000) - 2 * rScale(10000000) - 2 * rScale(50000000) - rScale(100000000),
-    circlePositionX: projection([-139.95846010445326, 61.565309246028966])[0] + rScale(100000000),
-    textPositionY: projection([-139.95846010445326, 61.565309246028966])[1] - 160- 2 * rScale(100000) - 2 * rScale(500000) - 2 * rScale(1000000) - 2 * rScale(5000000) - 2 * rScale(10000000) - 2 * rScale(50000000),
-    textPositionX: projection([-139.95846010445326, 61.565309246028966])[0],
-    pounds: '100,000,000 lbs'
+    r: rScale(312500000), 
+    circlePositionY: projection([-140, 61.3])[1] - 150 - 2 * rScale(100000) - 2 * rScale(500000) - 2 * rScale(2500000) - 2 * rScale(12500000) - 2 * rScale(62500000)  - rScale(312500000),
+    circlePositionX: projection([-140, 61.3])[0] + rScale(312500000),
+    textPositionY: projection([-140, 61.3])[1] - 135 - 2 * rScale(100000) - 2 * rScale(500000) - 2 * rScale(2500000) - 2 * rScale(12500000) - 2 * rScale(62500000),
+    textPositionX: projection([-140, 61.3])[0],
+    pounds: '312,500,000 lbs'
   }
 ]
-
-console.log(keyInit)
 
 export const renderBubbles = (data) => {
 
   d3.select("#alaska-svg")
+    .append('text')
+    .text('Alaska')
+    .attr('fill', 'white')
+    .attr('font-size', '30px')
+    .attr('x', projection([-154, 67])[0])
+    .attr('y', projection([-154, 67])[1])
+
+  d3.select("#alaska-svg")
     .append("g")
-    .attr("class", 'key')
+    .attr("class", 'colorKey')
     .selectAll("circle")
-    .data(keyInit)
+    .data(colorKey)
+    .join('circle')
+    .attr('cx', colorKeyCircleX)
+    .attr('cy', d => d.y)
+    .attr('r', 20)
+    .attr('fill', d => fishColor(d.species))
+
+  d3.select(".colorKey")
+    .selectAll("text")
+    .data(colorKey)
+    .join('text')
+    .attr('x', colorKeyCircleX - 20)
+    .attr('y', d => d.y + 35)
+    .text(d => d.species)
+
+  d3.select("#alaska-svg")
+    .append("g")
+    .attr("class", 'sizeKey')
+    .selectAll("circle")
+    .data(sizeKey)
     .join('circle')
     .attr('cx', d => d.circlePositionX)
     .attr('cy', d => d.circlePositionY)
     .attr('r', d => d.r)
+    .attr('fill', 'rgb(50, 50, 50)')
 
-  d3.select(".key")
+  d3.select(".sizeKey")
     .selectAll("text")
-    .data(keyInit)
+    .data(sizeKey)
     .join('text')
     .attr('x', d => d.textPositionX)
     .attr('y', d => d.textPositionY)
@@ -151,7 +188,7 @@ export const renderBubbles = (data) => {
         .append("path")
         .attr("id", `${compactName}-line`)
         .attr('d', line)
-        .attr('stroke', 'grey')
+        .attr('stroke', 'white')
     }
 
     d3.select("#alaska-svg")
@@ -218,8 +255,7 @@ export const changeBubblesYear = (data) => {
           .append("path")
           .attr("id", `${compactName}-line`)
           .attr('d', line)
-          .attr('stroke', 'grey')
-          .attr('z-index', '10')
+          .attr('stroke', 'white')
       } else if (newAreaData.length === 0 && !!document.getElementById(`${compactName}-line`)) {
         d3.select(`#${compactName}-line`).remove()
       }
