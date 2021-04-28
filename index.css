@@ -1,0 +1,76 @@
+#scroller {
+  width: auto;
+  height: auto;
+}
+
+#frames {
+position: relative;
+display: hidden;
+width: 0;
+z-index: 1;
+}
+
+#frames section{
+height: 100vh;
+}
+
+.data {
+display: inline-block;
+position: fixed;
+top: 0px;
+max-width: 100%;
+z-index: 1;
+margin-left: 0;
+margin-right: 30px;
+
+height: 100vh;
+width: 100vw;
+background-color: white;
+}
+
+.data-0 {
+  background-color: #78abd4;
+  transition: background 200ms ease-in
+}
+.data-1 {
+  background-color: yellow;
+  transition: background 500ms ease-in
+}
+.data-2 {
+  background-color: orange;
+  transition: background 500ms ease-in
+}
+.data-3 {
+  background-color: black;
+  transition: background 500ms ease-in
+}
+.data-4 {
+  background-color: purple;
+  transition: background 500ms ease-in
+}
+
+/* #frame-0{
+  
+} */
+/* #frame-1{
+
+} */
+/* #frame-2{
+
+} */
+/* #frame-3{
+
+} */
+/* #frame-4{
+
+} */
+
+.data-on{
+  display: inline-block;
+  height: 100vh;
+  width: 100vw;
+}
+
+.data-off{
+  display: none;
+}
