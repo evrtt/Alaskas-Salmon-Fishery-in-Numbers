@@ -6,8 +6,8 @@
 #frames {
 position: relative;
 display: hidden;
-width: 0;
-z-index: 1;
+width: 100px;
+z-index: 2;
 }
 
 #frames section{
