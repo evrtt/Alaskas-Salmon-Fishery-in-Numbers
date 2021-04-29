@@ -1,6 +1,6 @@
-import changeFrame from './change_frame';
+import changeFrame from './change_frame.js';
 
-let createObservers = () => {
+const createObservers = () => {
   
   let callback = (entries, observer) => {
 
@@ -46,9 +46,6 @@ let createObservers = () => {
     let target = document.querySelector(`.scroll-${i}`);
     observer.observe(target);
   }
+};
 
-}
-
-window.addEventListener("load", (e) => {
-  createObservers();
-}, false);
+export default createObservers;
