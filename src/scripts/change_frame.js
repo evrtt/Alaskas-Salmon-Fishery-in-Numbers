@@ -1,7 +1,9 @@
+import areaData from './data_parser.js';
+
 export default (next, last) => {
   switch (`${last}${next}`) {
     case '01':
-      return console.log('splash_to_intro');
+      return areaData;
     case '10':
       return console.log('intro_to_splash');
     case '12':
