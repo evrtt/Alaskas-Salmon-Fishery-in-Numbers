@@ -1,10 +1,12 @@
 import createObservers from './scripts/scroller.js';
-import parseCatchData from './scripts/data_parser.js';
+import initializeData from './scripts/data_parser.js';
 
-let catchData = parseCatchData();
+const catchData = initializeData();
 console.log(catchData)
 
 window.addEventListener("load", (e) => {
   createObservers();
 }, false);
 
+
+export default catchData;

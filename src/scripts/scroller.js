@@ -43,7 +43,7 @@ const createObservers = () => {
   // if(dataClasses.length > 1) {
   };
 
-  let observer = new IntersectionObserver(callback, {threshold: 0.50});
+  let observer = new IntersectionObserver(callback, {threshold: 0.5});
   
   for (let i = 0; i < 5; i++) {
     let target = document.querySelector(`.scroll-${i}`);
