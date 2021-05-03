@@ -18,7 +18,7 @@ export default (next, last) => {
       clearCharts()
       return console.log('spatial_to_temporal');
     case '32':
-      introToSpatial('1979');
+      introToSpatial('2010');
       return console.log('temporal_to_spatial');
     case '34':
       return console.log('temporal_to_statewide');
