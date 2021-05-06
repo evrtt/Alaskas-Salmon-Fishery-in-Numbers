@@ -57,20 +57,17 @@ export const renderBubbles = (data) => {
   const svgSize = Math.min(width, height)
   const rScale = d3.scaleSqrt()
     .domain([1, 10000000])
-    .range([1, 10])
+    .range([1, 100])
 
     
     const color = d3.scaleOrdinal(data.map(d => d.species), d3.schemePastel1)
     
-    const dataContainer = d3.select(".data")
-    .append("svg")
-    .attr("width", width)
-    .attr("height", height)
 
-    const circles = dataContainer.select('svg')
+    const circles = d3.selectAll("svg")
+    .selectAll("g")
     .data(data)
     .enter()
-    .append("cirle")
+    .append("circle")
       .attr("class", "species")
       .attr("r", 100)
       .attr("fill", "black")

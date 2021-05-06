@@ -31,9 +31,11 @@ const introToSpatial = (yr) => {
   
     const currentYear = catchData['byYear'][year]
     salmonAreas.forEach(area => {
-      let data = { area, data: currentYear[area]};
-      renderCharts(data)
-      // renderBubbles(data)
+      let data = {
+         area,
+         data: currentYear[area]};
+      // renderCharts(data)
+      renderBubbles(data)
     })
 
   //   renderBubbles({ area: "Kodiak", data: currentYear["Kodiak"]})
