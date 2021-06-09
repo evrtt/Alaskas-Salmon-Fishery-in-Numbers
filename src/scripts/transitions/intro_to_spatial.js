@@ -3,11 +3,7 @@ import { changeBubblesYear, renderBubbles, renderYears } from '../util/donut_cha
 import { renderAK } from '../util/alaska.js'
 import AK from '../../../alaska_500k.js';
 
-
-// const svg = d3.select('.data')
-//   .append('svg')
-//     .attr("width", '10vw')
-//     .attr("height", '10vh')
+const catchData = initializeData();
 
 export const genBubbles = (year, swtch) => {
   

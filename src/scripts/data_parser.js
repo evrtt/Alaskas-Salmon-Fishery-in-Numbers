@@ -2,7 +2,7 @@ export default () => {
   
   let byYear = {};
   let byArea = {};
-  d3.csv("../../Gross_Earnings_Salmon_Summary_By_AREA.csv", d => {
+  d3.csv("./Gross_Earnings_Salmon_Summary_By_AREA.csv", d => {
 
     byYear[d["Year"]] ||= {};
     byYear[d["Year"]][d["Salmon Area Name"]] ||= [];
