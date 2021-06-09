@@ -3,8 +3,6 @@ import { changeBubblesYear, renderBubbles, renderYears } from '../util/donut_cha
 import { renderAK } from '../util/alaska.js'
 import AK from '../../../alaska_500k.js';
 
-const catchData = initializeData();
-
 export const genBubbles = (year, swtch) => {
   
   const alaskaGeoJson = {

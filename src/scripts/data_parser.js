@@ -6,7 +6,6 @@ export default () => {
 
     byYear[d["Year"]] ||= {};
     byYear[d["Year"]][d["Salmon Area Name"]] ||= [];
-    // byYear[d["Year"]][d["Salmon Area Name"]][d["Species Code"]] ||= [];
     byYear[d["Year"]][d["Salmon Area Name"]]
       .push({
         species: d["Species Code"],
@@ -21,23 +20,6 @@ export default () => {
       fishCount: d["Number of Fish"],
       value: d["Estimated Exvessel Value (Nominal)"]
     })
-    // byYear[d["Year"]] ||= {};
-    // byYear[d["Year"]][d["Salmon Area Name"]] ||= {};
-    // byYear[d["Year"]][d["Salmon Area Name"]][d["Species Code"]] ||= [];
-    // byYear[d["Year"]][d["Salmon Area Name"]][d["Species Code"]].push({
-    //   pounds: d["Pounds"],
-    //   fishCount: d["Number of Fish"],
-    //   value: d["Estimated Exvessel Value (Nominal)"]
-    // })
-
-    // byArea[d["Salmon Area Name"]] ||= {};
-    // byArea[d["Salmon Area Name"]][d["Year"]] ||= {};
-    // byArea[d["Salmon Area Name"]][d["Year"]][d["Species Code"]] ||= [];
-    // byArea[d["Salmon Area Name"]][d["Year"]][d["Species Code"]].push({
-    //   pounds: d["Pounds"],
-    //   fishCount: d["Number of Fish"],
-    //   value: d["Estimated Exvessel Value (Nominal)"]
-    // })
 
   })
   return {byYear, byArea}
