@@ -38,15 +38,15 @@ background-color: white;
   transition: background 500ms ease-in
 }
 .data-2 {
-  background-color: rgb(255, 229, 182);
+  background-color: rgb(104, 119, 204);
   transition: background 500ms ease-in
 }
 .data-3 {
-  background-color: rgb(177, 177, 177);
+  background-color: rgb(132, 191, 240);
   transition: background 500ms ease-in
 }
 .data-4 {
-  background-color: rgb(253, 173, 173);
+  background-color: rgb(94, 255, 228);
   transition: background 500ms ease-in
 }
 
@@ -84,3 +84,29 @@ background-color: white;
   width: 100vw;
 }
 
+.years-container {
+  height: 50px;
+  width: 100%;
+  z-index: 5;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  overflow-x: scroll;
+  border-bottom: solid black 1px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: white;
+}
+
+.year-span {
+  height: 20px;
+  margin: 5px;
+  font-size: 20px;
+  padding: 10px;
+  border-radius: 8px;
+  border: none;
+  background-color: rgb(230, 230, 230);
+  width: 60px;
+}

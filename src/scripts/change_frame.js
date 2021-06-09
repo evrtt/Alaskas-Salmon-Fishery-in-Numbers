@@ -1,6 +1,6 @@
 import areaData from './data_parser.js';
-import introToSpatial from './transitions/intro_to_spatial.js';
-import {clearCharts} from './util/donut_chart.js'
+import { introToSpatial } from './transitions/intro_to_spatial.js';
+import { clearCharts } from './util/donut_chart.js'
 
 export default (next, last) => {
   switch (`${last}${next}`) {
