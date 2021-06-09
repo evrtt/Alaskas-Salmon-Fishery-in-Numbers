@@ -48,7 +48,7 @@ const fishColor = (species) => {
 
 const rScale = d3.scaleLinear()
   .domain([0, 350000000])
-  .range([0, 50])
+  .range([1, 50])
 
 export const renderBubbles = (data) => {
 
@@ -70,6 +70,9 @@ export const renderBubbles = (data) => {
     d3.select("#alaska")
       .append("g")
       .attr("class", compactName)
+      .style("width", 100)
+      .style("height", 100)
+      .style("zIndex", 5)
       .text(area.name)
       .selectAll("circle")
       .data(area.data, d => `${compactName}${d.species}`)
@@ -87,9 +90,9 @@ export const renderBubbles = (data) => {
     } 
   
     d3.forceSimulation(area.data)
-      .force('charge', d3.forceManyBody().strength(0.2))
+      .force('charge', d3.forceManyBody().strength(1.5))
       .force('center', d3.forceCenter(area.x, area.y))
-      .force('collision', d3.forceCollide().radius(d => rScale(d.pounds)))
+      .force('collision', d3.forceCollide().radius(d => rScale(d.pounds) + 1))
       .on("tick", ticked)
 
   })
@@ -106,7 +109,7 @@ export const changeBubblesYear = (data) => {
     let newAreaData = []
   
     area.data.forEach(
-      (fish, idx) => {
+      fish => {
         if (JSON.stringify(fish.pounds) !== "NaN") {
           fish["color"] = fishColor(fish.species)
           newAreaData.concat(fish)
@@ -140,10 +143,8 @@ export const changeBubblesYear = (data) => {
       
     const simulation = d3.forceSimulation(area.data)
       .force('center', d3.forceCenter(area.x, area.y))
-      .force('charge', d3.forceManyBody().strength(d => rScale(d.pounds)))
-      .force('y', d3.forceY(0.1).y(area.y))
-      .force('x', d3.forceX(0.1).x(area.x))
-      .force('collision', d3.forceCollide().radius(d => rScale(d.pounds)))
+      .force('charge', d3.forceManyBody().strength(1.5))
+      .force('collision', d3.forceCollide().radius(d => rScale(d.pounds) + 1))
       .on("tick", ticked)
 
 
