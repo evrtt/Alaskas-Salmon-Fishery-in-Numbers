@@ -85,7 +85,7 @@ background-color: white;
 }
 
 .years-container {
-  height: 50px;
+  height: 30px;
   width: 100%;
   z-index: 5;
   display: flex;
@@ -101,12 +101,21 @@ background-color: white;
 }
 
 .year-span {
-  height: 20px;
+  height: 12px;
   margin: 5px;
-  font-size: 20px;
-  padding: 10px;
+  font-size: 12px;
+  padding: 5px;
   border-radius: 8px;
   border: none;
   background-color: rgb(230, 230, 230);
   width: 60px;
+}
+
+.year-span:hover {
+  transition: margin 100ms, padding 100ms, font-size 100ms, height 100ms;
+  margin: 2px;
+  padding: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  height: 14px;
 }

@@ -78,7 +78,7 @@ export const genBubbles = (year, swtch) => {
     y: area.y,
     data: currentYear[area.name]
   }))
-  console.log(data)
+
   swtch === "set" ? renderBubbles(data) : changeBubblesYear(data)
 }
 
