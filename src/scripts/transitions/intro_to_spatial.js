@@ -22,8 +22,6 @@ export const genBubbles = (year, swtch) => {
       alaskaGeoJson
     )
 
-  console.log(projection)
-
   const areaLongLats = [
     [-162.75075500093894, 66.61030936350049],
     [-162.61288934041147, 59.619327200001266],
@@ -39,9 +37,6 @@ export const genBubbles = (year, swtch) => {
   ]
 
   const areaProjections = areaLongLats.map(areaLongLat => projection(areaLongLat))
-  console.log(areaProjections)
-
-  console.log(areaProjections)
 
   const areaNames = [
     { area: "Kotzebue" },
