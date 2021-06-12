@@ -1,6 +1,6 @@
 import createObservers from './scripts/scroller.js';
-import initializeData from './scripts/data_parser.js';
-import { drawWave } from './scripts/draw_wave.js';
+import initializeData from './scripts/util/data_parser.js';
+import { drawWave } from './scripts/util/draw_wave.js';
 // import {drawWave} from "./scripts/draw_wave.js"
 
 const catchData = initializeData();
@@ -11,55 +11,43 @@ window.addEventListener("load", (e) => {
 
 // const canvas = document.getElementById('canvas');
 // const context = canvas.getContext('2d');
-// const radius = 500
+// const radius = 800
+// const changeBigX = 2 * radius * (Math.sin(((Math.PI * 40 * 2) / 180) / 2))
 
 // let iterator = 10
 // const width = (Math.floor(window.innerWidth / 1000 ) + 1) * 1000
 // canvas.width = context.width = width
-// const height = canvas.height = context.height = 500
+// const height = canvas.height = context.height = 220
 // const numLoops = (width) / 1000 + 2
 // let changeSmallX; 
 // let moveCenter;
 
-// const mod60 = iterator % 60
-// const mod30 = iterator % 30
+// const mod40 = iterator % 40
+// const mod20 = iterator % 20
 // if (iterator > 0 && iterator < 30) {
-//   changeSmallX = 2 * radius * (Math.sin(((Math.PI * (60 - (mod30 * 2)))/180)/2))
-//   moveCenter = ((radius / 2) - (changeSmallX / 2))
-//   // adjustedChangeX = radius - moveCenter
+//   changeSmallX = 2 * radius * (Math.sin(((Math.PI * (60 - (mod20 * 2)))/180)/2))
+//   moveCenter = ((changeBigX / 2) - (changeSmallX / 2))
 // } else if (iterator === 30) {
 //   changeSmallX = 0
-//   moveCenter = radius / 2
-//   // adjustedChangeX = radius / 2
+//   moveCenter = changeBigX / 2
 // } else if (iterator > 30 && iterator < 60) {
-//   changeSmallX = 2 * radius * (Math.sin(((Math.PI * mod30 * 2) / 180) / 2))
-//   moveCenter = radius - ((radius/ 2) - (changeSmallX / 2))
-//   // adjustedChangeX = (radius - changeSmallX) / 2
+//   changeSmallX = 2 * radius * (Math.sin(((Math.PI * mod20 * 2) / 180) / 2))
+//   moveCenter = changeBigX - ((changeBigX/ 2) - (changeSmallX / 2))
 // } else if (iterator === 60) {
-//   changeSmallX = radius
-//   moveCenter = radius
-//   // adjustedChangeX = radius
+//   changeSmallX = changeBigX
+//   moveCenter = changeBigX
 // } else if (iterator > 60 && iterator < 90) {
-//   changeSmallX = 2 * radius * (Math.sin(((Math.PI * (60 - (mod30 * 2))) / 180) / 2))
-//   moveCenter = ((radius / 2) - (changeSmallX / 2)) + radius
-//   // adjustedChangeX = radius / 2
+//   changeSmallX = 2 * radius * (Math.sin(((Math.PI * (60 - (mod20 * 2))) / 180) / 2))
+//   moveCenter = ((changeBigX / 2) - (changeSmallX / 2)) + radius
 // } else if (iterator === 90) {
 //   changeSmallX = 0
-//   moveCenter = radius * 1.5
-//   // adjustedChangeX = radius
+//   moveCenter = changeBigX * 1.5
 // } else if (iterator > 90 && iterator < 120) {
-//   changeSmallX = 2 * radius * (Math.sin(((Math.PI * mod30 * 2) / 180) / 2))
-//   moveCenter = radius * 2 - ((radius/ 2) - (changeSmallX / 2))
-//   // adjustedChangeX = (radius - changeSmallX) / 2
+//   changeSmallX = 2 * radius * (Math.sin(((Math.PI * mod20 * 2) / 180) / 2))
+//   moveCenter = changeBigX * 2 - ((changeBigX/ 2) - (changeSmallX / 2))
 // } 
-// // else if (iterator === 120) {
-// //   changeSmallX = 0
-// //   moveCenter = radius / 2
-// // }
 
-// console.log(changeSmallX)
-
-// const changeY = Math.sqrt((radius ** 2) - ((radius / 2) ** 2)) * 2
+// const changeY = Math.sqrt((radius ** 2) - ((changeBigX / 2) ** 2)) * 2
 
 // context.clearRect(0, 0, width, height)
 // for(let i = 0; i < numLoops; i++) {
@@ -69,8 +57,8 @@ window.addEventListener("load", (e) => {
 //     if(iterator > 59) {
 
 //       context.beginPath()
-//       context.arc((radius * ((2 * i) + 1)) + (radius / 2) - moveCenter, changeY, radius, Math.PI * 240 / 180, Math.PI * 300 / 180, false)
-//       context.lineTo(radius * 2 - moveCenter, changeY / 2)
+//       context.arc((radius * ((2 * i) + 1)) + (radius / 2) - moveCenter, changeY - 580, radius, Math.PI * 240 / 180, Math.PI * 300 / 180, false)
+//       context.lineTo(radius * 2 - moveCenter, (changeY / 2) - 580)
 //       context.lineTo(radius * 2 - moveCenter, height)
 //       context.lineTo(0, height)
 //       context.fillStyle = 'blue'
@@ -79,12 +67,12 @@ window.addEventListener("load", (e) => {
 //     } else {
       
 //       context.beginPath()
-//       context.arc((radius / 2) - moveCenter, 0, radius, (Math.PI * 60) / 180, (Math.PI * (120 - mod60)) / 180, false)
+//       context.arc((radius / 2) - moveCenter, -580, radius, (Math.PI * 60) / 180, (Math.PI * (120 - mod40)) / 180, false)
 //       context.lineTo(0 , height)
 //       context.lineTo(radius * 2 - moveCenter, height)
-//       context.lineTo(radius * 2 - moveCenter, changeY/2)
-//       context.moveTo((radius * ((2 * i) + 1)) + (radius / 2) - moveCenter, (changeY / 2))
-//       context.arc((radius * ((2 * i) + 1)) + (radius / 2) - moveCenter, changeY, radius, Math.PI * 240 / 180, Math.PI * 300 / 180, false)
+//       context.lineTo(radius * 2 - moveCenter, changeY/2 - 580)
+//       context.moveTo((radius * ((2 * i) + 1)) + (radius / 2) - moveCenter, changeY / 2 - 580)
+//       context.arc((radius * ((2 * i) + 1)) + (radius / 2) - moveCenter, changeY - 580, radius, Math.PI * 240 / 180, Math.PI * 300 / 180, false)
 //       context.fillStyle = 'blue'
 //       context.fill()
 
@@ -93,30 +81,30 @@ window.addEventListener("load", (e) => {
 //   } else if(i === numLoops - 1) {
 
 //     context.beginPath()
-//     context.arc((radius / 2) + (radius * i * 2) - moveCenter, 0, radius, (Math.PI * 60) / 180, (Math.PI * 120) / 180, false)
+//     context.arc((radius / 2) + (radius * i * 2) - moveCenter, -580, radius, (Math.PI * 60) / 180, (Math.PI * 120) / 180, false)
 //     context.lineTo(radius * 2 * i - moveCenter, height)
 //     context.lineTo(radius * (2 + (i * 2)) - moveCenter, height)
-//     context.lineTo(radius * (2 + (i * 2)) - moveCenter, changeY/2)
-//     context.moveTo((radius * ((2 * i) + 1)) + (radius / 2) - moveCenter, (changeY / 2))
-//     context.arc((radius * ((2 * i) + 1)) + (radius / 2) - moveCenter, changeY, radius, Math.PI * 240 / 180, Math.PI * 300 / 180, false)
+//     context.lineTo(radius * (2 + (i * 2)) - moveCenter, changeY/2 - 580)
+//     context.moveTo((radius * ((2 * i) + 1)) + (radius / 2) - moveCenter, (changeY / 2) - 580)
+//     context.arc((radius * ((2 * i) + 1)) + (radius / 2) - moveCenter, changeY - 580, radius, Math.PI * 240 / 180, Math.PI * 300 / 180, false)
 //     context.fillStyle = 'blue'
 //     context.fill()
 
 //   } else {
 
 //     context.beginPath()
-//     context.arc((radius / 2) + (radius * i * 2) - moveCenter, 0, radius, (Math.PI * 60) / 180, (Math.PI * 120) / 180, false)
-//     context.lineTo(0 + radius * 2 * i - moveCenter, height)
-//     context.lineTo(radius * (2 + (i * 2)) - moveCenter, height)
-//     context.lineTo(radius * (2 + (i * 2)) - moveCenter, changeY/2)
-//     context.moveTo((radius * ((2 * i) + 1)) + (radius / 2) - moveCenter, (changeY / 2))
-//     context.arc((radius * ((2 * i) + 1)) + (radius / 2) - moveCenter, changeY, radius, Math.PI * 240 / 180, Math.PI * 300 / 180, false)
+//     context.arc((changeBigX / 2) + (changeBigX * i * 2) - moveCenter, - 580, radius, (Math.PI * 60) / 180, (Math.PI * 120) / 180, false)
+//     context.lineTo(changeBigX * 2 * i - moveCenter, height)
+//     context.lineTo(changeBigX * (2 + (i * 2)) - moveCenter, height)
+//     context.lineTo(changeBigX * (2 + (i * 2)) - moveCenter, changeY/2 - 580)
+//     context.moveTo((changeBigX * ((2 * i) + 1)) + (changeBigX / 2) - moveCenter, (changeY / 2) - 580)
+//     context.arc((changeBigX * ((2 * i) + 1)) + (changeBigX / 2) - moveCenter, changeY - 580, radius, Math.PI * 240 / 180, Math.PI * 300 / 180, false)
 //     context.fillStyle = 'blue'
 //     context.fill()
 
 //   }
 // }
-drawWave()
+// drawWave()
 // }
 // context.beginPath()
 // context.arc((radius * 2) + (radius / 2), 0, radius, (Math.PI * 60) / 180, (Math.PI * 120) / 180, false)

@@ -41,7 +41,7 @@
 // }
 export const drawWave = () => {
 
-  let iterator = 0
+  let iterator = 120
 
   window.requestAnimationFrame(() => drawFrame(iterator))
 
@@ -53,7 +53,7 @@ export const drawWave = () => {
 
     const width = (Math.floor(window.innerWidth / 1000) + 1) * 1000
     canvas.width = context.width = width
-    const height = canvas.height = context.height = 1000
+    const height = canvas.height = context.height = 420
     const numLoops = (width) / 1000 + 2
     let changeSmallX;
     let moveCenter;
@@ -96,8 +96,8 @@ export const drawWave = () => {
         if (iterator > 59) {
 
           context.beginPath()
-          context.arc((radius * ((2 * i) + 1)) + (radius / 2) - moveCenter, changeY, radius, Math.PI * 240 / 180, Math.PI * 300 / 180, false)
-          context.lineTo(radius * 2 - moveCenter, changeY / 2)
+          context.arc((radius * ((2 * i) + 1)) + (radius / 2) - moveCenter, changeY - 580, radius, Math.PI * 240 / 180, Math.PI * 300 / 180, false)
+          context.lineTo(radius * 2 - moveCenter, (changeY / 2) - 580)
           context.lineTo(radius * 2 - moveCenter, height)
           context.lineTo(0, height)
           context.fillStyle = 'blue'
@@ -106,45 +106,42 @@ export const drawWave = () => {
         } else {
 
           context.beginPath()
-          context.arc((radius / 2) - moveCenter, 0, radius, (Math.PI * 60) / 180, (Math.PI * (120 - mod60)) / 180, false)
+          context.arc((radius / 2) - moveCenter, -580, radius, (Math.PI * 60) / 180, (Math.PI * (120 - mod60)) / 180, false)
           context.lineTo(0, height)
           context.lineTo(radius * 2 - moveCenter, height)
-          context.lineTo(radius * 2 - moveCenter, changeY / 2)
-          context.moveTo((radius * ((2 * i) + 1)) + (radius / 2) - moveCenter, (changeY / 2))
-          context.arc((radius * ((2 * i) + 1)) + (radius / 2) - moveCenter, changeY, radius, Math.PI * 240 / 180, Math.PI * 300 / 180, false)
+          context.lineTo(radius * 2 - moveCenter, (changeY / 2) - 580)
+          context.moveTo((radius * ((2 * i) + 1)) + (radius / 2) - moveCenter, (changeY / 2) - 580)
+          context.arc((radius * ((2 * i) + 1)) + (radius / 2) - moveCenter, changeY - 580, radius, Math.PI * 240 / 180, Math.PI * 300 / 180, false)
           context.fillStyle = 'blue'
           context.fill()
-
         }
 
       } else if (i === numLoops - 1) {
 
         context.beginPath()
-        context.arc((radius / 2) + (radius * i * 2) - moveCenter, 0, radius, (Math.PI * 60) / 180, (Math.PI * 120) / 180, false)
+        context.arc((radius / 2) + (radius * i * 2) - moveCenter, -580, radius, (Math.PI * 60) / 180, (Math.PI * 120) / 180, false)
         context.lineTo(radius * 2 * i - moveCenter, height)
         context.lineTo(radius * (2 + (i * 2)) - moveCenter, height)
-        context.lineTo(radius * (2 + (i * 2)) - moveCenter, changeY / 2)
-        context.moveTo((radius * ((2 * i) + 1)) + (radius / 2) - moveCenter, (changeY / 2))
-        context.arc((radius * ((2 * i) + 1)) + (radius / 2) - moveCenter, changeY, radius, Math.PI * 240 / 180, Math.PI * 300 / 180, false)
+        context.lineTo(radius * (2 + (i * 2)) - moveCenter, (changeY / 2) - 580)
+        context.moveTo((radius * ((2 * i) + 1)) + (radius / 2) - moveCenter, (changeY / 2) - 580)
+        context.arc((radius * ((2 * i) + 1)) + (radius / 2) - moveCenter, changeY - 580, radius, Math.PI * 240 / 180, Math.PI * 300 / 180, false)
         context.fillStyle = 'blue'
         context.fill()
-
       } else {
 
         context.beginPath()
-        context.arc((radius / 2) + (radius * i * 2) - moveCenter, 0, radius, (Math.PI * 60) / 180, (Math.PI * 120) / 180, false)
+        context.arc((radius / 2) + (radius * i * 2) - moveCenter, -580, radius, (Math.PI * 60) / 180, (Math.PI * 120) / 180, false)
         context.lineTo(0 + radius * 2 * i - moveCenter, height)
         context.lineTo(radius * (2 + (i * 2)) - moveCenter, height)
-        context.lineTo(radius * (2 + (i * 2)) - moveCenter, changeY / 2)
-        context.moveTo((radius * ((2 * i) + 1)) + (radius / 2) - moveCenter, (changeY / 2))
-        context.arc((radius * ((2 * i) + 1)) + (radius / 2) - moveCenter, changeY, radius, Math.PI * 240 / 180, Math.PI * 300 / 180, false)
+        context.lineTo(radius * (2 + (i * 2)) - moveCenter, (changeY / 2) - 580)
+        context.moveTo((radius * ((2 * i) + 1)) + (radius / 2) - moveCenter, (changeY / 2) - 580)
+        context.arc((radius * ((2 * i) + 1)) + (radius / 2) - moveCenter, changeY - 580, radius, Math.PI * 240 / 180, Math.PI * 300 / 180, false)
         context.fillStyle = 'blue'
         context.fill()
-
       }
     }
 
-    iterator = (iterator + 0.5) % 119
+    iterator = iterator === 0 ? 119 : iterator - 0.5
 
     window.requestAnimationFrame(() => drawFrame(iterator))
   }

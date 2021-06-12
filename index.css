@@ -130,3 +130,14 @@ background-color: white;
   bottom: 0;
   z-index: 10;
 }
+
+.scroll-down {
+  font-size: 60px;
+  font-family: Arial, Helvetica, sans-serif; 
+  color: #61a5dd;
+  font-weight: 100;
+  z-index: 11;
+  position: fixed;
+  bottom: 0;
+  margin-bottom: 100px;
+}
