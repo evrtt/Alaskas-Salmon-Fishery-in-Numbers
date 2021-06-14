@@ -1,55 +1,18 @@
-// export const drawWave = () => {
+import { renderAK } from '../util/alaska.js'
+import { clearCharts } from './donut_chart.js'
 
-//   let iterator = 0
 
-//   window.requestAnimationFrame(() => drawFrame(iterator))
-
-//   const drawFrame = (iterator) => {
-    
-//     const canvas = document.getElementById('canvas');
-//     const context = canvas.getContext('2d');
-
-//     const width = (Math.floor(window.innerWidth / 1000) + 1) * 1000
-//     canvas.width = context.width = width
-//     const height = canvas.height = context.height = 500
-//     const numLoops = (width) / 1000
-//     const radius = 500
-//     console.log(window.innerWidth)
-
-//     const finishIncompleteX = 2 * radius * (Math.sin(((Math.PI * 60) / 180) / 2))
-//     const changeY = Math.sqrt((radius ** 2) - ((radius / 2) ** 2)) * 2
-
-//     context.clearRect(0, 0, width, height)
-//     console.log(numLoops)
-//     for (let i = 0; i < numLoops; i++) {
-
-//       console.log((radius / 2) + (radius * i * 2))
-//       context.beginPath()
-//       context.arc((radius / 2) + (radius * i * 2), 0, radius, (Math.PI * 60) / 180, (Math.PI * 120) / 180, false)
-//       context.lineTo(0 + radius * 2 * i, height)
-//       context.lineTo(radius * (2 + (i * 2)), height)
-//       context.lineTo(radius * (2 + (i * 2)), changeY / 2)
-//       context.moveTo((radius * ((2 * i) + 1)) + (radius / 2), (changeY / 2))
-//       context.arc((radius * ((2 * i) + 1)) + (radius / 2), changeY, radius, Math.PI * 240 / 180, Math.PI * 300 / 180, false)
-//       context.fillStyle = 'blue'
-//       context.fill()
-//     }
-
-//     window.requestAnimationFrame(() => drawFrame(iterator))
-//   }
-
-// }
 export const drawWave = () => {
 
   let iterator = 120
+  const canvas = document.querySelector('.wave-top');
+  const context = canvas.getContext('2d');
+  const radius = 1000
 
   window.requestAnimationFrame(() => drawFrame(iterator))
 
   const drawFrame = (iterator) => {
     
-    const canvas = document.getElementById('canvas');
-    const context = canvas.getContext('2d');
-    const radius = 1000
 
     const width = (Math.floor(window.innerWidth / 1000) + 1) * 1000
     canvas.width = context.width = width
@@ -97,8 +60,8 @@ export const drawWave = () => {
 
           context.beginPath()
           context.arc((radius * ((2 * i) + 1)) + (radius / 2) - moveCenter, changeY - 580, radius, Math.PI * 240 / 180, Math.PI * 300 / 180, false)
-          context.lineTo(radius * 2 - moveCenter, (changeY / 2) - 580)
-          context.lineTo(radius * 2 - moveCenter, height)
+          context.lineTo(radius * 2 - (moveCenter - 1), (changeY / 2) - 580)
+          context.lineTo(radius * 2 - (moveCenter - 1), height)
           context.lineTo(0, height)
           context.fillStyle = 'blue'
           context.fill()
@@ -108,8 +71,8 @@ export const drawWave = () => {
           context.beginPath()
           context.arc((radius / 2) - moveCenter, -580, radius, (Math.PI * 60) / 180, (Math.PI * (120 - mod60)) / 180, false)
           context.lineTo(0, height)
-          context.lineTo(radius * 2 - moveCenter, height)
-          context.lineTo(radius * 2 - moveCenter, (changeY / 2) - 580)
+          context.lineTo(radius * 2 - (moveCenter - 1), height)
+          context.lineTo(radius * 2 - (moveCenter - 1), (changeY / 2) - 580)
           context.moveTo((radius * ((2 * i) + 1)) + (radius / 2) - moveCenter, (changeY / 2) - 580)
           context.arc((radius * ((2 * i) + 1)) + (radius / 2) - moveCenter, changeY - 580, radius, Math.PI * 240 / 180, Math.PI * 300 / 180, false)
           context.fillStyle = 'blue'
@@ -141,11 +104,63 @@ export const drawWave = () => {
       }
     }
 
-    iterator = iterator === 0 ? 119 : iterator - 0.5
-
+    iterator = iterator === 0 ? 119.5 : iterator - 0.5
     window.requestAnimationFrame(() => drawFrame(iterator))
   }
+}
 
+export const removeWave = () => {
+  const canvas = document.querySelector('.wave-top');
+  canvas.id = "hidden-wave"
+}
+
+export const raiseWave = (amt, direction) => {
+
+  if (amt >= window.innerHeight - 10) { 
+    if (direction === 'down') {
+      renderAK()
+    } else {
+      
+    }
+    window.requestAnimationFrame(() => lowerWave(amt, direction) )
+  } else {
+    amt += Math.sqrt(window.innerHeight - amt)
+    const waveTop = document.querySelector('.wave-top')
+    const waveBottom = document.querySelector('.wave-bottom')
+
+    waveTop.style.bottom = `${amt}px`
+    waveBottom.style.height = `${amt + 1}px`
+    window.requestAnimationFrame(() => raiseWave(amt, direction))
+  }
+}
+
+export const lowerWave = (amt, direction) => {
+  const waveTop = document.querySelector('.wave-top')
+  const waveBottom = document.querySelector('.wave-bottom')
+
+  if (amt > 0) {
+    amt -= Math.sqrt(window.innerHeight - amt)
+
+    waveTop.style.bottom = `${amt}px`
+    waveBottom.style.height = `${amt}px`
+    window.requestAnimationFrame(() => lowerWave(amt, direction))
+  } else if (amt < 0 && amt > -300) {
+
+    if (direction === 'down') {
+      amt -= Math.sqrt(600)
+      const waveTop = document.querySelector('.wave-top')
+      const waveBottom = document.querySelector('.wave-bottom')
+  
+      waveTop.style.bottom = `${amt}px`
+      waveBottom.style.height = `${0}px`
+      window.requestAnimationFrame(() => lowerWave(amt, direction))
+    } else {
+      waveTop.style.bottom = `${0}px`
+      waveBottom.style.height = `${0}px`
+    }
+  } else {
+
+  }
 }
 // export const drawWave = () => {
 

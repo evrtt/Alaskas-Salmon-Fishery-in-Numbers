@@ -12,6 +12,7 @@ const createObservers = () => {
       let frameId = `frame-${frameNum}`
     
       if (entry.isIntersecting) {
+        console.log(entry.intersectionRatio)
         entry.target.style.backgroundColor = 'red'
         data.classList.add(frameClass)
         counter.push(frameNum)

@@ -124,11 +124,25 @@ background-color: white;
   height: 14px;
 }
 
-#canvas {
+.wave-top {
   display: block;
   position: fixed;
   bottom: 0;
   z-index: 10;
+}
+
+.wave-bottom {
+  display: block;
+  width: 110vw;
+  z-index: 10;
+  position: fixed;
+  bottom: 0;
+  background-color: blue;
+  height: 0;
+}
+
+#hidden-wave {
+  display: none;
 }
 
 .scroll-down {
@@ -140,4 +154,24 @@ background-color: white;
   position: fixed;
   bottom: 0;
   margin-bottom: 100px;
+}
+
+#header {
+  z-index: 9;
+  position: fixed;
+  top: 0;
+  right: 0;
+  height: 40px;
+  width: 160px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  background: none;
+  color: rgb(44, 44, 44);
+  margin-right: 10px;
+}
+
+#footer a:hover {
+  color: rgb(82, 82, 82);
 }

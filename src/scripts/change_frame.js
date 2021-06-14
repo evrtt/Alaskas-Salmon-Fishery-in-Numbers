@@ -1,6 +1,7 @@
 import { introToSpatial } from './transitions/intro_to_spatial.js';
 import { clearCharts } from './util/donut_chart.js'
 import { splashToIntro } from './transitions/splash_to_intro.js';
+import { introToSplash } from './transitions/intro_to_splash.js';
 
 export default (next, last) => {
   switch (`${last}${next}`) {
@@ -8,6 +9,7 @@ export default (next, last) => {
       splashToIntro()
       return console.log('splash_to_intro');
     case '10':
+      introToSplash()
       return console.log('intro_to_splash');
     case '12':
       introToSpatial('1979');

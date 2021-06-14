@@ -1,6 +1,6 @@
 import createObservers from './scripts/scroller.js';
 import initializeData from './scripts/util/data_parser.js';
-import { drawWave } from './scripts/util/draw_wave.js';
+import { drawWave } from './scripts/util/wave.js';
 // import {drawWave} from "./scripts/draw_wave.js"
 
 const catchData = initializeData();
@@ -104,7 +104,7 @@ window.addEventListener("load", (e) => {
 
 //   }
 // }
-// drawWave()
+drawWave()
 // }
 // context.beginPath()
 // context.arc((radius * 2) + (radius / 2), 0, radius, (Math.PI * 60) / 180, (Math.PI * 120) / 180, false)
