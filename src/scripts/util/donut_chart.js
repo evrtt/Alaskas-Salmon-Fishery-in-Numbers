@@ -1,12 +1,8 @@
 import { genBubbles } from '../transitions/intro_to_spatial.js';
 
 export const clearCharts = () => {
-  d3.select("#alaska")
-    .remove()
-
   d3.select(".years-container").selectAll("span").remove()
   d3.select(".years-container").remove()
-
 }
 
 export const renderYears = () => {

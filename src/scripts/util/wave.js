@@ -1,5 +1,4 @@
-import { renderAK } from '../util/alaska.js'
-import { clearCharts } from './donut_chart.js'
+import { renderAK , clearAK} from '../util/alaska.js'
 
 
 export const drawWave = () => {
@@ -115,19 +114,24 @@ export const removeWave = () => {
 }
 
 export const raiseWave = (amt, direction) => {
+  
+  const waveTop = document.querySelector('.wave-top')
+  const waveBottom = document.querySelector('.wave-bottom')
+  
 
-  if (amt >= window.innerHeight - 10) { 
+  if (amt >= window.innerHeight - 1) { 
     if (direction === 'down') {
       renderAK()
-    } else {
-      
+    } else if (direction === 'up') {
+      clearAK();
     }
     window.requestAnimationFrame(() => lowerWave(amt, direction) )
   } else {
+    if(direction === 'up') {
+      const scrollDown = document.querySelector('.scroll-down')
+      scrollDown.style.bottom = `${amt - window.innerHeight}px`
+    }
     amt += Math.sqrt(window.innerHeight - amt)
-    const waveTop = document.querySelector('.wave-top')
-    const waveBottom = document.querySelector('.wave-bottom')
-
     waveTop.style.bottom = `${amt}px`
     waveBottom.style.height = `${amt + 1}px`
     window.requestAnimationFrame(() => raiseWave(amt, direction))
@@ -135,33 +139,53 @@ export const raiseWave = (amt, direction) => {
 }
 
 export const lowerWave = (amt, direction) => {
+  
   const waveTop = document.querySelector('.wave-top')
   const waveBottom = document.querySelector('.wave-bottom')
+  
+
 
   if (amt > 0) {
-    amt -= Math.sqrt(window.innerHeight - amt)
 
+    if (direction === 'down') {
+      const scrollDown = document.querySelector('.scroll-down')
+      scrollDown.style.bottom = `${-(window.innerHeight - amt)}px`
+    }
+    
+    amt -= Math.sqrt(window.innerHeight - amt)
     waveTop.style.bottom = `${amt}px`
     waveBottom.style.height = `${amt}px`
     window.requestAnimationFrame(() => lowerWave(amt, direction))
-  } else if (amt < 0 && amt > -300) {
-
+  } else if (amt < 800 && amt > -300) {
     if (direction === 'down') {
       amt -= Math.sqrt(600)
-      const waveTop = document.querySelector('.wave-top')
-      const waveBottom = document.querySelector('.wave-bottom')
-  
       waveTop.style.bottom = `${amt}px`
       waveBottom.style.height = `${0}px`
       window.requestAnimationFrame(() => lowerWave(amt, direction))
     } else {
-      waveTop.style.bottom = `${0}px`
-      waveBottom.style.height = `${0}px`
+      slowDown(amt)
     }
   } else {
 
   }
 }
+
+const slowDown = (height) => {
+
+  const waveTop = document.querySelector('.wave-top')
+  const waveBottom = document.querySelector('.wave-bottom')
+
+  if (height > 0) {
+    height /= 3
+    waveBottom.style.height = `${height}px`
+    waveTop.style.bottom = `${height}px`
+    window.requestAnimationFrame(() => slowDown(height))
+  } else {
+    waveBottom.style.height = '0px'
+    waveTop.style.bottom = `${0}px`
+  }
+}
+
 // export const drawWave = () => {
 
 //   let adjust1 = 0;

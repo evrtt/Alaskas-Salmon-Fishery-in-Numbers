@@ -26,5 +26,5 @@ export const splashToIntro = () => {
   setTimeout(enableScroll, 500)
 
   let amt = 0;
-  raiseWave(amt, 'down')
+  raiseWave(amt, 'down', 15)
 }

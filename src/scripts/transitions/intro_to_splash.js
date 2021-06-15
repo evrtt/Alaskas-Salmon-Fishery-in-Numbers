@@ -18,8 +18,8 @@ export const introToSplash = () => {
 
   disableScroll()
 
-  setTimeout(enableScroll, 500)
+  setTimeout(enableScroll, 2500)
 
   let amt = 0;
-  raiseWave(amt, 'up')
+  raiseWave(amt, 'up', 0)
 }

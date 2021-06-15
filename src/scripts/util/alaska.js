@@ -36,6 +36,11 @@ export const renderAK = () => {
     .attr("fill", "#5E5E5E")
 }
 
+export const clearAK = () => {
+  d3.select("#alaska")
+    .remove()
+}
+
 
 // bottomLeft: 51.205223045307164, -179.1654933287791
 

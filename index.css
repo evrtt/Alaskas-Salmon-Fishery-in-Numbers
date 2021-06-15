@@ -156,6 +156,10 @@ background-color: white;
   margin-bottom: 100px;
 }
 
+.hidden {
+  display: none;
+}
+
 #header {
   z-index: 9;
   position: fixed;
