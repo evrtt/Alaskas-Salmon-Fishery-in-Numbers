@@ -43,8 +43,8 @@ const fishColor = (species) => {
 }
 
 const rScale = d3.scaleLinear()
-  .domain([0, 350000000])
-  .range([1, 50])
+  .domain([0, 500000000])
+  .range([0, 100])
 
 export const renderBubbles = (data) => {
 
@@ -62,6 +62,9 @@ export const renderBubbles = (data) => {
     area[data] = newAreaData
 
     const compactName = `${(area.name.split(" ").join("").split("/").join(""))}-g`
+
+
+    console.log(area)
 
     d3.select("#alaska")
       .append("g")
@@ -87,7 +90,7 @@ export const renderBubbles = (data) => {
   
     d3.forceSimulation(area.data)
       .force('charge', d3.forceManyBody().strength(1.5))
-      .force('center', d3.forceCenter(area.x, area.y))
+      .force('center', d3.forceCenter(area.xTo, area.yTo))
       .force('collision', d3.forceCollide().radius(d => rScale(d.pounds) + 1))
       .on("tick", ticked)
 
@@ -97,8 +100,8 @@ export const renderBubbles = (data) => {
 export const changeBubblesYear = (data) => {
 
   const rScale = d3.scaleLinear()
-    .domain([50, 500000000])
-    .range([1, 50])
+    .domain([0, 400000000])
+    .range([1, 100])
   
   data.forEach(area => {
   
@@ -116,9 +119,7 @@ export const changeBubblesYear = (data) => {
     area[data] = newAreaData
     
     const compactName = `${(area.name.split(" ").join("").split("/").join(""))}-g`
-  
-    console.log(area.x, area.y)
-    
+      
     const nodes = d3.select(`.${compactName}`)
       .selectAll("circle")
       .data(area.data, d => `${compactName}${d.species}`)
@@ -130,7 +131,6 @@ export const changeBubblesYear = (data) => {
       .duration(250)
       .attr("r", d => rScale(d.pounds))
 
-    console.log(nodes)
 
     const ticked = () => d3.select(`.${compactName}`)
       .selectAll("circle")
@@ -138,9 +138,11 @@ export const changeBubblesYear = (data) => {
       .attr("cy", d => d.y)
       
     const simulation = d3.forceSimulation(area.data)
-      .force('center', d3.forceCenter(area.x, area.y))
-      .force('charge', d3.forceManyBody().strength(1.5))
-      .force('collision', d3.forceCollide().radius(d => rScale(d.pounds) + 1))
+      .force('center', d3.forceCenter(area.xTo, area.yTo))
+      .force('x', d3.forceX(area.xTo))
+      .force('y', d3.forceY(area.yTo))
+      .force('charge', d3.forceManyBody().strength(2))
+      .force('collision', d3.forceCollide().radius(d => rScale(d.pounds) + 0.5))
       .on("tick", ticked)
 
 

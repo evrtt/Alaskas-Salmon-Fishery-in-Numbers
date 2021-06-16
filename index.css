@@ -161,7 +161,7 @@ background-color: white;
 }
 
 #header {
-  z-index: 9;
+  z-index: 0;
   position: fixed;
   top: 0;
   right: 0;
@@ -178,4 +178,9 @@ background-color: white;
 
 #footer a:hover {
   color: rgb(82, 82, 82);
+}
+
+.splash-container{
+  z-index: 13;
+  position: relative;
 }
