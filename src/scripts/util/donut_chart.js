@@ -48,23 +48,24 @@ const rScale = d3.scaleSqrt()
 
 export const renderBubbles = (data) => {
 
+  const lineGenerator = d3.line()
   data.forEach(area => {
+
+  if(!!area.data) {
 
     let newAreaData = []
     area.data.forEach(
       fish => {
-        if (JSON.stringify(fish.pounds) !== "NaN") {
+        if (JSON.stringify(fish.pounds) !== "null") {
+          console.log(fish, "HAPPENING")
           fish["color"] = fishColor(fish.species)
-          newAreaData.concat(fish)
+          newAreaData.push(fish)
         }
       }
     )
-    area[data] = newAreaData
 
     const compactName = `${(area.name.split(" ").join("").split("/").join(""))}-g`
-
-
-    console.log(area)
+    const line = lineGenerator(area.line)
 
     d3.select("#alaska")
       .append("g")
@@ -74,11 +75,11 @@ export const renderBubbles = (data) => {
       .style("zIndex", 5)
       .text(area.name)
       .selectAll("circle")
-      .data(area.data, d => `${compactName}${d.species}`)
+      .data(newAreaData, d => `${compactName}${d.species}`)
       .join("circle")
       .attr("fill", d => d.color)
       .attr("class", "species")
-      .attr("text", d => d.species)
+      .text(d => d.species)
       .attr("r", d => rScale(d.pounds))
 
     const ticked = () => {
@@ -88,63 +89,88 @@ export const renderBubbles = (data) => {
         .attr("cy", d => d.y)
     } 
   
-    d3.forceSimulation(area.data)
-      .force('charge', d3.forceManyBody().strength(1.5))
-      .force('center', d3.forceCenter(area.xTo, area.yTo))
+    d3.forceSimulation(newAreaData)
+      .force('charge', d3.forceManyBody().strength(d => rScale(d.pounds)))
+      .force('center', d3.forceCenter(area.line[1][0], area.line[1][1]))
       .force('collision', d3.forceCollide().radius(d => rScale(d.pounds)))
       .on("tick", ticked)
+
+    console.log(newAreaData.length)
+    console.log(!document.getElementsByClassName(`${compactName}-line`))
+    console.log(newAreaData.length > 0 && !document.getElementsByClassName(`${compactName}-line`))
+    if (newAreaData.length > 0) {
+      d3.select(".alaska-svg")
+        .append("path")
+        .attr("class", `${compactName}-line`)
+        .attr('d', line)
+        .attr('stroke', 'grey')
+    }
+  }
 
   })
 }
 
 export const changeBubblesYear = (data) => {
 
+  const lineGenerator = d3.line()
   const rScale = d3.scaleSqrt()
     .domain([0, 300000000])
     .range([0, 50])
   
   data.forEach(area => {
   
-    let newAreaData = []
-  
-    area.data.forEach(
-      fish => {
-        if (JSON.stringify(fish.pounds) !== "NaN") {
-          fish["color"] = fishColor(fish.species)
-          newAreaData.concat(fish)
+    if (area.data) {
+      let newAreaData = []  
+      area.data.forEach(
+        fish => {
+          if (JSON.stringify(fish.pounds) !== "null") {
+            console.log(fish, "HAPPENING")
+            fish["color"] = fishColor(fish.species)
+            newAreaData.push(fish)
+          }
         }
-      }
-    )
+      )
+          
+      const compactName = `${(area.name.split(" ").join("").split("/").join(""))}-g`
+      const line = lineGenerator(area.line)
   
-    area[data] = newAreaData
-    
-    const compactName = `${(area.name.split(" ").join("").split("/").join(""))}-g`
-      
-    const nodes = d3.select(`.${compactName}`)
-      .selectAll("circle")
-      .data(area.data, d => `${compactName}${d.species}`)
-      .join("circle")
-      .attr("class", "species")
-      .attr("text", d => d.species)
-      .attr("fill", d => d.color)
-      .transition()
-      .duration(250)
-      .attr("r", d => rScale(d.pounds))
+      const nodes = d3.select(`.${compactName}`)
+        .selectAll("circle")
+        .data(newAreaData, d => `${compactName}${d.species}`)
+        .join("circle")
+        .attr("class", "species")
+        .attr("text", d => d.species)
+        .attr("fill", d => d.color)
+        .transition()
+        .duration(250)
+        .attr("r", d => rScale(d.pounds))
+  
+      const ticked = () => d3.select(`.${compactName}`)
+        .selectAll("circle")
+        .attr("cx", d => d.x)
+        .attr("cy", d => d.y)
+        
+      const simulation = d3.forceSimulation(newAreaData)
+        .force('center', d3.forceCenter(area.line[1][0], area.line[1][1]))
+        .force('x', d3.forceX(area.line[1][0]))
+        .force('y', d3.forceY(area.line[1][1]))
+        .force('charge', d3.forceManyBody().strength(d => rScale(d.pounds)))
+        .force('collision', d3.forceCollide().radius(d => rScale(d.pounds) + 0.5))
+        .on("tick", ticked)
 
-
-    const ticked = () => d3.select(`.${compactName}`)
-      .selectAll("circle")
-      .attr("cx", d => d.x)
-      .attr("cy", d => d.y)
-      
-    const simulation = d3.forceSimulation(area.data)
-      .force('center', d3.forceCenter(area.xTo, area.yTo))
-      .force('x', d3.forceX(area.xTo))
-      .force('y', d3.forceY(area.yTo))
-      .force('charge', d3.forceManyBody().strength(2))
-      .force('collision', d3.forceCollide().radius(d => rScale(d.pounds) + 0.5))
-      .on("tick", ticked)
-
+      console.log(newAreaData.length)
+      console.log(document.getElementsByClassName(`${compactName}-line`))
+      console.log(newAreaData.length > 0 && document.getElementsByClassName(`${compactName}-line`))
+      if (newAreaData.length > 0 && !document.getElementsByClassName(`${compactName}-line`)) {
+        d3.select(".alaska-svg")
+          .append("path")
+          .attr("class", `${compactName}-line`)
+          .attr('d', line)
+          .attr('stroke', 'lightgrey')
+      } else if (newAreaData.length === 0 && !!document.getElementsByClassName(`${compactName}-line`)) {
+        d3.select(`.${compactName}-line`).remove()
+      }
+    }
 
   })
 } 

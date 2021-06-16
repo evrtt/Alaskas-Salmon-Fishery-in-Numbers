@@ -34,19 +34,19 @@ background-color: white;
   transition: background 200ms ease-in
 }
 .data-1 {
-  background-color: rgb(158, 187, 241);
+  background-color: #61a5dd;
   transition: background 500ms ease-in
 }
 .data-2 {
-  background-color: rgb(104, 119, 204);
+  background-color: #61a5dd;
   transition: background 500ms ease-in
 }
 .data-3 {
-  background-color: rgb(132, 191, 240);
+  background-color: #61a5dd;
   transition: background 500ms ease-in
 }
 .data-4 {
-  background-color: rgb(94, 255, 228);
+  background-color: #61a5dd;
   transition: background 500ms ease-in
 }
 
