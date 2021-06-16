@@ -43,8 +43,8 @@ const fishColor = (species) => {
 }
 
 const rScale = d3.scaleSqrt()
-  .domain([1, 500000000])
-  .range([1, 100])
+  .domain([0, 300000000])
+  .range([0, 50])
 
 export const renderBubbles = (data) => {
 
@@ -91,7 +91,7 @@ export const renderBubbles = (data) => {
     d3.forceSimulation(area.data)
       .force('charge', d3.forceManyBody().strength(1.5))
       .force('center', d3.forceCenter(area.xTo, area.yTo))
-      .force('collision', d3.forceCollide().radius(d => rScale(d.pounds) + 1))
+      .force('collision', d3.forceCollide().radius(d => rScale(d.pounds)))
       .on("tick", ticked)
 
   })
@@ -100,8 +100,8 @@ export const renderBubbles = (data) => {
 export const changeBubblesYear = (data) => {
 
   const rScale = d3.scaleSqrt()
-    .domain([1, 400000000])
-    .range([1, 100])
+    .domain([0, 300000000])
+    .range([0, 50])
   
   data.forEach(area => {
   

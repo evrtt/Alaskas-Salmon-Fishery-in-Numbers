@@ -224,6 +224,13 @@ export const renderAK = () => {
       .transition()
       .duration(10000)
 
+    d3.select(".alaska-svg")
+      .append("h6")
+      .attr("position", "fixed")
+      .attr("bottom", area.line[0][0])
+      .attr("left", area.line[0][1])
+      .text(area.title)
+
   })
 }
 
