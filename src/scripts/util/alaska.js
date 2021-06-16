@@ -16,7 +16,7 @@ export const projection = d3.geoMercator()
     alaskaGeoJson
   )
 
-const areas = [
+export const areas = [
     {
       title: "Kotzebue", 
       square: [

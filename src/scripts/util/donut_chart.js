@@ -42,9 +42,9 @@ const fishColor = (species) => {
   }
 }
 
-const rScale = d3.scaleLinear()
-  .domain([0, 500000000])
-  .range([0, 100])
+const rScale = d3.scaleSqrt()
+  .domain([1, 500000000])
+  .range([1, 100])
 
 export const renderBubbles = (data) => {
 
@@ -99,8 +99,8 @@ export const renderBubbles = (data) => {
 
 export const changeBubblesYear = (data) => {
 
-  const rScale = d3.scaleLinear()
-    .domain([0, 400000000])
+  const rScale = d3.scaleSqrt()
+    .domain([1, 400000000])
     .range([1, 100])
   
   data.forEach(area => {
