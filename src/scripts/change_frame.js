@@ -10,7 +10,7 @@ export default (next, last) => {
       return console.log('splash_to_intro');
     case '10':
       introToSplash()
-      return console.log('intro_to_splash');
+      return ('intro_to_splash');
     case '12':
       introToSpatial('1979');
       return console.log('intro_to_spatial')

@@ -57,7 +57,6 @@ export const renderBubbles = (data) => {
     area.data.forEach(
       fish => {
         if (JSON.stringify(fish.pounds) !== "null") {
-          console.log(fish, "HAPPENING")
           fish["color"] = fishColor(fish.species)
           newAreaData.push(fish)
         }
@@ -67,7 +66,7 @@ export const renderBubbles = (data) => {
     const compactName = `${(area.name.split(" ").join("").split("/").join(""))}-g`
     const line = lineGenerator(area.line)
 
-    d3.select("#alaska")
+    d3.select("#alaska-svg")
       .append("g")
       .attr("class", compactName)
       .style("width", 100)
@@ -90,18 +89,18 @@ export const renderBubbles = (data) => {
     } 
   
     d3.forceSimulation(newAreaData)
-      .force('charge', d3.forceManyBody().strength(d => rScale(d.pounds)))
       .force('center', d3.forceCenter(area.line[1][0], area.line[1][1]))
-      .force('collision', d3.forceCollide().radius(d => rScale(d.pounds)))
+      .force('x', d3.forceX(area.line[1][0]))
+      .force('y', d3.forceY(area.line[1][1]))
+      .force('charge', d3.forceManyBody().strength(d => rScale(d.pounds)))
+      .force('collision', d3.forceCollide().radius(d => rScale(d.pounds) + 0.5))
       .on("tick", ticked)
 
-    console.log(newAreaData.length)
-    console.log(!document.getElementsByClassName(`${compactName}-line`))
-    console.log(newAreaData.length > 0 && !document.getElementsByClassName(`${compactName}-line`))
+
     if (newAreaData.length > 0) {
-      d3.select(".alaska-svg")
+      d3.select("#alaska-svg")
         .append("path")
-        .attr("class", `${compactName}-line`)
+        .attr("id", `${compactName}-line`)
         .attr('d', line)
         .attr('stroke', 'grey')
     }
@@ -124,7 +123,6 @@ export const changeBubblesYear = (data) => {
       area.data.forEach(
         fish => {
           if (JSON.stringify(fish.pounds) !== "null") {
-            console.log(fish, "HAPPENING")
             fish["color"] = fishColor(fish.species)
             newAreaData.push(fish)
           }
@@ -158,17 +156,14 @@ export const changeBubblesYear = (data) => {
         .force('collision', d3.forceCollide().radius(d => rScale(d.pounds) + 0.5))
         .on("tick", ticked)
 
-      console.log(newAreaData.length)
-      console.log(document.getElementsByClassName(`${compactName}-line`))
-      console.log(newAreaData.length > 0 && document.getElementsByClassName(`${compactName}-line`))
-      if (newAreaData.length > 0 && !document.getElementsByClassName(`${compactName}-line`)) {
-        d3.select(".alaska-svg")
+      if (newAreaData.length > 0 && !document.getElementById(`${compactName}-line`)) {
+        d3.select("#alaska-svg")
           .append("path")
-          .attr("class", `${compactName}-line`)
+          .attr("id", `${compactName}-line`)
           .attr('d', line)
-          .attr('stroke', 'lightgrey')
-      } else if (newAreaData.length === 0 && !!document.getElementsByClassName(`${compactName}-line`)) {
-        d3.select(`.${compactName}-line`).remove()
+          .attr('stroke', 'grey')
+      } else if (newAreaData.length === 0 && !!document.getElementById(`${compactName}-line`)) {
+        d3.select(`#${compactName}-line`).remove()
       }
     }
 

@@ -132,11 +132,11 @@ export const areas = [
     {
       title: "Alaksan Peninsula/Aleutian Islands", 
       rect: [
-        [-161.0992717187983, 51.235],
-        [-179.1256032424475, 51.235],
-        [-179.1256032424475, 56.06928416194262],
+        [-161.0992717187983, 51.275000],
+        [-179.0256032424475, 51.275000],
+        [-179.0256032424475, 56.06928416194262],
         [-161.0992717187983, 56.06928416194262],
-        [-161.0992717187983, 51.235]
+        [-161.0992717187983, 51.275000]
       ], 
       line: [
         [-165.232772334737, 54.23480436673355], 
@@ -200,14 +200,16 @@ export const renderAK = () => {
   const svg = d3.select(".data")
     .append("svg")
     .attr("id", "alaska")
-    .attr("width", width - 10)
-    .attr("height", height - 10);
+    .attr("width", width)
+    .attr("height", height);
 
   const path = d3.geoPath()
     .projection(projection)
+
+    console.log(path)
   
     svg.append("g")
-    .attr("class", "alaska-svg")
+    .attr("id", "alaska-svg")
     .selectAll("path")
     .data(alaskaGeoJson.features)
     .join("path")
@@ -223,18 +225,21 @@ export const renderAK = () => {
     const line = lineGenerator(area.line)
     const lines = lineGenerator(area.rect)
 
-    d3.select(".alaska-svg")
+    d3.select("#alaska-svg")
       .append("path")
+      .attr('id', `${area.title}-rect`)
+      .attr('class', 'unzoomed-rect visible-rect')
       .attr('d', lines)
       .attr("stroke", "grey")
       .attr("fill", "grey")
       .attr("fill-opacity", "0.1")
+      .on("click", () => zoom(area, path))
 
-    d3.select(".alaska-svg")
+    d3.select("#alaska-svg")
       .append("h6")
       .attr("position", "fixed")
       .attr("bottom", area.line[0][0])
-      .attr("left", area.line[0][1])
+      .attr("right", area.line[0][1])
       .text(area.title)
 
   })
@@ -243,4 +248,49 @@ export const renderAK = () => {
 export const clearAK = () => {
   d3.select("#alaska")
     .remove()
+}
+
+const zoom = (area, alaska) => {
+  
+  const path = document.getElementById(`${area.title}-rect`)
+  const rects = document.getElementsByClassName('.visible-rect')
+
+  console.log(rects)
+  if (path.classList.contains('unzoomed-rect')) {
+    path.classList.remove('unzoomed-rect')
+    path.classList.add('zoomed-rect')
+    const rect = area.rect
+    
+    const dx = rect[0][0] - rect[1][0]
+    const dy = rect[1][1] - rect[2][1]
+    const x = (rect[0][0] + rect[1][0]) / 2
+    const y = (rect[1][1] + rect[2][1]) / 2
+    const scale = 0.95 / Math.max(dx / width, dy / height)
+    const translate = [width / 2 - scale * x, height / 2 - scale * y]
+  
+    d3.select("#alaska-svg")
+      .transition()
+      .duration(1000)
+      .style("stroke-width", `${1.5 / scale}px`)
+      .attr("transform", `translate(${translate})scale(${scale})`)
+  } else if (path.classList.contains('zoomed-rect')) {
+    
+    path.classList.remove('zoomed-rect')
+    path.classList.add('unzoomed-rect')
+
+    const bounds = alaska.bounds(alaskaGeoJson.features)
+
+    const dx = bounds[1][0] - bounds[0][0]
+    const dy = bounds[1][1] - bounds[0][1]
+    const x = (bounds[0][0] + bounds[1][0]) / 2
+    const y = (bounds[0][1] + bounds[1][1]) / 2
+    const scale = 1 / Math.max(dx / width, dy / height)
+    const translate = [width / 2 - scale * x, height / 2 - scale * y]
+
+    d3.select("#alaska-svg")
+      .transition()
+      .duration(1000)
+      .style("stroke-width", `${1.5 / scale}px`)
+      .attr("transform", `translate(${translate})scale(${scale})`)
+  }
 }
