@@ -195,6 +195,8 @@ const salmonAreas = areas.map(
   })
 )
 
+const areaTitleLocation = projection([-147.13157908542203, 52.41438607167794])
+
 export const renderAK = () => {
 
   const svg = d3.select(".data")
@@ -205,8 +207,6 @@ export const renderAK = () => {
 
   const path = d3.geoPath()
     .projection(projection)
-
-    console.log(path)
   
     svg.append("g")
     .attr("id", "alaska-svg")
@@ -233,21 +233,49 @@ export const renderAK = () => {
       .attr("stroke", "grey")
       .attr("fill", "grey")
       .attr("fill-opacity", "0.1")
+      .attr('cursor', 'pointer')
       .on("click", () => zoom(area, path))
+      .on("mouseenter", () => hover(area.title))
+      .on("mouseout", () => unhover(area.title))
+  
+    })
 
     d3.select("#alaska-svg")
-      .append("h6")
-      .attr("position", "fixed")
-      .attr("bottom", area.line[0][0])
-      .attr("right", area.line[0][1])
-      .text(area.title)
+      .append("text")
+      .attr('id', 'area-title')
+      .attr('x', areaTitleLocation[0])
+      .attr('y', areaTitleLocation[1])
+      .attr('font-size', 0)
 
-  })
+    document.getElementById('alaska-svg').focus()
 }
 
 export const clearAK = () => {
   d3.select("#alaska")
     .remove()
+}
+
+const hover = (title) => {
+  d3.select('#area-title')
+    .text(title)
+
+  d3.select('#area-title')
+    .transition()
+    .duration(400)
+    .attr('font-size', '20px')
+
+  document.getElementById(`${title}-rect`)
+    .style.fill = 'yellow'
+}
+
+const unhover = (title) => {
+  d3.select('#area-title')
+    .transition()
+    .duration(400)
+    .attr('font-size', '0px')
+
+  document.getElementById(`${title}-rect`)
+    .style.fill = 'grey'
 }
 
 const zoom = (area, alaska) => {
@@ -271,8 +299,10 @@ const zoom = (area, alaska) => {
     d3.select("#alaska-svg")
       .transition()
       .duration(1000)
-      .style("stroke-width", `${1.5 / scale}px`)
+      .style("stroke-width", `${3 / scale}px`)
       .attr("transform", `translate(${translate})scale(${scale})`)
+
+    d3.select("")
   } else if (path.classList.contains('zoomed-rect')) {
     
     path.classList.remove('zoomed-rect')
@@ -290,7 +320,7 @@ const zoom = (area, alaska) => {
     d3.select("#alaska-svg")
       .transition()
       .duration(1000)
-      .style("stroke-width", `${1.5 / scale}px`)
+      .style("stroke-width", `${3 / scale}px`)
       .attr("transform", `translate(${translate})scale(${scale})`)
   }
 }

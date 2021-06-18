@@ -1,5 +1,13 @@
 import { renderAK , clearAK} from '../util/alaska.js'
 
+export const addWaveCanvas = () => {
+
+}
+
+export const removeWave = () => {
+  document.querySelector('.wave-top');
+  canvas.id = "hidden-wave"
+}
 
 export const drawWave = () => {
 
@@ -106,11 +114,6 @@ export const drawWave = () => {
     iterator = iterator === 0 ? 119.5 : iterator - 0.5
     window.requestAnimationFrame(() => drawFrame(iterator))
   }
-}
-
-export const removeWave = () => {
-  const canvas = document.querySelector('.wave-top');
-  canvas.id = "hidden-wave"
 }
 
 export const raiseWave = (amt, direction) => {

@@ -1,4 +1,5 @@
 import { genBubbles } from '../transitions/intro_to_spatial.js';
+import { projection } from './alaska.js';
 
 export const clearCharts = () => {
   d3.select(".years-container").selectAll("span").remove()
@@ -43,11 +44,90 @@ const fishColor = (species) => {
 }
 
 const rScale = d3.scaleSqrt()
-  .domain([0, 300000000])
-  .range([0, 50])
+.domain([0, 300000000])
+.range([0, 50])
+
+const keyInit = [
+  {
+    r: rScale(100000), 
+    circlePositionY: projection([-139.95846010445326, 61.565309246028966])[1],
+    circlePositionX: projection([-139.95846010445326, 61.565309246028966])[0] + rScale(100000),
+    textPositionY: projection([-139.95846010445326, 61.565309246028966])[1] + 2 * rScale(100000) + 20,
+    textPositionX: projection([-139.95846010445326, 61.565309246028966])[0],
+    pounds: '100,000 lbs'
+  },
+  {
+    r: rScale(500000), 
+    circlePositionY: projection([-139.95846010445326, 61.565309246028966])[1] - 30 - 2 * rScale(100000) - rScale(500000),
+    circlePositionX: projection([-139.95846010445326, 61.565309246028966])[0] + rScale(500000),
+    textPositionY: projection([-139.95846010445326, 61.565309246028966])[1] - 10 - 2 * rScale(100000),
+    textPositionX: projection([-139.95846010445326, 61.565309246028966])[0],
+    pounds: '500,000 lbs'
+  },
+  {
+    r: rScale(1000000), 
+    circlePositionY: projection([-139.95846010445326, 61.565309246028966])[1] - 60 - 2 * rScale(100000) - 2 * rScale(500000) - rScale(1000000),
+    circlePositionX: projection([-139.95846010445326, 61.565309246028966])[0] + rScale(1000000),
+    textPositionY: projection([-139.95846010445326, 61.565309246028966])[1] - 40 - 2 * rScale(100000) - 2 * rScale(500000),
+    textPositionX: projection([-139.95846010445326, 61.565309246028966])[0],
+    pounds: '1,000,000 lbs'
+  },
+  {
+    r: rScale(5000000), 
+    circlePositionY: projection([-139.95846010445326, 61.565309246028966])[1] - 90 - 2 * rScale(100000) - 2 * rScale(500000) - 2 * rScale(1000000) - rScale(5000000),
+    circlePositionX: projection([-139.95846010445326, 61.565309246028966])[0] + rScale(5000000),
+    textPositionY: projection([-139.95846010445326, 61.565309246028966])[1] - 70 - 2 * rScale(100000) - 2 * rScale(500000) - 2 * rScale(1000000),
+    textPositionX: projection([-139.95846010445326, 61.565309246028966])[0],
+    pounds: '5,000,000 lbs'
+  },
+  {
+    r: rScale(10000000), 
+    circlePositionY: projection([-139.95846010445326, 61.565309246028966])[1] - 120 - 2 * rScale(100000) - 2 * rScale(500000) - 2 * rScale(1000000) - 2 * rScale(5000000) - rScale(10000000),
+    circlePositionX: projection([-139.95846010445326, 61.565309246028966])[0] + rScale(10000000),
+    textPositionY: projection([-139.95846010445326, 61.565309246028966])[1] - 100 - 2 * rScale(100000) - 2 * rScale(500000) - 2 * rScale(1000000) - 2 * rScale(5000000),
+    textPositionX: projection([-139.95846010445326, 61.565309246028966])[0],
+    pounds: '10,000,000 lbs'
+  },
+  {
+    r: rScale(50000000), 
+    circlePositionY: projection([-139.95846010445326, 61.565309246028966])[1] - 150 - 2 * rScale(100000) - 2 * rScale(500000) - 2 * rScale(1000000) - 2 * rScale(5000000) - 2 * rScale(10000000)  - rScale(50000000),
+    circlePositionX: projection([-139.95846010445326, 61.565309246028966])[0] + rScale(50000000),
+    textPositionY: projection([-139.95846010445326, 61.565309246028966])[1] - 130 - 2 * rScale(100000) - 2 * rScale(500000) - 2 * rScale(1000000) - 2 * rScale(5000000) - 2 * rScale(10000000),
+    textPositionX: projection([-139.95846010445326, 61.565309246028966])[0],
+    pounds: '50,000,000 lbs'
+  },
+  {
+    r: rScale(100000000), 
+    circlePositionY: projection([-139.95846010445326, 61.565309246028966])[1] - 180 - 2 * rScale(100000) - 2 * rScale(500000) - 2 * rScale(1000000) - 2 * rScale(5000000) - 2 * rScale(10000000) - 2 * rScale(50000000) - rScale(100000000),
+    circlePositionX: projection([-139.95846010445326, 61.565309246028966])[0] + rScale(100000000),
+    textPositionY: projection([-139.95846010445326, 61.565309246028966])[1] - 160- 2 * rScale(100000) - 2 * rScale(500000) - 2 * rScale(1000000) - 2 * rScale(5000000) - 2 * rScale(10000000) - 2 * rScale(50000000),
+    textPositionX: projection([-139.95846010445326, 61.565309246028966])[0],
+    pounds: '100,000,000 lbs'
+  }
+]
+
+console.log(keyInit)
 
 export const renderBubbles = (data) => {
 
+  d3.select("#alaska-svg")
+    .append("g")
+    .attr("class", 'key')
+    .selectAll("circle")
+    .data(keyInit)
+    .join('circle')
+    .attr('cx', d => d.circlePositionX)
+    .attr('cy', d => d.circlePositionY)
+    .attr('r', d => d.r)
+
+  d3.select(".key")
+    .selectAll("text")
+    .data(keyInit)
+    .join('text')
+    .attr('x', d => d.textPositionX)
+    .attr('y', d => d.textPositionY)
+    .text(d => d.pounds)
+    
   const lineGenerator = d3.line()
   data.forEach(area => {
 
@@ -65,6 +145,14 @@ export const renderBubbles = (data) => {
 
     const compactName = `${(area.name.split(" ").join("").split("/").join(""))}-g`
     const line = lineGenerator(area.line)
+
+    if (newAreaData.length > 0) {
+      d3.select("#alaska-svg")
+        .append("path")
+        .attr("id", `${compactName}-line`)
+        .attr('d', line)
+        .attr('stroke', 'grey')
+    }
 
     d3.select("#alaska-svg")
       .append("g")
@@ -97,13 +185,6 @@ export const renderBubbles = (data) => {
       .on("tick", ticked)
 
 
-    if (newAreaData.length > 0) {
-      d3.select("#alaska-svg")
-        .append("path")
-        .attr("id", `${compactName}-line`)
-        .attr('d', line)
-        .attr('stroke', 'grey')
-    }
   }
 
   })
@@ -132,6 +213,17 @@ export const changeBubblesYear = (data) => {
       const compactName = `${(area.name.split(" ").join("").split("/").join(""))}-g`
       const line = lineGenerator(area.line)
   
+      if (newAreaData.length > 0 && !document.getElementById(`${compactName}-line`)) {
+        d3.select("#alaska-svg")
+          .append("path")
+          .attr("id", `${compactName}-line`)
+          .attr('d', line)
+          .attr('stroke', 'grey')
+          .attr('z-index', '10')
+      } else if (newAreaData.length === 0 && !!document.getElementById(`${compactName}-line`)) {
+        d3.select(`#${compactName}-line`).remove()
+      }
+
       const nodes = d3.select(`.${compactName}`)
         .selectAll("circle")
         .data(newAreaData, d => `${compactName}${d.species}`)
@@ -156,15 +248,6 @@ export const changeBubblesYear = (data) => {
         .force('collision', d3.forceCollide().radius(d => rScale(d.pounds) + 0.5))
         .on("tick", ticked)
 
-      if (newAreaData.length > 0 && !document.getElementById(`${compactName}-line`)) {
-        d3.select("#alaska-svg")
-          .append("path")
-          .attr("id", `${compactName}-line`)
-          .attr('d', line)
-          .attr('stroke', 'grey')
-      } else if (newAreaData.length === 0 && !!document.getElementById(`${compactName}-line`)) {
-        d3.select(`#${compactName}-line`).remove()
-      }
     }
 
   })
