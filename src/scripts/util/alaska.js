@@ -130,7 +130,7 @@ export const areas = [
       ]
     },
     {
-      title: "Alaksan Peninsula/Aleutian Islands", 
+      title: "Alaskan Peninsula/Aleutian Islands", 
       rect: [
         [-161.0992717187983, 51.275000],
         [-179.0256032424475, 51.275000],
@@ -195,7 +195,7 @@ const salmonAreas = areas.map(
   })
 )
 
-const areaTitleLocation = projection([-147.13157908542203, 52.41438607167794])
+const areaTitleLocation = projection([-160, 68])
 
 export const renderAK = () => {
 
@@ -213,10 +213,11 @@ export const renderAK = () => {
     .selectAll("path")
     .data(alaskaGeoJson.features)
     .join("path")
+    .attr('class', "alaska-path")
     .attr("d", (feature) => path(feature))
     .attr("fill", "rgb(50, 50, 50)")
-    .attr("stroke", "white")
-
+    .attr("stroke", "white"
+)
   const rectGenerator = d3.area()
   const lineGenerator = d3.line()
 
@@ -246,7 +247,8 @@ export const renderAK = () => {
       .attr('id', 'area-title')
       .attr('x', areaTitleLocation[0])
       .attr('y', areaTitleLocation[1])
-      .attr('font-size', 0)
+      .attr('font-size', '12px')
+      .attr('fill', 'white')
 
     document.getElementById('alaska-svg').focus()
 }
@@ -258,7 +260,7 @@ export const clearAK = () => {
 
 const hover = (title) => {
   d3.select('#area-title')
-    .text(title)
+    .text(`${title},`)
 
   d3.select('#area-title')
     .transition()
@@ -300,7 +302,7 @@ const zoom = (area, alaska) => {
     d3.select("#alaska-svg")
       .transition()
       .duration(1000)
-      .style("stroke-width", `${3 / scale}px`)
+      .style("stroke-width", `${0.5 / scale}px`)
       .attr("transform", `translate(${translate})scale(${scale})`)
 
     d3.select("")
@@ -321,7 +323,7 @@ const zoom = (area, alaska) => {
     d3.select("#alaska-svg")
       .transition()
       .duration(1000)
-      .style("stroke-width", `1px`)
+      .style("stroke-width", `0.8px`)
       .attr("transform", `translate(${translate})scale(${scale})`)
   }
 }
