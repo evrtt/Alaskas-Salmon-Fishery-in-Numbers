@@ -3,7 +3,7 @@ import {
   changeBubblesYear, 
   renderBubbles, 
   renderYears 
-} from '../util/donut_chart.js'
+} from '../util/bubble_chart.js'
 import AK from '../../../alaska_500k.js';
 
 export const genBubbles = (year, swtch) => {

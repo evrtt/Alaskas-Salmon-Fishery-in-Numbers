@@ -1,4 +1,7 @@
 import AK from '../../../alaska_500k.js';
+import {renderAreaChart} from './area_chart.js'
+import fishColor from './fish_color.js';
+
 
 const width = window.innerWidth;
 const height = window.innerHeight;
@@ -61,6 +64,7 @@ export const areas = [
     },
     {
       title: "Yukon River", 
+      identifier: "Yukon",
       rect: [
         [-163.079208, 62.52892775998075],
         [-165.0640988907766, 62.52892775998075],
@@ -117,6 +121,7 @@ export const areas = [
     },
     {
       title: "Southeast Alaska", 
+      identifier: "Southeast",
       rect: [
         [-129.332031, 54.484837],
         [-140.13620545027447, 54.484837],
@@ -130,7 +135,8 @@ export const areas = [
       ]
     },
     {
-      title: "Alaskan Peninsula/Aleutian Islands", 
+      title: "Alaskan Peninsula/Aleutian Islands",
+      identifier: "AK Pen/AI", 
       rect: [
         [-161.0992717187983, 51.275000],
         [-179.0256032424475, 51.275000],
@@ -190,6 +196,7 @@ export const areas = [
 const salmonAreas = areas.map(
   (el, idx) => ({
     title: el.title,
+    identifier: el.identifier,
     rect: el.rect.map(pair => projection(pair)),
     line: el.line.map(pair => projection(pair))
   })
@@ -216,8 +223,7 @@ export const renderAK = () => {
     .attr('class', "alaska-path")
     .attr("d", (feature) => path(feature))
     .attr("fill", "rgb(50, 50, 50)")
-    .attr("stroke", "white"
-)
+
   const rectGenerator = d3.area()
   const lineGenerator = d3.line()
 
@@ -285,27 +291,35 @@ const zoom = (area, alaska) => {
   
   const path = document.getElementById(`${area.title}-rect`)
   const rects = document.getElementsByClassName('.visible-rect')
-
-  console.log(rects)
+  
   if (path.classList.contains('unzoomed-rect')) {
+    
+    
     path.classList.remove('unzoomed-rect')
     path.classList.add('zoomed-rect')
     const rect = area.rect
     
     const dx = rect[0][0] - rect[1][0]
+    // console.log(dx, 'dx')
     const dy = rect[1][1] - rect[2][1]
+    // console.log(dy, 'dy')
     const x = (rect[0][0] + rect[1][0]) / 2
+    // console.log(x, 'x')
     const y = (rect[1][1] + rect[2][1]) / 2
+    // console.log(y, 'y')
     const scale = 0.95 / Math.max(dx / width, dy / height)
+    // console.log(scale, 'scale')
     const translate = [width / 2 - scale * x, height / 2 - scale * y]
-  
+    console.log(translate, 'translate')
+
     d3.select("#alaska-svg")
       .transition()
       .duration(1000)
       .style("stroke-width", `${0.5 / scale}px`)
       .attr("transform", `translate(${translate})scale(${scale})`)
 
-    d3.select("")
+    renderAreaChart(area, 'pounds', x, y, scale)
+
   } else if (path.classList.contains('zoomed-rect')) {
     
     path.classList.remove('zoomed-rect')
@@ -325,5 +339,8 @@ const zoom = (area, alaska) => {
       .duration(1000)
       .style("stroke-width", `0.8px`)
       .attr("transform", `translate(${translate})scale(${scale})`)
+
+    d3.select(".area-chart-g")
+      .remove()
   }
 }

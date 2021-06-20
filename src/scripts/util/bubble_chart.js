@@ -1,9 +1,14 @@
 import { genBubbles } from '../transitions/intro_to_spatial.js';
 import { projection } from './alaska.js';
+import fishColor from './fish_color.js'
 
 export const clearCharts = () => {
   d3.select(".years-container").selectAll("span").remove()
   d3.select(".years-container").remove()
+
+  d3.select('#alaska-svg')
+    .selectAll('g')
+    .remove()
 }
 
 export const renderYears = () => {
@@ -14,7 +19,6 @@ export const renderYears = () => {
     yrs.push(i)
   }
 
-
   d3.select("#scroller")
     .append("div")
     .attr("class", "years-container")
@@ -24,33 +28,6 @@ export const renderYears = () => {
     .text(d => d)
     .attr("class", "year-span")
     .on("click", e => genBubbles(e.target.innerText), "change")
-}
-
-const fishColor = (species) => {
-  switch (species) {
-    case "Chinook":
-      return "#BF9AC4";
-    case "Chinook / King":
-      return "#BF9AC4";
-    case "Chum":
-      return "#9AC4A8";
-    case "Chum / Dog":
-      return "#9AC4A8";
-    case "Coho":
-      return "#A0A0A0";
-    case "Coho / Silver":
-      return "#A0A0A0";
-    case "Pink":
-      return "#ECCECE";
-    case "Pink / Humpy":
-      return "#ECCECE";
-    case "Sockeye":
-      return "#E28989";
-    case "Sockeye / Red":
-      return "#E28989";
-    default:
-      return null
-  }
 }
 
 const rScale = d3.scaleSqrt()
@@ -185,6 +162,7 @@ export const renderBubbles = (data) => {
 
     if (newAreaData.length > 0) {
       d3.select("#alaska-svg")
+        .append("g")
         .append("path")
         .attr("id", `${compactName}-line`)
         .attr('d', line)

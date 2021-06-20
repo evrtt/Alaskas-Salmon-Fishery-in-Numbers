@@ -1,7 +1,8 @@
 import { introToSpatial } from './transitions/intro_to_spatial.js';
-import { clearCharts } from './util/donut_chart.js'
+import { clearCharts } from './util/bubble_chart.js'
 import { splashToIntro } from './transitions/splash_to_intro.js';
 import { introToSplash } from './transitions/intro_to_splash.js';
+import { spatialToTemporal } from './transitions/spatial_to_temporal.js';
 
 export default (next, last) => {
   switch (`${last}${next}`) {
@@ -18,7 +19,7 @@ export default (next, last) => {
       clearCharts()
       return console.log('spatial_to_intro');
     case '23':
-      clearCharts()
+      spatialToTemporal()
       return console.log('spatial_to_temporal');
     case '32':
       introToSpatial('1979');
