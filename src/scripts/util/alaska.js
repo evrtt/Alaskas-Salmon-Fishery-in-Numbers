@@ -1,7 +1,5 @@
 import AK from '../../../alaska_500k.js';
 import {renderAreaChart} from './area_chart.js'
-import fishColor from './fish_color.js';
-
 
 const width = window.innerWidth;
 const height = window.innerHeight;
@@ -231,18 +229,23 @@ export const renderAK = () => {
       .on("click", () => zoom(area, path))
       .on("mouseenter", () => hover(area.title))
       .on("mouseout", () => unhover(area.title))
-  
-    })
+  })
 
-    d3.select("#alaska-svg")
-      .append("text")
-      .attr('id', 'area-title')
-      .attr('x', areaTitleLocation[0])
-      .attr('y', areaTitleLocation[1])
-      .attr('font-size', '12px')
-      .attr('fill', 'white')
+  d3.select('#alaska-svg')
+    .append('text')
+    .attr('id', 'zoom-out-button')
+    .attr('fill', 'white')
+    .attr('cursor', 'pointer')
 
-    document.getElementById('alaska-svg').focus()
+  d3.select("#alaska-svg")
+    .append("text")
+    .attr('id', 'area-title')
+    .attr('x', areaTitleLocation[0])
+    .attr('y', areaTitleLocation[1])
+    .attr('font-size', '12px')
+    .attr('fill', 'white')
+
+  document.getElementById('alaska-svg').focus()
 }
 
 export const clearAK = () => {
@@ -278,6 +281,8 @@ const zoom = (area, alaska) => {
   const path = document.getElementById(`${area.title}-rect`)
   const rects = document.getElementsByClassName('.visible-rect')
   
+
+
   if (path.classList.contains('unzoomed-rect')) {
     
     
@@ -286,15 +291,10 @@ const zoom = (area, alaska) => {
     const rect = area.rect
     
     const dx = rect[0][0] - rect[1][0]
-    // console.log(dx, 'dx')
     const dy = rect[1][1] - rect[2][1]
-    // console.log(dy, 'dy')
     const x = (rect[0][0] + rect[1][0]) / 2
-    // console.log(x, 'x')
     const y = (rect[1][1] + rect[2][1]) / 2
-    // console.log(y, 'y')
     const scale = 0.95 / Math.max(dx / width, dy / height)
-    // console.log(scale, 'scale')
     const translate = [width / 2 - scale * x, height / 2 - scale * y]
     console.log(translate, 'translate')
 
@@ -304,14 +304,20 @@ const zoom = (area, alaska) => {
       .style("stroke-width", `${0.5 / scale}px`)
       .attr("transform", `translate(${translate})scale(${scale})`)
 
-    rects.attr('stroke', 'none')
-      .attr('fill', 'none')
+    d3.select('#zoom-out-button')
+      .attr('x', x - ((width / 2) * 0.97) / scale)
+      .attr('y', y - ((height / 2) * 0.83) / scale)
+      .attr('font-size', 80 / scale)
+      .on("click", () => zoom(area, alaska))
+      .transition()
+      .delay(700)
+      .text('⊗')
 
-    d3.select("alaska-svg")
-      .append('g')
-      .attr('class', 'exit-zoom-button')
-      .append('circle')
-      .on("click", ())
+    d3.selectAll('.visible-rect')
+      .transition()
+      .delay(500)
+      .attr('stroke', 'none')
+      .attr('fill', 'none')
 
     renderAreaChart(area, 'pounds', x, y, scale)
 
@@ -319,8 +325,9 @@ const zoom = (area, alaska) => {
     
     path.classList.remove('zoomed-rect')
     path.classList.add('unzoomed-rect')
-    const rects = document.getElementsByClassName('.visible-rect')
+
     const bounds = alaska.bounds(alaskaGeoJson.features)
+
     const dx = bounds[1][0] - bounds[0][0]
     const dy = bounds[1][1] - bounds[0][1]
     const x = (bounds[0][0] + bounds[1][0]) / 2
@@ -334,10 +341,23 @@ const zoom = (area, alaska) => {
       .style("stroke-width", `0.8px`)
       .attr("transform", `translate(${translate})scale(${scale})`)
 
-    rects.attr("stroke", "white")
-      .attr("fill", "white")
-
     d3.select(".area-chart-g")
+      .transition()
+      .delay(200)
       .remove()
+
+    d3.select('#zoom-out-button')
+      .transition()
+      .delay(200)
+      .text('')
+
+    d3.selectAll('.visible-rect')
+      .transition()
+      .duration(1000)
+      .delay(500)
+      .attr('stroke', 'white')
+      .attr('fill', 'white')
+      .attr('stroke-opacity', '1')
+      .attr('fill-opacity', '0.1')
   }
 }

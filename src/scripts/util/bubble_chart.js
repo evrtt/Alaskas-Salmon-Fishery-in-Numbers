@@ -183,6 +183,10 @@ export const renderBubbles = (data) => {
       .attr("class", "species")
       .text(d => d.species)
       .attr("r", d => rScale(d.pounds))
+      .on("mouseenter", () => hoverBubble(area.name))
+      .on("mouseout", () => unhoverBubble(area.name))
+
+
 
     const ticked = () => {
       d3.select(`.${compactName}`)
@@ -203,6 +207,29 @@ export const renderBubbles = (data) => {
   }
 
   })
+}
+
+const hoverBubble = (title) => {
+  d3.select('#area-title')
+    .text(`${title},`)
+
+  d3.select('#area-title')
+    .transition()
+    .duration(400)
+    .attr('font-size', '20px')
+
+  document.getElementById(`${title}-rect`)
+    .style.fillOpacity = '0.3'
+}
+
+const unhoverBubble = (title) => {
+  d3.select('#area-title')
+    .transition()
+    .duration(400)
+    .attr('font-size', '0px')
+
+  document.getElementById(`${title}-rect`)
+    .style.fillOpacity = '0.2'
 }
 
 export const changeBubblesYear = (data) => {

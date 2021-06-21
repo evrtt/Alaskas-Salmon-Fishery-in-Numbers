@@ -74,12 +74,11 @@ export const renderAreaChart = (area, type, x, y, scale) => {
     .join('rect')
     .attr("x", d => d.x)
     .attr("y", d => d.y)
-    // .attr("fill", "none")
     .attr("width", d => d.width)
     .attr("fill", d => fishColor(d.species))
     .attr('fill-opacity', '0')
     .transition()
-    .delay(500)
+    .delay(300)
     .duration(800)
     .attr("height", d => d.height)
     .attr('fill-opacity', '1')
@@ -126,12 +125,6 @@ const renderChartScale = (x, y, scale, maxY, type) => {
       [x - (width / 2 / scale) + 48 * xIncrement, y + ((window.innerHeight / 2) - 59) / scale]
     ])
   )
-  // axes.push(
-  //     lineGenerator([
-  //       [x - ((width / 2 / scale) - 5 * xIncrement), y + ((window.innerHeight / 2) - 59) / scale],
-  //       [x - ((width / 2 / scale) - 5 * xIncrement), y + ((window.innerHeight / 2) - 50) / scale]
-  //     ])
-  //   )
   
   for(let i = 0; i < 42; i++) {
 
@@ -177,8 +170,8 @@ const renderChartScale = (x, y, scale, maxY, type) => {
       .append('path')
       .attr('d', line)
       .transition()
-      .delay(500)
-      .attr("stroke", "black")
+      .delay(700)
+      .attr("stroke", "white")
 
   })
 
@@ -187,12 +180,16 @@ const renderChartScale = (x, y, scale, maxY, type) => {
 
     d3.select('.area-chart-g')
       .append('text')
-      .text(year.text)
+      .text('')
       .attr('x', year.x)
       .attr('y', year.y)
+      .attr('transform', `rotate(65, ${year.x} , ${year.y})`)
       .attr('font-size', year.dx)
       .attr('font-weight', '600')
-      .attr('transform', `rotate(65, ${year.x} , ${year.y})`)
+      .attr('fill', 'white')
+      .transition()
+      .delay(700)
+      .text(year.text)
 
   })
 
@@ -200,12 +197,16 @@ const renderChartScale = (x, y, scale, maxY, type) => {
 
     d3.select('.area-chart-g')
       .append('text')
-      .text(val.text)
+      .text('')
       .attr('x', val.x)
       .attr('y', val.y)
+      .attr('transform', `rotate(45, ${val.x} , ${val.y})`)
       .attr('font-size', val.dx)
       .attr('font-weight', '600')
-      .attr('transform', `rotate(45, ${val.x} , ${val.y})`)
+      .attr('fill', 'white')
+      .transition()
+      .delay(700)
+      .text(val.text)
 
   })
     
