@@ -16,7 +16,7 @@ const scaleData = (area, type) => {
 
   const lScale = d3.scaleLinear()
     .domain([0, maxY])
-    .range([0, 500])
+    .range([0, (window.innerHeight) / 2])
   
   const result = Object.entries(area).map(entry => { 
     let obj = {}
@@ -29,7 +29,7 @@ const scaleData = (area, type) => {
     return obj
   })
 
-  return result
+  return {result, maxY}
 }
 
 const altTitles = [
@@ -42,118 +42,172 @@ export const renderAreaChart = (area, type, x, y, scale) => {
 
   const identifier = altTitles.includes(area.title) ? area.identifier : area.title
   const areaData = catchData["byArea"][identifier]
-  let data = scaleData(areaData, type)
+  let scaled = scaleData(areaData, type)
+  let data = scaled.result
+  let maxY = scaled.maxY
   const stack = d3.stack()
     .keys(['Chinook', 'Chum', 'Coho', 'Pink', 'Sockeye']);
   const stackedData = stack(data);
-  const xIncrement = (window.innerWidth / 45) / scale
-  // const areaGenerator = (area) {
-  //   return {
-  //     x: ,
-  //     y: ,
-  //     height: ,
-  //     width: 
-  //   }
-  // }
-  //   .x0((d, idx) => x - ((window.innerWidth / 2 / scale) - xIncrement) + xIncrement + idx * xIncrement - 10 / scale)
-  //   .y0(d => y + (4 * window.innerHeight / 10) / scale - (d[0] / scale) )
-  //   .y1(d => y + (4 * window.innerHeight / 10) / scale - (d[1] / scale))
-  // const areaGenerator = d3.area()
-  //   .x0((d, idx) => x - ((window.innerWidth / 2 / scale) - xIncrement) + xIncrement + idx * xIncrement - 10 / scale)
-  //   .y0(d => y + (4 * window.innerHeight / 10) / scale - (d[0] / scale) )
-  //   .y1(d => y + (4 * window.innerHeight / 10) / scale - (d[1] / scale))
-
-  // const areaChart = stackedData.map(stack => ({
-  //   path: areaGenerator(stack),
-  //   species: stack.key
-  // }))
+  const xIncrement = (window.innerWidth / 49) / scale
   const areaChart = []
   
   stackedData.forEach((stack) => {
     stack.forEach((rect, idx) => {
       areaChart.push({
-        x: x - ((window.innerWidth / 2 / scale) - xIncrement) + xIncrement + idx * xIncrement,
-        y: y + ((window.innerHeight / 2) - 20) / scale - (rect[1] / scale),
+        x: x - (window.innerWidth / 2 / scale) + 6 * xIncrement + idx * xIncrement,
+        y: y + ((window.innerHeight / 2) - 60) / scale - (rect[1] / scale),
         height: (rect[1] - rect[0]) / scale,
-        width: xIncrement / 1.5,
+        width: xIncrement / 1.2,
         species: stack.key
       })
     })
   })
-
   d3.select("#alaska-svg")
     .append('g')
     .attr('class', "area-chart-g")
+    
+  renderChartScale(x, y, scale, maxY, type)
+
+  d3.select(".area-chart-g")
     .selectAll('rect')
     .data(areaChart)
     .join('rect')
     .attr("x", d => d.x)
     .attr("y", d => d.y)
+    // .attr("fill", "none")
     .attr("width", d => d.width)
-    .attr("height", d => d.height)
-    .attr("fill", "none")
+    .attr("fill", d => fishColor(d.species))
+    .attr('fill-opacity', '0')
     .transition()
     .delay(500)
-    .attr("fill", d => fishColor(d.species))
-
-  renderChartScale(x, y, scale)
+    .duration(800)
+    .attr("height", d => d.height)
+    .attr('fill-opacity', '1')
 
 }
 
-const renderChartScale = (x, y, scale) => {
+const renderChartScale = (x, y, scale, maxY, type) => {
 
+
+  const lScale = d3.scaleLinear()
+    .domain([0, maxY])
+    .range([0, (window.innerHeight) / 2])
+  
   const width = window.innerWidth
   const height = window.innerHeight
-  const xIncrement = (width / 45) / scale
-  const yIncrement = (height / 12) / scale
-  const lineGenerator = d3.line()
-  const axes = []
+  const xIncrement = (width / 49) / scale
+  let yIncrement;
+  let maxAdjust;
+  let maxDif;
+  let incrementCount;
+  if (type === 'pounds'){
+    incrementCount = Math.floor(maxY / 1000000)
+    maxAdjust = lScale(incrementCount * 1000000)
+    // maxDif = lScale(maxY) - maxAdjust
+    yIncrement = (maxAdjust / 5) / scale
+  } else if (type === 'value') {
+    // maxAdjust = Math.floor(maxY / 1000000)
+    // maxDif = maxY - maxAdjust
+    // yIncrement = (((height / 2 - maxDif) * 2) / 10) / scale
+  } else if (type === 'numFish') {
+    // maxAdjust = Math.floor(maxY / 1000000)
+    // maxDif = maxY - maxAdjust
+    // yIncrement = (((height / 2 - maxDif) * 2) / 10) / scale
+
+  }
+
+  const lineGenerator = d3.line();
+  const axes = [];
+  const vals = [];
+  const years = [];
   axes.push(
     lineGenerator([
-      [x - ((width / 2 / scale) - xIncrement), y + ((height / 2) - 19) / scale], 
-      [x - (width / 2 / scale) + 44 * xIncrement, y + ((height / 2) - 19) / scale]
+      [x - ((width / 2 / scale) - 5 * xIncrement), y + ((window.innerHeight / 2) - 59) / scale],
+      [x - (width / 2 / scale) + 48 * xIncrement, y + ((window.innerHeight / 2) - 59) / scale]
     ])
   )
-  axes.push(
-      lineGenerator([
-        [x - ((width / 2 / scale) - xIncrement), y + ((height / 2) - 20) / scale], 
-        [x - ((width / 2 / scale) - xIncrement), y - ((height / 2) + 20) / scale]
-      ])
-    )
+  // axes.push(
+  //     lineGenerator([
+  //       [x - ((width / 2 / scale) - 5 * xIncrement), y + ((window.innerHeight / 2) - 59) / scale],
+  //       [x - ((width / 2 / scale) - 5 * xIncrement), y + ((window.innerHeight / 2) - 50) / scale]
+  //     ])
+  //   )
   
   for(let i = 0; i < 42; i++) {
+
+    let tickX = x - (width / 2 / scale) + 6 * xIncrement + i * xIncrement + (xIncrement / 1.2) / 2
     
-    let tickX = x - (width / 2 / scale) + 2 * xIncrement + i * xIncrement + (xIncrement / 1.5) / 2
+    years.push({
+      text: `${i + 1979}`,
+      x: tickX - 5 / scale,
+      y: y + ((height / 2) - 42) / scale,
+      dx: 14 / scale
+    })
 
     let tick = lineGenerator([
-      [tickX , y + ((height / 2) - 20) / scale],
-      [tickX, y + ((height / 2) - 10) / scale]
+      [tickX, y + ((window.innerHeight / 2) - 59) / scale],
+      [tickX, y + ((window.innerHeight / 2) - 50) / scale]
     ])
     axes.push(tick)
   }
   
-  for(let i = 0; i < 9; i++) {
+  for(let i = 0; i < 7; i++) {
     
-    let tickY = y - (width / 2 / scale) + 2 * yIncrement + i * yIncrement
+    let tickY = y + ((window.innerHeight / 2) - 59) / scale - (i * yIncrement)
+
+    vals.push({
+      text: `${i * incrementCount / 5} M lbs.`,
+      x: x - ((width / 2 / scale) - 5 * xIncrement) - 50 / scale,
+      y: tickY - 40 / scale,
+      dx: 14 / scale
+    })
 
     let tick = lineGenerator([
-      [x - ((width / 2 / scale) - xIncrement) , tickY],
-      [x - ((width / 2 / scale) - xIncrement), tickY]
+      [x - ((width / 2 / scale) - 5 * xIncrement), tickY],
+      [x - (width / 2 / scale) + 48 * xIncrement, tickY]
     ])
     axes.push(tick)
   }
 
-  console.log(axes)
+  console.log(vals)
 
   axes.forEach(line => {
-
-    console.log(line)
 
     d3.select(".area-chart-g")
       .append('path')
       .attr('d', line)
+      .transition()
+      .delay(500)
       .attr("stroke", "black")
+
   })
 
+
+  years.forEach(year => {
+
+    d3.select('.area-chart-g')
+      .append('text')
+      .text(year.text)
+      .attr('x', year.x)
+      .attr('y', year.y)
+      .attr('font-size', year.dx)
+      .attr('font-weight', '600')
+      .attr('transform', `rotate(65, ${year.x} , ${year.y})`)
+
+  })
+
+  vals.forEach(val => {
+
+    d3.select('.area-chart-g')
+      .append('text')
+      .text(val.text)
+      .attr('x', val.x)
+      .attr('y', val.y)
+      .attr('font-size', val.dx)
+      .attr('font-weight', '600')
+      .attr('transform', `rotate(45, ${val.x} , ${val.y})`)
+
+  })
+    
 }
 

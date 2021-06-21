@@ -179,20 +179,6 @@ export const areas = [
     },
   ]
 
-// const areaLongLats = [
-//   [[-162.75075500093894, 66.61030936350049], [-165.45638539991677, 67.35511868130742]],
-//   [[-162.61288934041147, 59.619327200001266], [-166.30680136604542, 58.406451176287135]],
-//   [[-162.46535519863104, 64.05190962382768], [-168.14628799425125, 64.24863325775765]],
-//   [[-165.50660311305106, 62.643382583042005], [-169.15500534976613, 62.288268861541745]],
-//   [[-159.07000261214498, 58.06911606091179], [-152.00712708274554, 66.55522673411546]],
-//   [[-152.65365969078832, 59.42486625786394], [-139.55282541742721, 67.35788579875347]],
-//   [[-147.09391061807054, 60.70650201429044], [-140.2718841215425, 63.85052875477269]],
-//   [[-134.05013097603768, 57.186978408650454], [-144.44792070227217, 55.91376231220995]],
-//   [[-165.232772334737, 54.23480436673355], [-172.94678815396927, 58.27739560637519]],
-//   [[-157.96017040218436, 55.86845119828741], [-158.10339730174698, 53.6546519728167]],
-//   [[-153.33984384526508, 57.450847982884504], [-153.2136639009687, 54.05681980564907]]
-// ]
-
 const salmonAreas = areas.map(
   (el, idx) => ({
     title: el.title,
@@ -318,15 +304,23 @@ const zoom = (area, alaska) => {
       .style("stroke-width", `${0.5 / scale}px`)
       .attr("transform", `translate(${translate})scale(${scale})`)
 
+    rects.attr('stroke', 'none')
+      .attr('fill', 'none')
+
+    d3.select("alaska-svg")
+      .append('g')
+      .attr('class', 'exit-zoom-button')
+      .append('circle')
+      .on("click", ())
+
     renderAreaChart(area, 'pounds', x, y, scale)
 
   } else if (path.classList.contains('zoomed-rect')) {
     
     path.classList.remove('zoomed-rect')
     path.classList.add('unzoomed-rect')
-
+    const rects = document.getElementsByClassName('.visible-rect')
     const bounds = alaska.bounds(alaskaGeoJson.features)
-
     const dx = bounds[1][0] - bounds[0][0]
     const dy = bounds[1][1] - bounds[0][1]
     const x = (bounds[0][0] + bounds[1][0]) / 2
@@ -339,6 +333,9 @@ const zoom = (area, alaska) => {
       .duration(1000)
       .style("stroke-width", `0.8px`)
       .attr("transform", `translate(${translate})scale(${scale})`)
+
+    rects.attr("stroke", "white")
+      .attr("fill", "white")
 
     d3.select(".area-chart-g")
       .remove()
