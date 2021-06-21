@@ -16,5 +16,4 @@ window.onbeforeunload = () => {
 
 drawWave()
 
-
 export default catchData;

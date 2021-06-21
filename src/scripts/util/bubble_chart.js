@@ -183,8 +183,8 @@ export const renderBubbles = (data) => {
       .attr("class", "species")
       .text(d => d.species)
       .attr("r", d => rScale(d.pounds))
-      .on("mouseenter", () => hoverBubble(area.name))
-      .on("mouseout", () => unhoverBubble(area.name))
+      .on("mouseenter", () => hoverBubble(area.title))
+      .on("mouseout", () => unhoverBubble(area.title))
 
 
 

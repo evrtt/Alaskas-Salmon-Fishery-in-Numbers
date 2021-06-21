@@ -1,4 +1,4 @@
-import { raiseWave } from '../util/wave.js'
+import { drawWave, raiseWave } from '../util/wave.js'
 
 const disableScroll = () => {
 

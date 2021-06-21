@@ -54,22 +54,34 @@ export const genBubbles = (year, swtch) => {
   ]
 
   const areaNames = [
-    { area: "Kotzebue" },
-    { area: "Kuskokwim" },
-    { area: "Norton Sound" },
-    { area: "Yukon" },
-    { area: "Bristol Bay" },
-    { area: "Cook Inlet" },
-    { area: "Prince William Sound" },
-    { area: "Southeast" },
-    { area: "AK Pen/AI" },
-    { area: "Chignik" },
-    { area: "Kodiak" }
+    { area: "Kotzebue",
+      title: "Kotzebue" },
+    { area: "Kuskokwim",
+      title: "Kuskokwim" },
+    { area: "Norton Sound",
+      title: "Norton Sound" },
+    { area: "Yukon",
+      title: "Yukon River" },
+    { area: "Bristol Bay",
+      title: "Bristol Bay" },
+    { area: "Cook Inlet",
+      title: "Cook Inlet" },
+    { area: "Prince William Sound",
+      title: "Prince William Sound" },
+    { area: "Southeast",
+      title: "Southeast Alaska" },
+    { area: "AK Pen/AI",
+      title: "Alaskan Peninsula / Aleutian Islands" },
+    { area: "Chignik",
+      title: "Chignik" },
+    { area: "Kodiak",
+      title: "Kodiak" }
   ]
 
   const salmonAreas = areaNames.map(
     (el, idx) => ({
       name: el.area,
+      title: el.title,
       line: areaLongLats[idx].map(pair => projection(pair))
     })
   )
@@ -77,6 +89,7 @@ export const genBubbles = (year, swtch) => {
   const currentYear = catchData['byYear'][year]
   let data = salmonAreas.map(area => ({
     name: area.name,
+    title: area.title,
     line: area.line,
     data: currentYear[area.name]
   }))

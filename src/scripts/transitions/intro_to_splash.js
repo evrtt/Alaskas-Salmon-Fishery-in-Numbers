@@ -1,4 +1,4 @@
-import { raiseWave } from '../util/wave.js'
+import { raiseWave, drawWave } from '../util/wave.js'
 
 const disableScroll = () => {
   const scrollPosY = window.pageYOffset || document.documentElement.scrollTop;
@@ -21,5 +21,8 @@ export const introToSplash = () => {
   setTimeout(enableScroll, 2500)
 
   let amt = 0;
-  raiseWave(amt, 'up', 0)
+  drawWave()
+  setTimeout(() => raiseWave(amt, 'up', 0), 100)
+
+  // raiseWave(amt, 'up', 0)
 }
