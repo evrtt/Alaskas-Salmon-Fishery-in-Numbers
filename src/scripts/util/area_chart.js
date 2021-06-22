@@ -29,7 +29,7 @@ const scaleData = (area, type) => {
     return obj
   })
 
-  return {result, maxY}
+  return { result, maxY }
 }
 
 const altTitles = [
@@ -97,7 +97,6 @@ const renderChartScale = (x, y, scale, maxY, type) => {
   const xIncrement = (width / 49) / scale
   let yIncrement;
   let maxAdjust;
-  let maxDif;
   let incrementCount;
   if (type === 'pounds'){
     incrementCount = Math.floor(maxY / 1000000)
@@ -112,7 +111,6 @@ const renderChartScale = (x, y, scale, maxY, type) => {
     // maxAdjust = Math.floor(maxY / 1000000)
     // maxDif = maxY - maxAdjust
     // yIncrement = (((height / 2 - maxDif) * 2) / 10) / scale
-
   }
 
   const lineGenerator = d3.line();
@@ -129,7 +127,6 @@ const renderChartScale = (x, y, scale, maxY, type) => {
   for(let i = 0; i < 42; i++) {
 
     let tickX = x - (width / 2 / scale) + 6 * xIncrement + i * xIncrement + (xIncrement / 1.2) / 2
-    
     years.push({
       text: `${i + 1979}`,
       x: tickX - 5 / scale,
@@ -147,7 +144,6 @@ const renderChartScale = (x, y, scale, maxY, type) => {
   for(let i = 0; i < 7; i++) {
     
     let tickY = y + ((window.innerHeight / 2) - 59) / scale - (i * yIncrement)
-
     vals.push({
       text: `${i * incrementCount / 5} M lbs.`,
       x: x - ((width / 2 / scale) - 5 * xIncrement) - 50 / scale,
@@ -162,8 +158,6 @@ const renderChartScale = (x, y, scale, maxY, type) => {
     axes.push(tick)
   }
 
-  console.log(vals)
-
   axes.forEach(line => {
 
     d3.select(".area-chart-g")
@@ -174,7 +168,6 @@ const renderChartScale = (x, y, scale, maxY, type) => {
       .attr("stroke", "white")
 
   })
-
 
   years.forEach(year => {
 

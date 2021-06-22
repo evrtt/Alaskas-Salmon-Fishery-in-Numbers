@@ -1,12 +1,12 @@
 #scroller {
-  width: auto;
+  width: none;
   height: auto;
 }
 
 #frames {
 position: relative;
 display: hidden;
-width: 100px;
+width: none;
 z-index: 1;
 }
 
@@ -16,14 +16,11 @@ height: 100vh;
 
 .data {
 display: flex;
-justify-content: space-around;
 position: fixed;
 top: 0px;
+left: 0px;
 max-width: 100%;
 z-index: 1;
-margin-left: 0;
-margin-right: 30px;
-
 height: 100vh;
 width: 100vw;
 background-color: white;
@@ -146,14 +143,14 @@ background-color: white;
 }
 
 .scroll-down {
-  font-size: 60px;
+  font-size: 30px;
   font-family: Arial, Helvetica, sans-serif; 
   color: #0b70c3;
   font-weight: 100;
   z-index: 11;
   position: fixed;
   bottom: 0;
-  margin-bottom: 100px;
+  margin-bottom: 140px;
 }
 
 .hidden {
@@ -181,6 +178,21 @@ background-color: white;
 }
 
 .splash-container{
-  z-index: 13;
-  position: relative;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  position: fixed;
+  bottom: 100px;
+}
+
+.splash-container h1 {
+  font-size: 60px;
+}
+
+.splash-container h3 {
+  font-size: 20px;
 }

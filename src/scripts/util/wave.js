@@ -1,4 +1,5 @@
 import { renderAK , clearAK} from '../util/alaska.js'
+import { removeSplash, renderSplash } from './splash.js'
 
 export const addWaveCanvas = () => {
 
@@ -45,21 +46,27 @@ export const drawWave = () => {
     } else if (iterator > 0 && iterator < 30) {
       changeSmallX = 2 * radius * (Math.sin(((Math.PI * (60 - (mod30 * 2))) / 180) / 2))
       moveCenter = ((radius / 2) - (changeSmallX / 2))
+      
     } else if (iterator === 30) {
       changeSmallX = 0
       moveCenter = radius / 2
+      
     } else if (iterator > 30 && iterator < 60) {
       changeSmallX = 2 * radius * (Math.sin(((Math.PI * mod30 * 2) / 180) / 2))
       moveCenter = radius - ((radius / 2) - (changeSmallX / 2))
+      
     } else if (iterator === 60) {
       changeSmallX = radius
       moveCenter = radius
+      
     } else if (iterator > 60 && iterator < 90) {
       changeSmallX = 2 * radius * (Math.sin(((Math.PI * (60 - (mod30 * 2))) / 180) / 2))
       moveCenter = ((radius / 2) - (changeSmallX / 2)) + radius
+      
     } else if (iterator === 90) {
       changeSmallX = 0
       moveCenter = radius * 1.5
+      
     } else if (iterator > 90 && iterator < 120) {
       changeSmallX = 2 * radius * (Math.sin(((Math.PI * mod30 * 2) / 180) / 2))
       moveCenter = radius * 2 - ((radius / 2) - (changeSmallX / 2))
@@ -133,9 +140,11 @@ export const raiseWave = (amt, direction) => {
 
   if (amt >= window.innerHeight - 1) { 
     if (direction === 'down') {
-      renderAK()
+      removeSplash();
+      renderAK();
     } else if (direction === 'up') {
       clearAK();
+      renderSplash();
     }
     window.requestAnimationFrame(() => lowerWave(amt, direction) )
   } else {
@@ -162,6 +171,8 @@ export const lowerWave = (amt, direction) => {
     if (direction === 'down') {
       const scrollDown = document.querySelector('.scroll-down')
       scrollDown.style.bottom = `${-(window.innerHeight - amt)}px`
+      // const splashContainer = document.querySelector('.splashContainer')
+      // splashContainer.style.position = 'fixed'
     }
     
     amt -= Math.sqrt(window.innerHeight - amt)
