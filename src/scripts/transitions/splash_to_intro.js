@@ -1,4 +1,4 @@
-import { drawWave, raiseWave } from '../util/wave.js'
+import { drawTransitionWave, raiseWave } from '../util/wave.js'
 
 const disableScroll = () => {
 
@@ -20,11 +20,11 @@ const enableScroll = () => {
 
 
 export const splashToIntro = () => {
+  null
+  // disableScroll()
 
-  disableScroll()
+  // setTimeout(enableScroll, 500)
 
-  setTimeout(enableScroll, 500)
-
-  let amt = 0;
-  raiseWave(amt, 'down', 15)
+  // let amt = 0;
+  // raiseWave(amt, 'down', 15)
 }

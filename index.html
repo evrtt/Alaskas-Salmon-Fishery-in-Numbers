@@ -7,8 +7,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://d3js.org/d3.v6.js"></script>
-    <link rel="stylesheet" type="text/css" href="index.css"/>
-    <script type="module" src="./src/index.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/index.css"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">    <script type="module" src="./src/index.js"></script>
 
     <title>Document</title>
   </head>
@@ -21,42 +21,131 @@
     </div>
     <div id="scroller" >
       <div id="frames">
-        <section class="scroll-0">Frame 1</section>
-        <section class="scroll-1">Frame 2</section>
-        <section class="scroll-2">Frame 3</section>
-        <section class="scroll-3">Frame 4</section>
-        <section class="scroll-4">Frame 5</section>
+        <section class="scroll-0">
+          <div class="scroll-0-container">
+            <div class="splash-container">
+              <h1>
+                Alaska's Salmon Fishery
+              </h1>
+              <h3>
+                1979 - 2020
+              </h3>
+              <p>
+                A data visualisation of 41 years of catch and price data from 
+                the Salmon Fishing Industry in Alaska. 
+                All data was sourced from the
+                <a 
+                  href="https://www.adfg.alaska.gov/index.cfm?adfg=CommercialByFisherySalmon.main"
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  class="ADFG-link"
+                >
+                Alaska Department of Fish and Game.
+              </a>
+              </p>
+              <span>Created by:</span>
+              <span class="ES">Everett Smith</span>
+            </div>
+            <div class="scroll-down">Introduction</div>
+            <div class="scroll-down-arrow">☟</div>
+          </div>
+          <!-- Frame 1 -->
+        </section>
+        <section class="scroll-1">
+          <div class="scroll-1-container">
+            <p class="intro-p-1">
+              Alaska is home to the worlds largest remaining salmon populations. 
+              The Salmon Fishing Industry in the state is one of the world's most 
+              sustainable fisheries, having managed to produce billions of pounds
+              of wildcaught salmon and maintain populations for decades.
+              Curious about these variations, I created a visualisation of the 
+              state's data of the annual Salmon catch in pounds, exvessel value, 
+              and number of fish from 1979 to 2020.The data is divided between 
+              eleven different areas (see below) and between the five different 
+              species (see below) fished in Alaska.
+            </p>
+            <p class="intro-p-2">
+              Wild salmon are caught as they migrate back to the stream or river
+              where they were born to reproduce and die. Salmon fishing is a
+              highly unpredictable business due to the natural variations in fish
+              migrations and restrictions imposed by strict fishing management,
+              a challenge made increasingly difficult by climate change.
+            </p>
+            <p class="intro-p-3">
+              Curious about these variations, I created a visualisation of the
+              state's data of the annual Salmon catch in pounds, exvessel value,
+              and number of fish from 1979 to 2020. The data is divided between
+              eleven different areas (see below) and between the five different
+              species (see below) fished in Alaska.
+            </p>
+          </div>
+        </section>
+        <section class="scroll-2">
+          <div class="scroll-2-container">
+            <p class="intro-p">
+              The five species of Pacific Salmon fished in Alaska are...
+            </p>
+            <div class="chinook-container">
+              <h3>Chinook</h3>
+              <p>AKA King</p>
+              <img src="https://www.takemefishing.org/tmf/assets/images/fish/king-salmon-464x170.png" class="chinook-photo">
+            </div>
+            <div class="coho-container">
+              <h3>Coho</h3>
+              <p>AKA Silver</p>
+              <img src="https://www.takemefishing.org/tmf/assets/images/fish/coho-salmon-464x170.png" class="coho-photo">
+            </div>
+            <div class="sockeye-container">
+              <h3>Sockeye</h3>
+              <p>AKA Red</p>
+              <img src="https://www.takemefishing.org/tmf/assets/images/fish/sockeye-salmon-464x170.png" class="sockeye-photo">
+            </div>
+            <div class="chum-container">
+              <h3>Chum</h3>
+              <p>AKA Dog</p>
+              <img src="https://www.takemefishing.org/tmf/assets/images/fish/chum-salmon-464x170.png" class="chum-photo">
+            </div>
+            <div class="pink-container">
+              <h3>Pink</h3>
+              <p>AKA Humpy</p>
+              <img src="https://www.takemefishing.org/tmf/assets/images/fish/pink-salmon-464x170.png" class="pink-photo">
+            </div>
+          </div>
+        </section>
+        <section class="scroll-3">
+          <div class="scroll-3-container">
+          </div>
+        </section>
+        <section class="scroll-4">
+          <div class="scroll-4-container">
+          </div>
+        </section>
       </div>
       <div class="data-container">
-        <canvas class='wave-top'></canvas>
-        <canvas class='wave-bottom'></canvas>
-        <div class="data">
-          <div class="splash-container">
-            <h1>
-              Alaska's Salmon Fishery
-            </h1>
-            <h3>
-              1979 - 2020
-            </h3>
+        <!-- <canvas class='wave-top'></canvas>
+          <canvas class='wave-bottom'></canvas> -->
+          <div class="data">
           </div>
-        </div>
-        <div class="scroll-down">Scroll Down to Begin</div>
+          <canvas class='wave-top'></canvas>
+          <canvas class='wave-bottom'></canvas>
+        <!-- <div class="scroll-down">Scroll Down to Begin</div>
         <div>
           <div>
             <h1></h1>
 
           </div>
-        </div>
+        </div> -->
       </div>
     </div>
-    <div id="header"> -->
-      <img src="" alt="">
-      <span>ph</span>
+    <div id="header">      
       <a>
-        LI 
+        <i class="fa fa-github"></i>
       </a>
       <a>
-        AG
+        <i class="fa fa-linkedin"></i>
+      </a>
+      <a>
+        <i class="fa fa-angellist"></i>
       </a>
     </div>
   </body>

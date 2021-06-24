@@ -13,14 +13,14 @@ const createObservers = () => {
     
       if (entry.isIntersecting) {
         // console.log(entry.intersectionRatio)
-        entry.target.style.backgroundColor = 'red'
+        // entry.target.style.backgroundColor = 'red'
         data.classList.add(frameClass)
         counter.push(frameNum)
       } else {
         if (dataClasses.includes(frameClass)) {
             data.classList.remove(frameClass)
         }
-        entry.target.style.backgroundColor = 'green'
+        // entry.target.style.backgroundColor = 'green'
       }
       
       // Each entry describes an intersection change for one observed
