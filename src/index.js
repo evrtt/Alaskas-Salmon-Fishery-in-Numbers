@@ -1,6 +1,5 @@
 import createObservers from './scripts/scroller.js';
 import initializeData from './scripts/util/data_parser.js';
-import { hoverName } from './scripts/util/hover_name.js';
 import { drawStaticWave } from './scripts/util/wave.js';
 // import {drawWave} from "./scripts/draw_wave.js"
 
@@ -24,7 +23,5 @@ window.addEventListener("DOMContentLoaded", (e) => {
 window.onbeforeunload = () => {
   window.scrollTo(0, 0)
 }
-
-hoverName()
 
 export default catchData;
