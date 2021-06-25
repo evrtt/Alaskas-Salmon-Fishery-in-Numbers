@@ -9,6 +9,8 @@ import {
 
 const catchData = initializeData();
 
+drawTransitionWave()
+
 window.addEventListener("DOMContentLoaded", (e) => {
   window.scrollTo(0, 0)
   // createObservers();
@@ -22,12 +24,12 @@ window.addEventListener("DOMContentLoaded", (e) => {
   // drawStaticWave('#0372cd', scroll2)
   // drawStaticWave('#0060ae', scroll3)
   // drawStaticWave('#00467f', scroll4)
-  drawTransitionWave()
-
+  
   const current = document.querySelector('.current')
-
+  
   document.querySelector('.current-button').addEventListener('click',() => toIntro(current))
 }, false);
+
 
 window.onbeforeunload = () => {
   window.scrollTo(0, 0)
