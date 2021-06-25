@@ -15,12 +15,12 @@ z-index: 1;
 }
 
 #intro {
-  background-color: #389bec;
+  background-color: #5aaff4;
   height: 100vh;
 }
 
 #salmon-species {
-  background-color: #188ae7;
+  background-color: #5aaff4;
   height: 100vh;
 }
 /* #scroll-3 {
@@ -47,10 +47,9 @@ position: fixed;
 top: 0px;
 left: 0px;
 max-width: 100%;
-z-index: 1;
 height: 100vh;
 width: 100vw;
-background-color: white;
+background-color: #5aaff4;
 display: none;
 }
 
@@ -219,6 +218,7 @@ display: none;
   top: 85%;
   transform: translate(-50%, -50%);
   display: none;
+  width: fit-content
 }
 
 .moving-scroll-down {
@@ -446,4 +446,11 @@ a:active {
 
 .display-none {
   display: none;
+}
+
+.salmon-species-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow-y: scroll;
 }

@@ -1,4 +1,9 @@
 import {renderAK , clearAK} from '../util/alaska.js'
+import {
+  toIntro,
+  toSalmonSpecies,
+  toData
+} from '../transitions/transitions.js'
 
 export const addWaveCanvas = () => {
 
@@ -259,8 +264,6 @@ export const drawTransitionWave = () => {
 
 export const raiseWave = (amt, direction, toView, fromView) => {
   
-  console.log(toView, "toView", fromView, 'fromView')
-
   const waveTop = document.getElementsByClassName('wave-top')[0]
   const waveBottom = document.getElementsByClassName('wave-bottom')[0]
   
@@ -272,20 +275,34 @@ export const raiseWave = (amt, direction, toView, fromView) => {
   if (amt >= window.innerHeight - 1) { 
 
     const buttons = {
-      splash: 'intro-button',
-      intro: 'salmon-species-button',
-      salmonspecies: 'data-button'
+      splash: ['intro-button', toIntro],
+      intro: ['salmon-species-button', toSalmonSpecies],
+      salmonspecies: ['data-button', toData]
     }
     let prevButton;
     let nextButton;
     if (direction === 'down') {
-      // toggleView(fromView)
-      // toggleView(toView)
-      // document.querySelector('.scroll-down').addEventListener('click', () => toIntro(current))
+
+      document.querySelector('.data').style.display = 'block'
+      renderAK()
+      prevButton = [
+        document.getElementById(buttons[fromView.id.split('-').join('')][0]),
+        buttons[fromView.id.split('-').join('')][1]
+      ]
+
     } else if (direction === 'up') {
-      nextButton = document.getElementById(buttons[toView.id.split('-').join()])
-      prevButton = document.getElementById(buttons[fromView.id.split('-').join()])
-      console.log(prevButton, 'prevButton', nextButton, 'nextButton')
+      clearAK()
+
+      console.log(toView, 'toView', fromView, 'fromView')
+
+      nextButton = [
+        document.getElementById(buttons[toView.id.split('-').join('')][0]),
+        buttons[toView.id.split('-').join('')][1]
+       ]
+      prevButton = [
+        document.getElementById(buttons[fromView.id.split('-').join('')][0]),
+        buttons[fromView.id.split('-').join('')][1]
+      ]
       toggleView(fromView)
       toggleView(toView)
       // document.querySelector('.scroll-down').addEventListener('click', () => toIntro(current))
@@ -299,52 +316,86 @@ export const raiseWave = (amt, direction, toView, fromView) => {
   }
 }
 
-export const lowerWave = (amt, direction, current, next) => {
+export const lowerWave = (amt, direction, prevButton, nextButton) => {
   
   const waveTop = document.querySelector('.wave-top')
   const waveBottom = document.querySelector('.wave-bottom')
   
 
-
-  if (amt - window.innerHeight >= 0) {
-
-    // if (direction === 'up') {
-    //   const currentscrollDown = document.querySelector('.current-button')
-    //   if (toView.id === 'intro') {
-    //     currentscrollDown.innerHTML = "View Salmon Species -->"
-    //   } else if (toView.id === 'splash') {
-    //     currentscrollDown.innerHTML = "To Introduction --> "
-    //   } else if (toView.id === 'salmon-species') {
-    //     currentscrollDown.innerHTML = 'View Data -->'
-    //   }
-    // }
-    if (direction === 'down') {
-      // const scrollDown = document.querySelector('.scroll-down')
-      // scrollDown.style.bottom = `${-(window.innerHeight - amt)}px`
-      // const splashContainer = document.querySelector('.splashContainer')
-      // splashContainer.style.position = 'fixed'
-    } 
-    amt -= Math.sqrt(((1.01 * amt) - window.innerHeight)/4)
-    waveTop.style.bottom = `${amt}px`
-    waveBottom.style.height = `${amt}px`
-    window.requestAnimationFrame(() => lowerWave(amt, direction, current, next))
-  } else if (amt - window.innerHeight < 0) {
-    amt -= Math.sqrt((window.innerHeight - (window.innerHeight - amt))/4)
-    waveTop.style.bottom = `${amt}px`
-    waveBottom.style.height = `${amt}px`
-    window.requestAnimationFrame(() => lowerWave(amt, direction, current, next))
-  } else if (amt < 800 && amt > -300) {
-    if (direction === 'down') {
-      amt -= Math.sqrt(600)
+  if (direction ==='up'){
+    if (amt - window.innerHeight >= 0) {
+      // if (direction === 'up') {
+      //   const prevButtonscrollDown = document.querySelector('.prevButton-button')
+      //   if (toView.id === 'intro') {
+      //     prevButtonscrollDown.innerHTML = "View Salmon Species -->"
+      //   } else if (toView.id === 'splash') {
+      //     prevButtonscrollDown.innerHTML = "To Introduction --> "
+      //   } else if (toView.id === 'salmon-species') {
+      //     prevButtonscrollDown.innerHTML = 'View Data -->'
+      //   }
+      // }
+      amt -= Math.sqrt(((1.01 * amt) - window.innerHeight)/4)
       waveTop.style.bottom = `${amt}px`
-      waveBottom.style.height = `${0}px`
-      window.requestAnimationFrame(() => lowerWave(amt, direction))
-    } else {
-      slowDown(amt)
+      waveBottom.style.height = `${amt}px`
+      window.requestAnimationFrame(() => lowerWave(amt, direction, prevButton, nextButton))
+    } else if (amt - window.innerHeight < 0 && amt > 10) {
+      amt -= Math.sqrt((window.innerHeight - (window.innerHeight - amt))/4)
+      const vertOffset = 85 + (window.innerHeight - amt) / 20
+      if (vertOffset >= 105 ) {
+        prevButton[0].style.display = "none"
+      } else {
+        prevButton[0].style.top = (`${vertOffset}%`)
+      }
+      nextButton[0].style.display = 'block'
+      nextButton[0].style.left = `${50 + amt / 10}%`
+      waveTop.style.bottom = `${amt}px`
+      waveBottom.style.height = `${amt}px`
+      window.requestAnimationFrame(() => lowerWave(amt, direction, prevButton, nextButton))
+    } else if (amt <= 10) {
+      waveTop.style.bottom = '0px'
+      waveBottom.style.height = '0px'
+      prevButton[0].classList.toggle('current-button')
+      prevButton[0].classList.toggle('next-button')
+      nextButton[0].classList.toggle('current-button')
+      nextButton[0].classList.toggle('next-button')
+      const current = document.querySelector('.current')
+      console.log(current)
+      nextButton[0].addEventListener('click', () => nextButton[1](current))
     }
-  } else {
-    if (direction === 'down')
+  } else if (direction === 'down') {
+
+    if (amt > window.innerHeight) {
+      amt -= Math.sqrt(100)
+      const vertOffset = 85 + (window.innerHeight - amt) / 20
+      if (vertOffset >= 105) {
+        prevButton[0].style.display = "none"
+      } else {
+        prevButton[0].style.top = (`${vertOffset}%`)
+      }
+      waveTop.style.bottom = `${amt}px`
+      waveBottom.style.height = `${amt}px`
+      window.requestAnimationFrame(() => lowerWave(amt, direction, prevButton, nextButton))
+    } else if (amt > 0) {
+      amt -= Math.sqrt(100 + (window.innerHeight - amt))
+      const vertOffset = 85 + (window.innerHeight - amt) / 20
+      if (vertOffset >= 105) {
+      prevButton[0].style.display = "none"
+      } else {
+      prevButton[0].style.top = (`${vertOffset}%`)
+      }
+      waveTop.style.bottom = `${amt}px`
+      waveBottom.style.height = `${amt}px`
+      window.requestAnimationFrame(() => lowerWave(amt, direction, prevButton, nextButton))
+    } else if(amt < 0 && amt > -420) {
+      amt -= Math.sqrt(100 + (window.innerHeight - amt))
+      prevButton[0].classList.toggle('current-button')
+      prevButton[0].classList.toggle('next-button')
+      waveTop.style.bottom = `${amt}px`
+      waveBottom.style.height = 0
+      window.requestAnimationFrame(() => lowerWave(amt, direction, prevButton, nextButton))
+    } else if (amt < -420) {
       waveTop.remove()
+    }
   }
 }
 

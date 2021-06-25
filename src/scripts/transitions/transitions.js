@@ -16,5 +16,5 @@ export const toSalmonSpecies = fromView => {
   raiseWave(15, 'up', toView, fromView)
 }
 export const toData = fromView => {
-  raiseWave(15, 'up', 'data')
+  raiseWave(15, 'down', null, fromView)
 }

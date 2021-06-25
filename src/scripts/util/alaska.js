@@ -249,8 +249,12 @@ export const renderAK = () => {
 }
 
 export const clearAK = () => {
-  d3.select("#alaska")
-    .remove()
+  
+  const AK = d3.select("#alaska")
+  if(AK) {
+    AK.remove()
+  }
+  
 }
 
 const hover = (title) => {
