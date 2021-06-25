@@ -1,20 +1,22 @@
 import { raiseWave } from '../util/wave.js'
 
 
-export const toSplash = fromView => {
+export const toSplash = () => {
+  const current = document.querySelector('.current')
   const toView = document.getElementById('splash')
-  raiseWaive(15, 'up', toView, fromView)
+  raiseWaive(15, 'up', toView, current)
 }
-export const toIntro = fromView => {
-
+export const toIntro = () => {
+  const current = document.querySelector('.current')
   const toView = document.getElementById('intro')
-  console.log(fromView, 'fromView', toView, 'toView')
-  raiseWave(15, 'up', toView, fromView)
+  raiseWave(15, 'up', toView, current)
 }
-export const toSalmonSpecies = fromView => {
+export const toSalmonSpecies = () => {
+  const current = document.querySelector('.current')
   const toView = document.getElementById('salmon-species')
-  raiseWave(15, 'up', toView, fromView)
+  raiseWave(15, 'up', toView, current)
 }
-export const toData = fromView => {
-  raiseWave(15, 'down', null, fromView)
+export const toData = () => {
+  const current = document.querySelector('.current')
+  raiseWave(15, 'down', null, current)
 }

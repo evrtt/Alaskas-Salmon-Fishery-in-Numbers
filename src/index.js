@@ -4,7 +4,8 @@ import { drawTransitionWave } from './scripts/util/wave.js';
 import { 
   toSplash, 
   toIntro, 
-  toSalmonSpecies 
+  toSalmonSpecies,
+  toData 
 } from './scripts/transitions/transitions.js'
 
 const catchData = initializeData();
@@ -25,7 +26,18 @@ window.addEventListener("DOMContentLoaded", (e) => {
   // drawStaticWave('#0060ae', scroll3)
   // drawStaticWave('#00467f', scroll4)
   
-  const current = document.querySelector('.current')
+  const navSplash = document.getElementById('nav-splash-span')
+  navSplash.addEventListener('click', toSplash)
+
+  const navIntro = document.getElementById('nav-intro-span')
+  navIntro.addEventListener('click', toIntro)
+
+  const navSalmon = document.getElementById('nav-salmon-species-span')
+  navSalmon.addEventListener('click', toSalmonSpecies)
+
+  const navData = document.getElementById('nav-data-span')
+  navData.addEventListener('click', toData)
+
   
   document.querySelector('.current-button').addEventListener('click',() => toIntro(current))
 }, false);

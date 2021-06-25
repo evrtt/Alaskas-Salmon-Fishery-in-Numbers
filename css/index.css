@@ -276,6 +276,7 @@ display: none;
   align-items: center;
   background-color: none;
   margin-left: 5px;
+  z-index: 10;
 }
 
 /* #nav hr {
@@ -286,11 +287,18 @@ display: none;
   padding: 3px 10px 3px 10px;
   border: solid 1px black;
   border-radius: 8px;
+  background-color: white;
 }
 
+#nav span:hover{
+  cursor: pointer;
+  color: blue;  
+  background-color: white;
+  border-color: blue;
+}
 #nav-splash-span {
-  background-color: blue;
-  color: white;
+  color: blue;
+  border-color: blue;
 }
 
 #nav-data-container {
