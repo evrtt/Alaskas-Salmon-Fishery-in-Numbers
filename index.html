@@ -15,14 +15,23 @@
 
   <body>
     <div id="header">
-      <div class="navbar">
-        
+      <a>
+        <i class="fa fa-github"></i>
+      </a>
+      <a>
+        <i class="fa fa-linkedin"></i>
+      </a>
+      <a>
+        <i class="fa fa-angellist"></i>
+      </a>
+      <div class="author-spans">
+        <a class='.ES' href=""><span>Everett Smith</span></a>
       </div>
     </div>
-    <div id="scroller" >
-      <div id="frames">
-        <section class="scroll-0">
-          <div class="scroll-0-container">
+    <div class="data-container">
+      <!-- <canvas class='wave-top'></canvas>
+        <canvas class='wave-bottom'></canvas> -->
+        <section id="splash" class="current">
             <div class="splash-container">
               <h1>
                 Alaska's Salmon Fishery
@@ -31,55 +40,41 @@
                 1979 - 2020
               </h3>
               <p>
-                A data visualisation of 41 years of catch and price data from 
-                the Salmon Fishing Industry in Alaska. 
+                A data visualisation of 41 years of catch and price data from
+                the Salmon Fishing Industry in Alaska.
                 All data was sourced from the
-                <a 
-                  href="https://www.adfg.alaska.gov/index.cfm?adfg=CommercialByFisherySalmon.main"
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  class="ADFG-link"
-                >
+                <a href="https://www.adfg.alaska.gov/index.cfm?adfg=CommercialByFisherySalmon.main" target="_blank"
+                  rel="noopener noreferrer" class="ADFG-link">
                   Alaska Department of Fish and Game.
                 </a>
               </p>
             </div>
-            <div class="scroll-down">Introduction</div>
-            <div class="scroll-down-arrow">☟</div>
-          </div>
-          <!-- Frame 1 -->
         </section>
-        <section class="scroll-1">
-          <div class="scroll-1-container">
+        <section id="intro" class="display-none">
+          <div class="intro-container">
             <p class="intro-p-1">
-              U+0009Alaska is home to the worlds largest remaining salmon populations. 
-              The Salmon Fishing Industry in the state is one of the world's most 
+              Alaska's salmon fishing industry is one of the world's most
               sustainable fisheries, having managed to produce billions of pounds
-              of wildcaught salmon and maintain populations for decades.
-              Curious about these variations, I created a visualisation of the 
-              state's data of the annual Salmon catch in pounds, exvessel value, 
-              and number of fish from 1979 to 2020.The data is divided between 
-              eleven different areas (see below) and between the five different 
-              species (see below) fished in Alaska.
+              of wildcaught salmon and maintain the worlds largest remaining 
+              salmon populations for decades.
             </p>
             <p class="intro-p-2">
-              Wild salmon are caught as they migrate back to the stream or river
-              where they were born to reproduce and die. Salmon fishing is a
-              highly unpredictable business due to the natural variations in fish
-              migrations and restrictions imposed by strict fishing management,
-              a challenge made increasingly difficult by climate change.
+              Salmon fishing is a highly unpredictable business due to the 
+              natural variations in fish migrations and restrictions imposed by 
+              strict fishing management, a challenge made increasingly difficult 
+              by climate change.
             </p>
             <p class="intro-p-3">
               Curious about these variations, I created a visualisation of the
               state's data of the annual Salmon catch in pounds, exvessel value,
               and number of fish from 1979 to 2020. The data is divided between
-              eleven different areas (see below) and between the five different
-              species (see below) fished in Alaska.
+              eleven different areas and between the five different
+              species fished in Alaska.
             </p>
           </div>
         </section>
-        <section class="scroll-2">
-          <div class="scroll-2-container">
+        <section id="salmon-species" class="display-none">
+          <div class="salmon-species-container">
             <p class="intro-p">
               The five species of Pacific Salmon fished in Alaska are...
             </p>
@@ -110,45 +105,20 @@
             </div>
           </div>
         </section>
-        <section class="scroll-3">
-          <div class="scroll-3-container">
-          </div>
-        </section>
-        <section class="scroll-4">
-          <div class="scroll-4-container">
-          </div>
-        </section>
-      </div>
-      <div class="data-container">
-        <!-- <canvas class='wave-top'></canvas>
-          <canvas class='wave-bottom'></canvas> -->
-          <div class="data">
-          </div>
-          <canvas class='wave-top'></canvas>
-          <canvas class='wave-bottom'></canvas>
-        <!-- <div class="scroll-down">Scroll Down to Begin</div>
+        <div id='intro-button' class="current-button">Introduction</div>
+        <div id='salmon-species-button' class="next-button">Salmon Species</div>
+        <div id='data-button' class="next-button">Salmon Species</div>
+        <div class="data">
+        </div>
+        <canvas class='wave-top'></canvas>
+        <canvas class='wave-bottom'></canvas>
+      <!-- <div class="scroll-down">Scroll Down to Begin</div>
+      <div>
         <div>
-          <div>
-            <h1></h1>
+          <h1></h1>
 
-          </div>
-        </div> -->
-      </div>
-    </div>
-    <div id="header">      
-      <a>
-        <i class="fa fa-github"></i>
-      </a>
-      <a>
-        <i class="fa fa-linkedin"></i>
-      </a>
-      <a>
-        <i class="fa fa-angellist"></i>
-      </a>
-      <div class="author-spans">
-        <span>Created by:</span>
-        <a class='.ES' href=""><span>Everett Smith</span></a>
-      </div>
+        </div>
+      </div> -->
     </div>
   </body>
 

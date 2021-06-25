@@ -1,47 +1,43 @@
-#scroller {
+/* #scroller {
   width: 100vw;
   height: auto;
 }
 
 #frames {
-/* position: relative; */
 display: block;
 width: 100vw;
 z-index: 1;
-}
-
-/* #frames section{
-height: 100vh;
 } */
 
-.scroll-0{
+#splash {
   background-color: #5aaff4;
   height: 100vh
 }
 
-.scroll-1 {
+#intro {
   background-color: #389bec;
-  height: 150vh;
+  height: 100vh;
 }
-.scroll-2{
+
+#salmon-species {
   background-color: #188ae7;
-  height: 200vh;
+  height: 100vh;
 }
-.scroll-3 {
+/* #scroll-3 {
   background-color: #0372cd;
-  height: 150vh;
+  height: 100vh;
 }
-.scroll-4 {
+#scroll-4 {
   background-color: #0060ae;
-  height: 150vh;
-}
+  height: 100vh;
+} */
 
 .scroll-0-container {
   width: 100%;
   height: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
+  justify-content: center;
   align-items: center;
 }
 
@@ -58,7 +54,7 @@ background-color: white;
 display: none;
 }
 
-.data-0 {
+/* .data-0 {
   background-color: #0b70c3;
   transition: background 200ms ease-in
 }
@@ -77,7 +73,7 @@ display: none;
 .data-4 {
   background-color: #0b70c3;
   transition: background 500ms ease-in
-}
+} */
 
 /* #frame-0{
   
@@ -95,7 +91,7 @@ display: none;
 
 } */
 
-.data-on{
+/* .data-on{
   display: inline-block;
   height: 100%;
   width: 100%;
@@ -103,14 +99,12 @@ display: none;
 
 .data-off{
   display: none;
-}
+} */
 
 .data-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
   height: 100vh;
   width: 100vw;
+  overflow-x: hidden;
 }
 
 .years-container {
@@ -153,49 +147,96 @@ display: none;
   height: 14px;
 }
 
-.static-wave-top {
+/* .static-wave-top {
   display: block;
-  /* position: relative; */
-  /* height: 50vh;
-  width: 100vw; */
-  /* bottom: 0; */
-}
+  position: relative;
+  height: 50vh;
+  width: 100vw;
+  bottom: 0;
+} */
+  
+.wave-top {
+  display: block;
+  position: fixed;
+  bottom: 0;
 
-.static-wave-top-white {
-  display: block;
 }
 
 .wave-bottom {
   display: block;
   width: 110vw;
-  z-index: 10;
-  position: relative;
-  bottom: 0;
   background-color: blue;
   height: 0;
+  position: fixed;
+  bottom: 0;
 }
 
 #hidden-wave {
   display: none;
 }
 
-.scroll-down {
-  font-size: 30px;
+#button-container{
+  position: fixed;
+  bottom: 20%;
+  width: 100%;
+  height: fit-content;
+  justify-content: center;
+  flex-direction: row;  
+  align-items: center;
+  background-color: none;
+  z-index: 5;
+}
+
+.current-button {
+  font-size: 50px;
+  text-align: center;
+  font-family: Arial, Helvetica, sans-serif; 
+  color: #5aaff4;
+  font-weight: 800;
+  z-index: 5;
+  position: absolute;
+  left: 50%;
+  top: 85%;
+  transform: translate(-50%, -50%);
+}
+
+.current-button:hover {
+  cursor: pointer;
+  border: solid 1px white;
+  color: white;
+  border-radius: 8px;
+}
+
+.next-button {
+  font-size: 50px;
+  text-align: center;
+  font-family: Arial, Helvetica, sans-serif; 
+  color: #5aaff4;
+  font-weight: 800;
+  z-index: 5;
+  position: absolute;
+  left: 120%;
+  top: 85%;
+  transform: translate(-50%, -50%);
+  display: none;
+}
+
+.moving-scroll-down {
+  font-size: 50px;
   font-family: Arial, Helvetica, sans-serif; 
   color: #5aaff4;
   font-weight: 800;
   position: relative;
-  bottom: -45vh;
 }
 
-.scroll-down-arrow {
+/* .scroll-down-arrow {
   font-size: 60px;
   font-family: Arial, Helvetica, sans-serif; 
   color: #5aaff4;
   font-weight: 800;
   position: relative;
-  bottom: -46vh;
-}
+  bottom: -2vh;
+} */
 
 .hidden {
   display: none;
@@ -227,14 +268,12 @@ display: none;
 
 .splash-container{
   width: 100vw;
-  height: 20vh;
+  height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   color: white;
-  position: relative;
-  bottom: -20vh
 }
 
 .splash-container h1 {
@@ -264,16 +303,16 @@ body {
   margin: 0;
 }
 
-.scroll-1-container {
+.intro-container {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: flex-end;
-  height: 100%;
+  justify-content: center;
+  height: 70%;
 }
 
-.scroll-1-container p {
-  font-size: 20px;
+.intro-container p {
+  font-size: 2.8vh;
   color: white;
   width: 90vw;
 }
@@ -403,4 +442,8 @@ a:active {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+.display-none {
+  display: none;
 }

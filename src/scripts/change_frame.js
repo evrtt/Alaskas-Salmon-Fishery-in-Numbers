@@ -1,8 +1,8 @@
-import { introToSpatial } from './transitions/intro_to_spatial.js';
-import { clearCharts } from './util/bubble_chart.js'
-import { splashToIntro } from './transitions/splash_to_intro.js';
-import { introToSplash } from './transitions/intro_to_splash.js';
-import { spatialToTemporal } from './transitions/spatial_to_temporal.js';
+// import { introToSpatial } from './transitions/intro_to_spatial.js';
+// import { clearCharts } from './util/bubble_chart.js'
+// import { splashToIntro } from './transitions/splash_to_intro.js';
+// import { introToSplash } from './transitions/to_splash.js';
+// import { spatialToTemporal } from './transitions/spatial_to_temporal.js';
 
 export default (next, last) => {
   switch (`${last}${next}`) {

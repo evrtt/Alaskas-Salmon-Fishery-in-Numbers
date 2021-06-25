@@ -1,5 +1,4 @@
-import { renderAK , clearAK} from '../util/alaska.js'
-import { removeSplash, renderSplash } from './splash.js'
+import {renderAK , clearAK} from '../util/alaska.js'
 
 export const addWaveCanvas = () => {
 
@@ -133,178 +132,207 @@ export const drawTransitionWave = () => {
   }
 }
 
-export const drawStaticWave = (color, element) => {
+// export const drawStaticWave = (color, element) => {
 
-  let selector = color[0] === '#' ? color.slice(1) : color
+//   let selector = color[0] === '#' ? color.slice(1) : color
 
-  let iterator = 120
-  let canvas = document.querySelector(`.static-wave-${selector}`)
-  if (canvas) {
-    null
-  } else {
-    canvas = document.createElement('canvas');
-    canvas.classList.add(`static-wave-${selector}`);
-    element.appendChild(canvas)
-  }
+//   let iterator = 120
+//   let canvas = document.querySelector(`.static-wave-${selector}`)
+//   if (canvas) {
+//     null
+//   } else {
+//     canvas = document.createElement('canvas');
+//     canvas.classList.add(`static-wave-${selector}`);
+//     element.appendChild(canvas)
+//   }
 
-  const context = canvas.getContext('2d');
-  const radius = 1000
+//   const context = canvas.getContext('2d');
+//   const radius = 1000
 
-  window.requestAnimationFrame(() => drawFrame(iterator))
+//   window.requestAnimationFrame(() => drawFrame(iterator))
 
-  const drawFrame = (iterator) => {
+//   const drawFrame = (iterator) => {
     
 
-    const width = (Math.floor(window.innerWidth / 1000) + 2) * 1000
-    canvas.width = context.width = window.innerWidth
-    const height = canvas.height = context.height = 420
-    const numLoops = (width) / 1000 + 2
-    let changeSmallX;
-    let moveCenter;
+//     const width = (Math.floor(window.innerWidth / 1000) + 2) * 1000
+//     canvas.width = context.width = window.innerWidth
+//     const height = canvas.height = context.height = 420
+//     const numLoops = (width) / 1000 + 2
+//     let changeSmallX;
+//     let moveCenter;
 
     
 
-    const mod60 = iterator % 60
-    const mod30 = iterator % 30
-    if (iterator === 0) {
-      changeSmallX = radius
-      moveCenter = 0
-    } else if (iterator > 0 && iterator < 30) {
-      changeSmallX = 2 * radius * (Math.sin(((Math.PI * (60 - (mod30 * 2))) / 180) / 2))
-      moveCenter = ((radius / 2) - (changeSmallX / 2))
+//     const mod60 = iterator % 60
+//     const mod30 = iterator % 30
+//     if (iterator === 0) {
+//       changeSmallX = radius
+//       moveCenter = 0
+//     } else if (iterator > 0 && iterator < 30) {
+//       changeSmallX = 2 * radius * (Math.sin(((Math.PI * (60 - (mod30 * 2))) / 180) / 2))
+//       moveCenter = ((radius / 2) - (changeSmallX / 2))
       
-    } else if (iterator === 30) {
-      changeSmallX = 0
-      moveCenter = radius / 2
+//     } else if (iterator === 30) {
+//       changeSmallX = 0
+//       moveCenter = radius / 2
       
-    } else if (iterator > 30 && iterator < 60) {
-      changeSmallX = 2 * radius * (Math.sin(((Math.PI * mod30 * 2) / 180) / 2))
-      moveCenter = radius - ((radius / 2) - (changeSmallX / 2))
+//     } else if (iterator > 30 && iterator < 60) {
+//       changeSmallX = 2 * radius * (Math.sin(((Math.PI * mod30 * 2) / 180) / 2))
+//       moveCenter = radius - ((radius / 2) - (changeSmallX / 2))
       
-    } else if (iterator === 60) {
-      changeSmallX = radius
-      moveCenter = radius
+//     } else if (iterator === 60) {
+//       changeSmallX = radius
+//       moveCenter = radius
       
-    } else if (iterator > 60 && iterator < 90) {
-      changeSmallX = 2 * radius * (Math.sin(((Math.PI * (60 - (mod30 * 2))) / 180) / 2))
-      moveCenter = ((radius / 2) - (changeSmallX / 2)) + radius
+//     } else if (iterator > 60 && iterator < 90) {
+//       changeSmallX = 2 * radius * (Math.sin(((Math.PI * (60 - (mod30 * 2))) / 180) / 2))
+//       moveCenter = ((radius / 2) - (changeSmallX / 2)) + radius
       
-    } else if (iterator === 90) {
-      changeSmallX = 0
-      moveCenter = radius * 1.5
+//     } else if (iterator === 90) {
+//       changeSmallX = 0
+//       moveCenter = radius * 1.5
       
-    } else if (iterator > 90 && iterator < 120) {
-      changeSmallX = 2 * radius * (Math.sin(((Math.PI * mod30 * 2) / 180) / 2))
-      moveCenter = radius * 2 - ((radius / 2) - (changeSmallX / 2))
-    }
+//     } else if (iterator > 90 && iterator < 120) {
+//       changeSmallX = 2 * radius * (Math.sin(((Math.PI * mod30 * 2) / 180) / 2))
+//       moveCenter = radius * 2 - ((radius / 2) - (changeSmallX / 2))
+//     }
 
-    const changeY = Math.sqrt((radius ** 2) - ((radius / 2) ** 2)) * 2
+//     const changeY = Math.sqrt((radius ** 2) - ((radius / 2) ** 2)) * 2
 
-    context.clearRect(0, 0, width, height)
-    for (let i = 0; i < numLoops; i++) {
+//     context.clearRect(0, 0, width, height)
+//     for (let i = 0; i < numLoops; i++) {
 
-      if (i === 0) {
+//       if (i === 0) {
 
-        if (iterator > 59) {
+//         if (iterator > 59) {
 
-          context.beginPath()
-          context.arc((radius * ((2 * i) + 1)) + (radius / 2) - moveCenter, changeY - 580, radius, Math.PI * 240 / 180, Math.PI * 300 / 180, false)
-          context.lineTo(radius * 2 - (moveCenter - 1), (changeY / 2) - 580)
-          context.lineTo(radius * 2 - (moveCenter - 1), height + 1)
-          context.lineTo(0, height + 1)
-          context.fillStyle = color
-          context.fill()
+//           context.beginPath()
+//           context.arc((radius * ((2 * i) + 1)) + (radius / 2) - moveCenter, changeY - 580, radius, Math.PI * 240 / 180, Math.PI * 300 / 180, false)
+//           context.lineTo(radius * 2 - (moveCenter - 1), (changeY / 2) - 580)
+//           context.lineTo(radius * 2 - (moveCenter - 1), height + 1)
+//           context.lineTo(0, height + 1)
+//           context.fillStyle = color
+//           context.fill()
 
-        } else {
+//         } else {
 
-          context.beginPath()
-          context.arc((radius / 2) - moveCenter, -580, radius, (Math.PI * 60) / 180, (Math.PI * (120 - mod60)) / 180, false)
-          context.lineTo(0, height + 1)
-          context.lineTo(radius * 2 - (moveCenter - 1), height + 1)
-          context.lineTo(radius * 2 - (moveCenter - 1), (changeY / 2) - 580)
-          context.moveTo((radius * ((2 * i) + 1)) + (radius / 2) - moveCenter, (changeY / 2) - 580)
-          context.arc((radius * ((2 * i) + 1)) + (radius / 2) - moveCenter, changeY - 580, radius, Math.PI * 240 / 180, Math.PI * 300 / 180, false)
-          context.fillStyle = color
-          context.fill()
-        }
+//           context.beginPath()
+//           context.arc((radius / 2) - moveCenter, -580, radius, (Math.PI * 60) / 180, (Math.PI * (120 - mod60)) / 180, false)
+//           context.lineTo(0, height + 1)
+//           context.lineTo(radius * 2 - (moveCenter - 1), height + 1)
+//           context.lineTo(radius * 2 - (moveCenter - 1), (changeY / 2) - 580)
+//           context.moveTo((radius * ((2 * i) + 1)) + (radius / 2) - moveCenter, (changeY / 2) - 580)
+//           context.arc((radius * ((2 * i) + 1)) + (radius / 2) - moveCenter, changeY - 580, radius, Math.PI * 240 / 180, Math.PI * 300 / 180, false)
+//           context.fillStyle = color
+//           context.fill()
+//         }
 
-      } else if (i === numLoops - 1) {
+//       } else if (i === numLoops - 1) {
 
-        context.beginPath()
-        context.arc((radius / 2) + (radius * i * 2) - moveCenter, -580, radius, (Math.PI * 60) / 180, (Math.PI * 120) / 180, false)
-        context.lineTo(radius * 2 * i - moveCenter, height + 1)
-        context.lineTo(radius * (2 + (i * 2)) - moveCenter, height + 1)
-        context.lineTo(radius * (2 + (i * 2)) - moveCenter, (changeY / 2) - 580)
-        context.moveTo((radius * ((2 * i) + 1)) + (radius / 2) - moveCenter, (changeY / 2) - 580)
-        context.arc((radius * ((2 * i) + 1)) + (radius / 2) - moveCenter, changeY - 580, radius, Math.PI * 240 / 180, Math.PI * 300 / 180, false)
-        context.fillStyle = color
-        context.fill()
-      } else {
+//         context.beginPath()
+//         context.arc((radius / 2) + (radius * i * 2) - moveCenter, -580, radius, (Math.PI * 60) / 180, (Math.PI * 120) / 180, false)
+//         context.lineTo(radius * 2 * i - moveCenter, height + 1)
+//         context.lineTo(radius * (2 + (i * 2)) - moveCenter, height + 1)
+//         context.lineTo(radius * (2 + (i * 2)) - moveCenter, (changeY / 2) - 580)
+//         context.moveTo((radius * ((2 * i) + 1)) + (radius / 2) - moveCenter, (changeY / 2) - 580)
+//         context.arc((radius * ((2 * i) + 1)) + (radius / 2) - moveCenter, changeY - 580, radius, Math.PI * 240 / 180, Math.PI * 300 / 180, false)
+//         context.fillStyle = color
+//         context.fill()
+//       } else {
 
-        context.beginPath()
-        context.arc((radius / 2) + (radius * i * 2) - moveCenter, -580, radius, (Math.PI * 60) / 180, (Math.PI * 120) / 180, false)
-        context.lineTo(0 + radius * 2 * i - moveCenter, height + 1)
-        context.lineTo(radius * (2 + (i * 2)) - moveCenter, height + 1)
-        context.lineTo(radius * (2 + (i * 2)) - moveCenter, (changeY / 2) - 580)
-        context.moveTo((radius * ((2 * i) + 1)) + (radius / 2) - moveCenter, (changeY / 2) - 580)
-        context.arc((radius * ((2 * i) + 1)) + (radius / 2) - moveCenter, changeY - 580, radius, Math.PI * 240 / 180, Math.PI * 300 / 180, false)
-        context.fillStyle = color
-        context.fill()
-      }
-    }
+//         context.beginPath()
+//         context.arc((radius / 2) + (radius * i * 2) - moveCenter, -580, radius, (Math.PI * 60) / 180, (Math.PI * 120) / 180, false)
+//         context.lineTo(0 + radius * 2 * i - moveCenter, height + 1)
+//         context.lineTo(radius * (2 + (i * 2)) - moveCenter, height + 1)
+//         context.lineTo(radius * (2 + (i * 2)) - moveCenter, (changeY / 2) - 580)
+//         context.moveTo((radius * ((2 * i) + 1)) + (radius / 2) - moveCenter, (changeY / 2) - 580)
+//         context.arc((radius * ((2 * i) + 1)) + (radius / 2) - moveCenter, changeY - 580, radius, Math.PI * 240 / 180, Math.PI * 300 / 180, false)
+//         context.fillStyle = color
+//         context.fill()
+//       }
+//     }
 
-    iterator = iterator === 0 ? 119.5 : iterator - 0.5
-    window.requestAnimationFrame(() => drawFrame(iterator))
-  }
-}
+//     iterator = iterator === 0 ? 119.5 : iterator - 0.5
+//     window.requestAnimationFrame(() => drawFrame(iterator))
+//   }
+// }
 
-export const raiseWave = (amt, direction) => {
+export const raiseWave = (amt, direction, toView, fromView) => {
   
+  console.log(toView, "toView", fromView, 'fromView')
+
   const waveTop = document.getElementsByClassName('wave-top')[0]
   const waveBottom = document.getElementsByClassName('wave-bottom')[0]
   
+  const toggleView = view => {
+    view.classList.toggle('display-none')
+    view.classList.toggle('current')
+  }
 
   if (amt >= window.innerHeight - 1) { 
+
+    const buttons = {
+      splash: 'intro-button',
+      intro: 'salmon-species-button',
+      salmonspecies: 'data-button'
+    }
+    let prevButton;
+    let nextButton;
     if (direction === 'down') {
-      removeSplash();
-      renderAK();
+      // toggleView(fromView)
+      // toggleView(toView)
+      // document.querySelector('.scroll-down').addEventListener('click', () => toIntro(current))
     } else if (direction === 'up') {
-      clearAK();
-      renderSplash();
+      nextButton = document.getElementById(buttons[toView.id.split('-').join()])
+      prevButton = document.getElementById(buttons[fromView.id.split('-').join()])
+      console.log(prevButton, 'prevButton', nextButton, 'nextButton')
+      toggleView(fromView)
+      toggleView(toView)
+      // document.querySelector('.scroll-down').addEventListener('click', () => toIntro(current))
     }
-    window.requestAnimationFrame(() => lowerWave(amt, direction) )
+    window.requestAnimationFrame(() => lowerWave(amt, direction, prevButton, nextButton) )
   } else {
-    if(direction === 'up') {
-      const scrollDown = document.querySelector('.scroll-down')
-      scrollDown.style.bottom = `${amt - window.innerHeight}px`
-    }
     amt += Math.sqrt(window.innerHeight - amt)
     waveTop.style.bottom = `${amt}px`
     waveBottom.style.height = `${amt + 1}px`
-    window.requestAnimationFrame(() => raiseWave(amt, direction))
+    window.requestAnimationFrame(() => raiseWave(amt, direction, toView, fromView))
   }
 }
 
-export const lowerWave = (amt, direction) => {
+export const lowerWave = (amt, direction, current, next) => {
   
   const waveTop = document.querySelector('.wave-top')
   const waveBottom = document.querySelector('.wave-bottom')
   
 
 
-  if (amt > 0) {
+  if (amt - window.innerHeight >= 0) {
 
+    // if (direction === 'up') {
+    //   const currentscrollDown = document.querySelector('.current-button')
+    //   if (toView.id === 'intro') {
+    //     currentscrollDown.innerHTML = "View Salmon Species -->"
+    //   } else if (toView.id === 'splash') {
+    //     currentscrollDown.innerHTML = "To Introduction --> "
+    //   } else if (toView.id === 'salmon-species') {
+    //     currentscrollDown.innerHTML = 'View Data -->'
+    //   }
+    // }
     if (direction === 'down') {
-      const scrollDown = document.querySelector('.scroll-down')
-      scrollDown.style.bottom = `${-(window.innerHeight - amt)}px`
+      // const scrollDown = document.querySelector('.scroll-down')
+      // scrollDown.style.bottom = `${-(window.innerHeight - amt)}px`
       // const splashContainer = document.querySelector('.splashContainer')
       // splashContainer.style.position = 'fixed'
-    }
-    
-    amt -= Math.sqrt(window.innerHeight - amt)
+    } 
+    amt -= Math.sqrt(((1.01 * amt) - window.innerHeight)/4)
     waveTop.style.bottom = `${amt}px`
     waveBottom.style.height = `${amt}px`
-    window.requestAnimationFrame(() => lowerWave(amt, direction))
+    window.requestAnimationFrame(() => lowerWave(amt, direction, current, next))
+  } else if (amt - window.innerHeight < 0) {
+    amt -= Math.sqrt((window.innerHeight - (window.innerHeight - amt))/4)
+    waveTop.style.bottom = `${amt}px`
+    waveBottom.style.height = `${amt}px`
+    window.requestAnimationFrame(() => lowerWave(amt, direction, current, next))
   } else if (amt < 800 && amt > -300) {
     if (direction === 'down') {
       amt -= Math.sqrt(600)
