@@ -242,24 +242,62 @@ display: none;
   display: none;
 }
 
-#header {
+#personal-links {
   z-index: 10;
   position: fixed;
   top: 0;
   right: 0;
   height: 40px;
-  width: 50vw;
+  width: 40vw;
   max-width: 280px;
   display: flex;
   flex-direction: row;
   justify-content: space-around;
   align-items: center;
-  background: none;
   color: rgb(44, 44, 44);
   padding: 3px;
   font-size: 30px;
   background-color: white;
   border-radius: 0 0 0 8px;
+}
+
+#nav {
+  position: fixed;
+  font-size: 20px;
+  font-weight: 600;
+  color: black;
+  top: 0;
+  left: 0;
+  height: 50px;
+  width: 60vw;
+  max-width: 700px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background-color: none;
+  margin-left: 5px;
+}
+
+/* #nav hr {
+  width: fit-content;
+} */
+
+#nav span {
+  padding: 3px 10px 3px 10px;
+  border: solid 1px black;
+  border-radius: 8px;
+}
+
+#nav-splash-span {
+  background-color: blue;
+  color: white;
+}
+
+#nav-data-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
 }
 
 #footer a:hover {
