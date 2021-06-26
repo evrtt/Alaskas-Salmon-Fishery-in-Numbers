@@ -41,8 +41,7 @@ z-index: 1;
   align-items: center;
 }
 
-.data {
-display: flex;
+#data {
 position: fixed;
 top: 0px;
 left: 0px;
@@ -50,7 +49,6 @@ max-width: 100%;
 height: 100vh;
 width: 100vw;
 background-color: #5aaff4;
-display: none;
 }
 
 /* .data-0 {

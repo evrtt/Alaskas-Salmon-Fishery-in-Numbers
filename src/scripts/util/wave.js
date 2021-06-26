@@ -5,16 +5,6 @@ import {
   toData
 } from '../transitions/transitions.js'
 
-export const addWaveCanvas = () => {
-
-}
-
-export const removeWave = () => {
-  document.querySelector('.wave-top');
-  canvas.id = "hidden-wave"
-}
-
-
 export const drawTransitionWave = () => {
 
   let iterator = 120
@@ -283,7 +273,8 @@ export const raiseWave = (amt, direction, toView, fromView) => {
     let nextButton;
     if (direction === 'down') {
 
-      document.querySelector('.data').style.display = 'block'
+      toggleView(fromView)
+      toggleView(toView)
       renderAK()
       prevButton = [
         document.getElementById(buttons[fromView.id.split('-').join('')][0]),
@@ -291,18 +282,22 @@ export const raiseWave = (amt, direction, toView, fromView) => {
       ]
 
     } else if (direction === 'up') {
-      clearAK()
-
-      console.log(toView, 'toView', fromView, 'fromView')
-
+      if(fromView.id === 'data'){
+        clearAK()
+      } else {
+        prevButton = [
+          document.getElementById(buttons[fromView.id.split('-').join('')][0]),
+          buttons[fromView.id.split('-').join('')][1]
+        ]
+      }
       nextButton = [
         document.getElementById(buttons[toView.id.split('-').join('')][0]),
         buttons[toView.id.split('-').join('')][1]
        ]
-      prevButton = [
-        document.getElementById(buttons[fromView.id.split('-').join('')][0]),
-        buttons[fromView.id.split('-').join('')][1]
-      ]
+      // prevButton = [
+      //   document.getElementById(buttons[fromView.id.split('-').join('')][0]),
+      //   buttons[fromView.id.split('-').join('')][1]
+      // ]
       toggleView(fromView)
       toggleView(toView)
       // document.querySelector('.scroll-down').addEventListener('click', () => toIntro(current))
@@ -322,18 +317,8 @@ export const lowerWave = (amt, direction, prevButton, nextButton) => {
   const waveBottom = document.querySelector('.wave-bottom')
   
 
-  if (direction ==='up'){
+  if (direction === 'up' && !!prevButton){
     if (amt - window.innerHeight >= 0) {
-      // if (direction === 'up') {
-      //   const prevButtonscrollDown = document.querySelector('.prevButton-button')
-      //   if (toView.id === 'intro') {
-      //     prevButtonscrollDown.innerHTML = "View Salmon Species -->"
-      //   } else if (toView.id === 'splash') {
-      //     prevButtonscrollDown.innerHTML = "To Introduction --> "
-      //   } else if (toView.id === 'salmon-species') {
-      //     prevButtonscrollDown.innerHTML = 'View Data -->'
-      //   }
-      // }
       amt -= Math.sqrt(((1.01 * amt) - window.innerHeight)/4)
       waveTop.style.bottom = `${amt}px`
       waveBottom.style.height = `${amt}px`
@@ -347,6 +332,7 @@ export const lowerWave = (amt, direction, prevButton, nextButton) => {
         prevButton[0].style.top = (`${vertOffset}%`)
       }
       nextButton[0].style.display = 'block'
+      nextButton[0].style.top = '85%'
       nextButton[0].style.left = `${50 + amt / 10}%`
       waveTop.style.bottom = `${amt}px`
       waveBottom.style.height = `${amt}px`
@@ -356,6 +342,7 @@ export const lowerWave = (amt, direction, prevButton, nextButton) => {
       waveBottom.style.height = '0px'
       prevButton[0].classList.toggle('current-button')
       prevButton[0].classList.toggle('next-button')
+      prevButton[0].style.top = '85%'
       nextButton[0].classList.toggle('current-button')
       nextButton[0].classList.toggle('next-button')
       const current = document.querySelector('.current')
@@ -363,7 +350,6 @@ export const lowerWave = (amt, direction, prevButton, nextButton) => {
       nextButton[0].addEventListener('click', () => nextButton[1](current))
     }
   } else if (direction === 'down') {
-
     if (amt > window.innerHeight) {
       amt -= Math.sqrt(100)
       const vertOffset = 85 + (window.innerHeight - amt) / 20
@@ -390,11 +376,44 @@ export const lowerWave = (amt, direction, prevButton, nextButton) => {
       amt -= Math.sqrt(100 + (window.innerHeight - amt))
       prevButton[0].classList.toggle('current-button')
       prevButton[0].classList.toggle('next-button')
+      prevButton[0].style.top = '85%'
       waveTop.style.bottom = `${amt}px`
       waveBottom.style.height = 0
       window.requestAnimationFrame(() => lowerWave(amt, direction, prevButton, nextButton))
     } else if (amt < -420) {
       waveTop.remove()
+      const current = document.querySelector('.current')
+      console.log(current)    }
+  } else if (direction === 'up' && !prevButton) {
+    if (amt - window.innerHeight >= 0) {
+      amt -= Math.sqrt(((1.01 * amt) - window.innerHeight) / 4)
+      waveTop.style.bottom = `${amt}px`
+      waveBottom.style.height = `${amt}px`
+      window.requestAnimationFrame(() => lowerWave(amt, direction, prevButton, nextButton))
+    } else if (amt - window.innerHeight < 0 && amt > 10) {
+      amt -= Math.sqrt((window.innerHeight - (window.innerHeight - amt)) / 4)
+      // const vertOffset = 85 + (window.innerHeight - amt) / 20
+      // if (vertOffset >= 105) {
+      //   prevButton[0].style.display = "none"
+      // } else {
+      //   prevButton[0].style.top = (`${vertOffset}%`)
+      // }
+      nextButton[0].style.top = '85%'
+      nextButton[0].style.display = 'block'
+      nextButton[0].style.left = `${50 + amt / 10}%`
+      waveTop.style.bottom = `${amt}px`
+      waveBottom.style.height = `${amt}px`
+      window.requestAnimationFrame(() => lowerWave(amt, direction, prevButton, nextButton))
+    } else if (amt <= 10) {
+      waveTop.style.bottom = '0px'
+      waveBottom.style.height = '0px'
+      // prevButton[0].classList.toggle('current-button')
+      // prevButton[0].classList.toggle('next-button')
+      nextButton[0].classList.toggle('current-button')
+      nextButton[0].classList.toggle('next-button')
+      const current = document.querySelector('.current')
+      console.log(current)
+      nextButton[0].addEventListener('click', () => nextButton[1](current))
     }
   }
 }

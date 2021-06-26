@@ -4,7 +4,7 @@ const createObservers = () => {
   
   let counter = []
   let callback = (entries) => {
-    let data = document.querySelector('.data')
+    let data = document.querySelector('#data')
     let dataClasses = data.className.split(" ")
     entries.forEach(entry => {
       const frameNum = entry.target.className.split("-")[1]

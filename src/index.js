@@ -27,18 +27,18 @@ window.addEventListener("DOMContentLoaded", (e) => {
   // drawStaticWave('#00467f', scroll4)
   
   const navSplash = document.getElementById('nav-splash-span')
-  navSplash.addEventListener('click', toSplash)
-
-  const navIntro = document.getElementById('nav-intro-span')
-  navIntro.addEventListener('click', toIntro)
-
-  const navSalmon = document.getElementById('nav-salmon-species-span')
-  navSalmon.addEventListener('click', toSalmonSpecies)
-
-  const navData = document.getElementById('nav-data-span')
-  navData.addEventListener('click', toData)
-
+  navSplash.addEventListener('click', () => toSplash())
   
+  const navIntro = document.getElementById('nav-intro-span')
+  navIntro.addEventListener('click', () => toIntro())
+  
+  const navSalmon = document.getElementById('nav-salmon-species-span')
+  navSalmon.addEventListener('click', () => toSalmonSpecies())
+  
+  const navData = document.getElementById('nav-data-span')
+  navData.addEventListener('click', () => toData())
+  
+  const current = document.querySelector('.current')
   document.querySelector('.current-button').addEventListener('click',() => toIntro(current))
 }, false);
 

@@ -99,7 +99,7 @@ export const genBubbles = (year, swtch) => {
 
 export const introToSpatial = (yr) => {
   
-  renderYears();
+  // renderYears();
   genBubbles(yr, "set");
   
 }

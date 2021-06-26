@@ -187,10 +187,11 @@ const salmonAreas = areas.map(
 )
 
 const areaTitleLocation = projection([-160, 68])
+const switchButtonLocation = projection([-140, 53.8])
 
 export const renderAK = () => {
 
-  const svg = d3.select(".data")
+  const svg = d3.select("#data")
     .append("svg")
     .attr("id", "alaska")
     .attr("width", width)
@@ -245,7 +246,52 @@ export const renderAK = () => {
     .attr('font-size', '12px')
     .attr('fill', 'white')
 
+  d3.select("#alaska-svg")
+    .append("g")
+    .attr('id', 'switch-graph')
+    .attr('x', switchButtonLocation[0])
+    .attr('y', switchButtonLocation[1])
+    .append('rect')
+    .attr('id', 'by-area-rect')
+    .attr('class', 'selected')
+    .attr('x', switchButtonLocation[0])
+    .attr('y', switchButtonLocation[1])
+    .attr('height', height / 25)
+    .attr('width', height / 25)
+    .attr('stroke', 'black')
+    .attr('fill', 'none')
+  
+  d3.select('#switch-graph')
+    .append('rect')
+    .attr('id', 'by-year-rect')
+    .attr('class', '')
+    .attr('x', switchButtonLocation[0])
+    .attr('y', switchButtonLocation[1] + height / 25)
+    .attr('height', height / 25)
+    .attr('width', height / 25)
+    .attr('stroke', 'black')
+    .attr('fill', 'none')
+
+  d3.select(`#switch-graph`)
+    .append('text')
+    .attr('x', switchButtonLocation[0] + height / 25 + 5)
+    .attr('y', switchButtonLocation[1] + 1.3 * (height / 50))
+    .text('View data by area')
+    .attr('font-size', height / 40)
+
+  d3.select(`#switch-graph`)
+    .append('text')
+    .attr('x', switchButtonLocation[0] + height / 25 + 5)
+    .attr('y', switchButtonLocation[1] + height / 25 + 1.3 * (height / 50))
+    .text('View data by year')
+    .attr('font-size', height / 40)
+
+
   document.getElementById('alaska-svg').focus()
+}
+
+export const switchGraph = (currentGraph) => {
+  
 }
 
 export const clearAK = () => {
