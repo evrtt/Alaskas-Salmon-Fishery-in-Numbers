@@ -1,4 +1,4 @@
-import catchData from '../../index.js';
+import { catchData } from '../../index.js';
 import {
   clearCharts
 } from '../util/bubble_chart.js'

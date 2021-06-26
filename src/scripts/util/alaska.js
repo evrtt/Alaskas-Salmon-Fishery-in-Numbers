@@ -1,21 +1,11 @@
 import AK from '../../../alaska_500k.js';
+import { projection, alaskaGeoJson } from '../../index.js'
 import {renderAreaChart} from './area_chart.js'
+import { switchGraphRaise } from './switch_graph.js'
+import { drawTransitionWave } from './wave.js'
 
 const width = window.innerWidth;
 const height = window.innerHeight;
-const alaskaGeoJson = {
-  "type": "FeatureCollection",
-  "features": [AK]
-}
-
-export const projection = d3.geoMercator()
-  .fitExtent(
-    [
-      [10, 10],
-      [width - 10, height - 10],
-    ],
-    alaskaGeoJson
-  )
 
 export const areas = [
     {
@@ -177,19 +167,19 @@ export const areas = [
     },
   ]
 
-const salmonAreas = areas.map(
-  (el, idx) => ({
-    title: el.title,
-    identifier: el.identifier,
-    rect: el.rect.map(pair => projection(pair)),
-    line: el.line.map(pair => projection(pair))
-  })
-)
-
-const areaTitleLocation = projection([-160, 68])
-const switchButtonLocation = projection([-140, 53.8])
-
 export const renderAK = () => {
+
+  const salmonAreas = areas.map(
+    (el, idx) => ({
+      title: el.title,
+      identifier: el.identifier,
+      rect: el.rect.map(pair => projection(pair)),
+      line: el.line.map(pair => projection(pair))
+    })
+  )
+  
+  const areaTitleLocation = projection([-160, 68])
+  const switchButtonLocation = projection([-140, 53.8])
 
   const svg = d3.select("#data")
     .append("svg")
@@ -220,10 +210,10 @@ export const renderAK = () => {
 
     d3.select("#alaska-svg")
       .append("path")
-      .attr('id', `${area.title}-rect`)
+      .attr('id', `${area.title.split(' ').join('-').split('/').join('')}-rect`)
       .attr('class', 'unzoomed-rect visible-rect')
       .attr('d', lines)
-      .attr("stroke", "white")
+      .attr("stroke", "none")
       .attr("fill", "white")
       .attr("fill-opacity", "0.1")
       .attr('cursor', 'pointer')
@@ -247,8 +237,6 @@ export const renderAK = () => {
     .attr('fill', 'white')
 
   d3.select("#alaska-svg")
-    .append("g")
-    .attr('id', 'switch-graph')
     .attr('x', switchButtonLocation[0])
     .attr('y', switchButtonLocation[1])
     .append('rect')
@@ -259,9 +247,13 @@ export const renderAK = () => {
     .attr('height', height / 25)
     .attr('width', height / 25)
     .attr('stroke', 'black')
-    .attr('fill', 'none')
+    .attr('fill', 'white')
+    .on('click', () => {
+      drawTransitionWave();
+      switchGraphRaise(15, 'byArea')
+    })
   
-  d3.select('#switch-graph')
+  d3.select('#alaska-svg')
     .append('rect')
     .attr('id', 'by-year-rect')
     .attr('class', '')
@@ -270,16 +262,20 @@ export const renderAK = () => {
     .attr('height', height / 25)
     .attr('width', height / 25)
     .attr('stroke', 'black')
-    .attr('fill', 'none')
+    .attr('fill', 'white')
+    .on('click', () => {
+      drawTransitionWave();
+      switchGraphRaise(15, 'byYear')
+    })
 
-  d3.select(`#switch-graph`)
+  d3.select(`#alaska-svg`)
     .append('text')
     .attr('x', switchButtonLocation[0] + height / 25 + 5)
     .attr('y', switchButtonLocation[1] + 1.3 * (height / 50))
     .text('View data by area')
     .attr('font-size', height / 40)
 
-  d3.select(`#switch-graph`)
+  d3.select(`#alaska-svg`)
     .append('text')
     .attr('x', switchButtonLocation[0] + height / 25 + 5)
     .attr('y', switchButtonLocation[1] + height / 25 + 1.3 * (height / 50))
@@ -312,7 +308,7 @@ const hover = (title) => {
     .duration(400)
     .attr('font-size', '20px')
 
-  document.getElementById(`${title}-rect`)
+  document.getElementById(`${title.split(' ').join('-').split('/').join('')}-rect`)
     .style.fillOpacity = '0.3'
 }
 
@@ -322,13 +318,13 @@ const unhover = (title) => {
     .duration(400)
     .attr('font-size', '0px')
 
-  document.getElementById(`${title}-rect`)
+  document.getElementById(`${title.split(' ').join('-').split('/').join('')}-rect`)
     .style.fillOpacity = '0.2'
 }
 
 const zoom = (area, alaska) => {
   
-  const path = document.getElementById(`${area.title}-rect`)
+  const path = document.getElementById(`${area.title.split(' ').join('-').split('/').join('')}-rect`)
   const rects = document.getElementsByClassName('.visible-rect')
   
 

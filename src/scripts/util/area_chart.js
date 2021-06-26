@@ -1,5 +1,5 @@
 import fishColor from './fish_color.js';
-import catchData from '../../index.js';
+import { catchData } from '../../index.js';
 
 const scaleData = (area, type) => {
 
@@ -31,6 +31,12 @@ const scaleData = (area, type) => {
 
   return { result, maxY }
 }
+
+const renderKey = () => {
+
+}
+
+
 
 const altTitles = [
   "Yukon River",

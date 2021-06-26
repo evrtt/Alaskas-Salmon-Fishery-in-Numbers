@@ -1,4 +1,4 @@
-import catchData from '../../index.js';
+import { catchData, projection } from '../../index.js';
 import { 
   changeBubblesYear, 
   renderBubbles, 
@@ -8,22 +8,8 @@ import AK from '../../../alaska_500k.js';
 
 export const genBubbles = (year, swtch) => {
   
-  const alaskaGeoJson = {
-    "type": "FeatureCollection",
-    "features": [AK]
-  }
-  
   const width = window.innerWidth;
   const height = window.innerHeight;
-
-  const projection = d3.geoMercator()
-    .fitExtent(
-      [
-        [10, 10],
-        [width - 10, height - 10],
-      ],
-      alaskaGeoJson
-    )
 
   // const areaLongLats = [
   //   [[-162.75075500093894, 66.61030936350049], [-165.45638539991677, 67.35511868130742]],
