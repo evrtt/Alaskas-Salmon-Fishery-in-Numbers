@@ -1,4 +1,3 @@
-import { drawTransitionWave, lowerWave } from './wave.js'
 import { genBubbles } from '../transitions/intro_to_spatial.js'
 import { clearCharts } from './bubble_chart.js'
 import { areas } from './alaska.js'

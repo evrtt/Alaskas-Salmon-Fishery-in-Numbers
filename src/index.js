@@ -12,6 +12,7 @@ export const alaskaGeoJson = {
   "type": "FeatureCollection",
   "features": [AK]
 }
+
 export const catchData = initializeData();
 
 const width = () => window.innerWidth;

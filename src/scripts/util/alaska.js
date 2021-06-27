@@ -1,11 +1,7 @@
-import AK from '../../../alaska_500k.js';
-import { projection, alaskaGeoJson } from '../../index.js'
+import { alaskaGeoJson } from '../../index.js';
 import {renderAreaChart} from './area_chart.js'
 import { switchGraphRaise } from './switch_graph.js'
 import { drawTransitionWave } from './wave.js'
-
-const width = window.innerWidth;
-const height = window.innerHeight;
 
 export const areas = [
     {
@@ -167,7 +163,22 @@ export const areas = [
     },
   ]
 
+let width = window.innerWidth;
+let height = window.innerHeight;
+
 export const renderAK = () => {
+
+  width = window.innerWidth;
+  height = window.innerHeight;
+
+  const projection = d3.geoMercator()
+    .fitExtent(
+      [
+        [10, 10],
+        [width - 10, height - 10],
+      ],
+      alaskaGeoJson
+    )
 
   const salmonAreas = areas.map(
     (el, idx) => ({
@@ -179,7 +190,7 @@ export const renderAK = () => {
   )
   
   const areaTitleLocation = projection([-160, 68])
-  const switchButtonLocation = projection([-140, 53.8])
+  const switchButtonLocation = projection([-142, 53.6])
 
   const svg = d3.select("#data")
     .append("svg")
@@ -226,7 +237,21 @@ export const renderAK = () => {
     .append('text')
     .attr('id', 'zoom-out-button')
     .attr('fill', 'white')
+    .attr('fill-opacity', '0.7')
     .attr('cursor', 'pointer')
+
+  d3.select('#alaska-svg')
+    .append('rect')
+    .attr('id', 'change-to-pounds')
+
+  d3.select('#alaska-svg')
+    .append('rect')
+    .attr('id', 'change-to-value')
+
+  d3.select('#alaska-svg')
+    .append('rect')
+    .attr('id', 'change-to-num-fish')
+  
 
   d3.select("#alaska-svg")
     .append("text")
@@ -246,12 +271,20 @@ export const renderAK = () => {
     .attr('y', switchButtonLocation[1])
     .attr('height', height / 25)
     .attr('width', height / 25)
-    .attr('stroke', 'black')
-    .attr('fill', 'white')
+    .attr('stroke', 'white')
+    .attr('fill', 'blue')
+    .attr('fill-opacity', '0.4')
+    .attr('cursor', 'pointer')
     .on('click', () => {
-      drawTransitionWave();
-      switchGraphRaise(15, 'byArea')
+      console.log(document.getElementById('by-area-rect'))
+      if (document.getElementsByClassName('colorKey').length === 1) {
+        drawTransitionWave();
+        switchGraphRaise(15, 'byArea')
+        switchButton('#by-area-rect', '#by-year-rect')
+      }
     })
+    .on('mouseenter',() =>  hoverButton('#by-area-rect'))
+    .on('mouseout',() => unhoverButton('#by-area-rect'))
   
   d3.select('#alaska-svg')
     .append('rect')
@@ -261,17 +294,57 @@ export const renderAK = () => {
     .attr('y', switchButtonLocation[1] + height / 25)
     .attr('height', height / 25)
     .attr('width', height / 25)
-    .attr('stroke', 'black')
+    .attr('stroke', 'none')
     .attr('fill', 'white')
+    .attr('fill-opacity', '0.4')
+    .attr('cursor', 'pointer')
     .on('click', () => {
-      drawTransitionWave();
-      switchGraphRaise(15, 'byYear')
+      if (document.getElementsByClassName('colorKey').length === 0) {
+        drawTransitionWave();
+        switchGraphRaise(15, 'byYear')
+        switchButton('#by-year-rect', '#by-area-rect')
+      }
     })
+    .on('mouseover', () => hoverButton('#by-year-rect'))
+    .on('mouseout',() => unhoverButton('#by-year-rect'))
+
+    const hoverButton = (id) => {
+      d3.select(id)
+        .attr('fill-opacity', '0.6')
+    }
+
+    const unhoverButton = (id) => {
+      d3.select(id)
+        .attr('fill-opacity', '0.4')
+    }
+
+    const switchButton = (toId, fromId) => {
+      d3.select(toId)
+        .attr('fill', 'blue')
+        .attr('stroke', 'white')
+
+      d3.select(fromId)
+        .attr('fill', 'white')
+        .attr('stroke', 'none')
+    }
+
+  // d3.select('#alaska-svg')
+  //   .append('circle')
+  //   .attr('id', 'switch-circle')
+  //   .attr('cx', switchButtonLocation[0] + height / 50)
+  //   .attr('cy', switchButtonLocation[1] + height / 50)
+  //   .attr('r', height/60)
+  //   .attr('width', height / 25)
+  //   .attr('stroke', 'none')
+  //   .attr('fill', 'blue')
+  
+
+  
 
   d3.select(`#alaska-svg`)
     .append('text')
     .attr('x', switchButtonLocation[0] + height / 25 + 5)
-    .attr('y', switchButtonLocation[1] + 1.3 * (height / 50))
+    .attr('y', switchButtonLocation[1] + height / 50)
     .text('View data by area')
     .attr('font-size', height / 40)
 
@@ -301,7 +374,7 @@ export const clearAK = () => {
 
 const hover = (title) => {
   d3.select('#area-title')
-    .text(`${title},`)
+    .text(`${title}`)
 
   d3.select('#area-title')
     .transition()
@@ -322,15 +395,24 @@ const unhover = (title) => {
     .style.fillOpacity = '0.2'
 }
 
+const hoverZoomOutButton = () => {
+  d3.select('#zoom-out-button')
+    .attr('fill-opacity', '1.0')
+}
+
+const unhoverZoomOutButton = () => {
+  d3.select('#zoom-out-button')
+    .attr('fill-opacity', '0.7')
+}
+
 const zoom = (area, alaska) => {
   
   const path = document.getElementById(`${area.title.split(' ').join('-').split('/').join('')}-rect`)
   const rects = document.getElementsByClassName('.visible-rect')
   
-
-
   if (path.classList.contains('unzoomed-rect')) {
     
+
     
     path.classList.remove('unzoomed-rect')
     path.classList.add('zoomed-rect')
@@ -352,12 +434,15 @@ const zoom = (area, alaska) => {
 
     d3.select('#zoom-out-button')
       .attr('x', x - ((width / 2) * 0.97) / scale)
-      .attr('y', y - ((height / 2) * 0.83) / scale)
+      .attr('y', y - ((height / 2) * 0.78) / scale)
       .attr('font-size', 80 / scale)
       .on("click", () => zoom(area, alaska))
+      .on('mouseover', hoverZoomOutButton)
+      .on('mouseout', unhoverZoomOutButton)
       .transition()
       .delay(700)
       .text('⊗')
+      .attr('fill', 'white')
 
     d3.selectAll('.visible-rect')
       .transition()
@@ -401,9 +486,7 @@ const zoom = (area, alaska) => {
       .transition()
       .duration(1000)
       .delay(500)
-      .attr('stroke', 'white')
       .attr('fill', 'white')
-      .attr('stroke-opacity', '1')
       .attr('fill-opacity', '0.1')
   }
 }

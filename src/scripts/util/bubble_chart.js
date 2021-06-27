@@ -1,6 +1,6 @@
 import { genBubbles } from '../transitions/intro_to_spatial.js';
-import { projection } from '../../index.js';
 import fishColor from './fish_color.js'
+import { alaskaGeoJson } from '../../index.js'
 
 export const clearCharts = () => {
   d3.select(".years-container").selectAll("span").remove()
@@ -19,8 +19,8 @@ export const renderYears = () => {
     yrs.push(i)
   }
 
-  d3.select("#scroller")
-    .append("div")
+  d3.select("#alaska")
+    .append("text")
     .attr("class", "years-container")
     .selectAll("span")
     .data(yrs)
@@ -35,6 +35,18 @@ const rScale = d3.scaleSqrt()
 .range([0, 50])
 
 export const renderBubbles = (data) => {
+
+  const width = window.innerWidth;
+  const height = window.innerHeight;
+
+  const projection = d3.geoMercator()
+    .fitExtent(
+      [
+        [10, 10],
+        [width - 10, height - 10],
+      ],
+      alaskaGeoJson
+    )
 
   const colorKeyCircleX = projection([-177, 69.3])[0]
   const colorKey = [
@@ -95,14 +107,6 @@ export const renderBubbles = (data) => {
       pounds: '312,500,000 lbs'
     }
   ]
-
-  d3.select("#alaska-svg")
-    .append('text')
-    .text('Alaska')
-    .attr('fill', 'white')
-    .attr('font-size', '30px')
-    .attr('x', projection([-154, 67])[0])
-    .attr('y', projection([-154, 67])[1])
 
   d3.select("#alaska-svg")
     .append("g")

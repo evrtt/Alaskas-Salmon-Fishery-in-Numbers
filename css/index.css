@@ -276,10 +276,6 @@ background-color: #5aaff4;
   z-index: 10;
 }
 
-/* #nav hr {
-  width: fit-content;
-} */
-
 #nav span {
   padding: 3px 10px 3px 10px;
   border: solid 1px black;
@@ -486,25 +482,25 @@ a:active {
   margin-right: 2%;
 }
 
-.chinook-photo {
+/* .chinook-photo {
   width: 30vw;
 }
 
 .coho-photo {
-  width: 30vw;
+  width: 0vw;
 }
 
 .sockeye-photo {
-  width: 20vw;
-}
-
-.chum-photo {
   width: 30vw;
 }
 
-.pink-photo {
-  width: 20vw;
+.chum-photo {
+  width: 35vw;
 }
+
+.pink-photo {
+  width: 30vw;
+} */
 
 .intro-p {
   font-size: 20px;
@@ -524,20 +520,31 @@ a:active {
 }
 
 .fish-title {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  width: 400px;
-  height: 20px;
-}
-
-.fish-title h6 {
-  font-size: 30px;
-  margin: 0;
+  width: 92%;
+  margin: 4%;
+  height: fit-content;
+  font-size: 22px;
+  color: white;
 }
 
 #chinook-container img {
+  height: 40vh;
+  width: auto;
+}
+#coho-container img {
   height: 30vh;
+  width: auto;
+}
+#sockeye-container img {
+  height: 20vh;
+  width: auto;
+}
+#chum-container img {
+  height: 30vh;
+  width: auto;
+}
+#pink-container img {
+  height: 20vh;
   width: auto;
 }
 
