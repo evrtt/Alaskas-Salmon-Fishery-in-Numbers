@@ -30,7 +30,7 @@
         </div>
       </div>
       <div id='nav'>
-        <span id='nav-splash-span'>Splash</span>
+        <span id='nav-splash-span' class="span-selected">Welcome</span>
         <hr id='hr-1' size="3" color="black" width="5%">
         <span id='nav-intro-span'>Introduction</span>
         <hr id='hr-2' size="3" color="black" width="5%">
@@ -83,40 +83,63 @@
         </div>
       </section>
       <section id="salmon-species" class="display-none">
-        <div class="salmon-species-container">
-          <p class="intro-p">
-            The five species of Pacific Salmon fished in Alaska are...
-          </p>
-          <div class="chinook-container">
-            <h3>Chinook</h3>
-            <p>AKA King</p>
-            <img src="https://www.takemefishing.org/tmf/assets/images/fish/king-salmon-464x170.png" class="chinook-photo">
-          </div>
-          <div class="coho-container">
-            <h3>Coho</h3>
-            <p>AKA Silver</p>
-            <img src="https://www.takemefishing.org/tmf/assets/images/fish/coho-salmon-464x170.png" class="coho-photo">
-          </div>
-          <div class="sockeye-container">
-            <h3>Sockeye</h3>
-            <p>AKA Red</p>
-            <img src="https://www.takemefishing.org/tmf/assets/images/fish/sockeye-salmon-464x170.png" class="sockeye-photo">
-          </div>
-          <div class="chum-container">
-            <h3>Chum</h3>
-            <p>AKA Dog</p>
-            <img src="https://www.takemefishing.org/tmf/assets/images/fish/chum-salmon-464x170.png" class="chum-photo">
-          </div>
-          <div class="pink-container">
-            <h3>Pink</h3>
-            <p>AKA Humpy</p>
-            <img src="https://www.takemefishing.org/tmf/assets/images/fish/pink-salmon-464x170.png" class="pink-photo">
+        <div id="salmon-species-page">
+          <div id="salmon-species-container">
+            <div id="salmon-species-list">
+              <p class="intro-p">
+                The five species of Pacific Salmon fished in Alaska are...
+              </p>
+              <div >
+                <h3 id='chinook-button' class="current-fish-button">Chinook</h3>
+                <h3 id='coho-button' >Coho</h3>
+                <h3 id='sockeye-button'>Sockeye</h3>
+                <h3 id='chum-button'>Chum</h3>
+                <h3 id='pink-button'>Pink</h3>
+              </div>
+            </div>
+            <div id="salmon-species-items">
+              <div id="chinook-container" class="current-fish">
+                <div class='fish-title'>
+                  <h6>Chinook</h6>
+                  <p>AKA King</p>
+                </div>
+                <img src="https://www.takemefishing.org/tmf/assets/images/fish/king-salmon-464x170.png" class="chinook-photo">
+              </div>
+              <div id="coho-container" class="display-none">
+                <div class='fish-title'>
+                  <h6>Coho</h6>
+                  <p>AKA Silver</p>
+                </div>                
+                <img src="https://www.takemefishing.org/tmf/assets/images/fish/coho-salmon-464x170.png" class="coho-photo">
+              </div>
+              <div id="sockeye-container" class="display-none">
+                <div class='fish-title'>
+                  <h6>Sockeye</h6>
+                  <p>AKA Red</p>
+                </div>
+                <img src="https://www.takemefishing.org/tmf/assets/images/fish/sockeye-salmon-464x170.png" class="sockeye-photo">
+              </div>
+              <div id="chum-container" class="display-none">
+                <div class='fish-title'>
+                  <h6>Chum</h6>
+                  <p>AKA Dog</p>
+                </div>
+                <img src="https://www.takemefishing.org/tmf/assets/images/fish/chum-salmon-464x170.png" class="chum-photo">
+              </div>
+              <div id="pink-container" class="display-none">
+                <div class='fish-title'>
+                  <h6>Pink</h6>
+                  <p>AKA Humpy</p>
+                </div>
+                <img src="https://www.takemefishing.org/tmf/assets/images/fish/pink-salmon-464x170.png" class="pink-photo">
+              </div>
+            </div>
           </div>
         </div>
       </section>
-      <div id='intro-button' class="current-button">Introduction</div>
-      <div id='salmon-species-button' class="next-button">Salmon Species</div>
-      <div id='data-button' class="next-button">View Data</div>
+      <div id='intro-button' class="current-button">Welcome</div>
+      <div id='salmon-species-button' class="next-button">Introduction</div>
+      <div id='data-button' class="next-button">Salmon Species</div>
       <div id="data" class="display-none">
       </div>
       <canvas class='wave-top'></canvas>

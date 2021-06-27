@@ -4,6 +4,7 @@ import {
   toSalmonSpecies,
   toData
 } from '../transitions/transitions.js'
+import { setFishButtonCallbacks } from './switch_fish.js'
 
 export const drawTransitionWave = () => {
 
@@ -131,6 +132,12 @@ export const raiseWave = (amt, direction, toView, fromView) => {
   
   const waveTop = document.getElementsByClassName('wave-top')[0]
   const waveBottom = document.getElementsByClassName('wave-bottom')[0]
+  let changeZIndex0 = false;
+  let switchWaveTopZIndex = true;
+  
+  if (fromView.id === 'salmon-species') {
+    changeZIndex0 = true
+  }
   
   const toggleView = view => {
     view.classList.toggle('display-none')
@@ -171,30 +178,47 @@ export const raiseWave = (amt, direction, toView, fromView) => {
        ]
       toggleView(fromView)
       toggleView(toView)
+      if (toView.id === 'salmon-species') {
+        setTimeout(setFishButtonCallbacks(), 10);
+      }
     }
-    window.requestAnimationFrame(() => lowerWave(amt, direction, prevButton, nextButton) )
+    window.requestAnimationFrame(
+      () => lowerWave(amt, direction, prevButton, nextButton, toView, fromView) 
+    )
   } else {
-    amt += Math.sqrt(window.innerHeight - amt)
+    if (fromView.id === 'salmon-species') {
+      document.getElementById('salmon-species-list').style.zIndex = 0
+    }
+    if (changeZIndex0) {
+      fromView.style.zIndex = 0
+      changeZIndex0 = false
+    }
+    if (switchWaveTopZIndex) {
+      waveTop.style.zIndex = 1
+      switchWaveTopZIndex = false
+    }
+    amt += Math.sqrt((window.innerHeight - amt) * 2)
     waveTop.style.bottom = `${amt}px`
     waveBottom.style.height = `${amt + 1}px`
     window.requestAnimationFrame(() => raiseWave(amt, direction, toView, fromView))
   }
 }
 
-export const lowerWave = (amt, direction, prevButton, nextButton) => {
+export const lowerWave = (amt, direction, prevButton, nextButton, toView, fromView) => {
   
   const waveTop = document.querySelector('.wave-top')
   const waveBottom = document.querySelector('.wave-bottom')
-  
 
   if (direction === 'up' && !!prevButton){
     if (amt - window.innerHeight >= 0) {
-      amt -= Math.sqrt(((1.01 * amt) - window.innerHeight)/4)
+      amt -= Math.sqrt(((1.01 * amt) - window.innerHeight)/2)
       waveTop.style.bottom = `${amt}px`
       waveBottom.style.height = `${amt}px`
-      window.requestAnimationFrame(() => lowerWave(amt, direction, prevButton, nextButton))
+      window.requestAnimationFrame(
+        () => lowerWave(amt, direction, prevButton, nextButton, toView, fromView)
+      )
     } else if (amt - window.innerHeight < 0 && amt > 10) {
-      amt -= Math.sqrt((window.innerHeight - (window.innerHeight - amt))/4)
+      amt -= Math.sqrt((window.innerHeight - (window.innerHeight - amt))/2)
       const vertOffset = 85 + (window.innerHeight - amt) / 20
       if (vertOffset >= 105 ) {
         prevButton[0].style.display = "none"
@@ -206,18 +230,26 @@ export const lowerWave = (amt, direction, prevButton, nextButton) => {
       nextButton[0].style.left = `${50 + amt / 10}%`
       waveTop.style.bottom = `${amt}px`
       waveBottom.style.height = `${amt}px`
-      window.requestAnimationFrame(() => lowerWave(amt, direction, prevButton, nextButton))
+      window.requestAnimationFrame(
+        () => lowerWave(amt, direction, prevButton, nextButton, toView, fromView)
+      )
     } else if (amt <= 10) {
       waveTop.style.bottom = '0px'
       waveBottom.style.height = '0px'
-      prevButton[0].classList.toggle('current-button')
+      waveTop.style.zIndex = 0
+      if (toView.id === 'salmon-species') {
+        console.log(toView.style.zIndex)
+        console.log(toView)
+        document.getElementById('salmon-species-list').style.zIndex = 1
+        console.log(toView.style.zIndex)
+      }      prevButton[0].classList.toggle('current-button')
       prevButton[0].classList.toggle('next-button')
       prevButton[0].style.top = '85%'
       nextButton[0].classList.toggle('current-button')
       nextButton[0].classList.toggle('next-button')
       const current = document.querySelector('.current')
-      console.log(current)
-      nextButton[0].addEventListener('click', () => nextButton[1](current))
+      console.log(current, 'current')
+      console.log(nextButton, 'nextButton', prevButton, 'prevButton')
     }
   } else if (direction === 'down') {
     if (amt > window.innerHeight) {
@@ -230,7 +262,9 @@ export const lowerWave = (amt, direction, prevButton, nextButton) => {
       }
       waveTop.style.bottom = `${amt}px`
       waveBottom.style.height = `${amt}px`
-      window.requestAnimationFrame(() => lowerWave(amt, direction, prevButton, nextButton))
+      window.requestAnimationFrame(
+        () => lowerWave(amt, direction, prevButton, nextButton, toView, fromView)
+      )
     } else if (amt > 0) {
       amt -= Math.sqrt(100 + (window.innerHeight - amt))
       const vertOffset = 85 + (window.innerHeight - amt) / 20
@@ -241,7 +275,9 @@ export const lowerWave = (amt, direction, prevButton, nextButton) => {
       }
       waveTop.style.bottom = `${amt}px`
       waveBottom.style.height = `${amt}px`
-      window.requestAnimationFrame(() => lowerWave(amt, direction, prevButton, nextButton))
+      window.requestAnimationFrame(
+        () => lowerWave(amt, direction, prevButton, nextButton, toView, fromView)
+      )
     } else if(amt < 0 && amt > -420) {
       amt -= Math.sqrt(100 + (window.innerHeight - amt))
       prevButton[0].classList.toggle('current-button')
@@ -249,33 +285,48 @@ export const lowerWave = (amt, direction, prevButton, nextButton) => {
       prevButton[0].style.top = '85%'
       waveTop.style.bottom = `${amt}px`
       waveBottom.style.height = 0
-      window.requestAnimationFrame(() => lowerWave(amt, direction, prevButton, nextButton))
+      window.requestAnimationFrame(
+        () => lowerWave(amt, direction, prevButton, nextButton, toView, fromView)
+      )
     } else if (amt < -420) {
       waveTop.remove()
       const current = document.querySelector('.current')
-      console.log(current)    }
+      console.log(current, 'current')
+      console.log(nextButton, 'nextButton', prevButton, 'prevButton')
+    }
   } else if (direction === 'up' && !prevButton) {
     if (amt - window.innerHeight >= 0) {
-      amt -= Math.sqrt(((1.01 * amt) - window.innerHeight) / 4)
+      amt -= Math.sqrt(((1.01 * amt) - window.innerHeight) / 2)
       waveTop.style.bottom = `${amt}px`
+      
       waveBottom.style.height = `${amt}px`
-      window.requestAnimationFrame(() => lowerWave(amt, direction, prevButton, nextButton))
+      window.requestAnimationFrame(
+        () => lowerWave(amt, direction, prevButton, nextButton, toView, fromView)
+      )
     } else if (amt - window.innerHeight < 0 && amt > 10) {
-      amt -= Math.sqrt((window.innerHeight - (window.innerHeight - amt)) / 4)
+      amt -= Math.sqrt((window.innerHeight - (window.innerHeight - amt)) / 2)
       nextButton[0].style.top = '85%'
       nextButton[0].style.display = 'block'
       nextButton[0].style.left = `${50 + amt / 10}%`
       waveTop.style.bottom = `${amt}px`
       waveBottom.style.height = `${amt}px`
-      window.requestAnimationFrame(() => lowerWave(amt, direction, prevButton, nextButton))
+      window.requestAnimationFrame(
+        () => lowerWave(amt, direction, prevButton, nextButton, toView, fromView)
+      )
     } else if (amt <= 10) {
       waveTop.style.bottom = '0px'
+      waveTop.style.zIndex = 0
       waveBottom.style.height = '0px'
+      if (toView.id === 'salmon-species') {
+        console.log(toView.style.zIndex)
+        document.getElementById('salmon-species-list').style.zIndex = 1
+        console.log(toView.style.zIndex)
+      }
       nextButton[0].classList.toggle('current-button')
       nextButton[0].classList.toggle('next-button')
       const current = document.querySelector('.current')
-      console.log(current)
-      nextButton[0].addEventListener('click', () => nextButton[1](current))
+      console.log(current, 'current')
+      console.log(nextButton, 'nextButton', prevButton, 'prevButton')
     }
   }
 }

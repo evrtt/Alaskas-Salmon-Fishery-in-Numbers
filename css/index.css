@@ -156,7 +156,6 @@ background-color: #5aaff4;
   display: block;
   position: fixed;
   bottom: 0;
-
 }
 
 .wave-bottom {
@@ -197,12 +196,12 @@ background-color: #5aaff4;
   transform: translate(-50%, -50%);
 }
 
-.current-button:hover {
+/* .current-button:hover {
   cursor: pointer;
   border: solid 1px white;
   color: white;
   border-radius: 8px;
-}
+} */
 
 .next-button {
   font-size: 50px;
@@ -288,14 +287,18 @@ background-color: #5aaff4;
   background-color: white;
 }
 
+#nav .span-selected {
+  padding: 3px 10px 3px 10px;
+  border: solid 1px #5aaff4;
+  border-radius: 8px;
+  background-color: white;
+  color: #5aaff4;
+}
+
 #nav span:hover{
   cursor: pointer;
   color: blue;  
   background-color: white;
-  border-color: blue;
-}
-#nav-splash-span {
-  color: blue;
   border-color: blue;
 }
 
@@ -414,71 +417,7 @@ a:active {
   cursor: pointer;
 }
 
-.chinook-container {
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  align-items: center;
 
-  color: white;
-}
-
-.chinook-photo {
-  width: 30vw;
-}
-
-.coho-container {
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  align-items: center;
-  color: white;
-}
-
-.coho-photo {
-  width: 30vw;
-}
-
-.sockeye-container {
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  align-items: center;
-  color: white;
-}
-
-.sockeye-photo {
-  width: 20vw;
-}
-
-.chum-container {
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  align-items: center;
-  color: white;
-}
-
-.chum-photo {
-  width: 30vw;
-}
-
-.pink-container {
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  align-items: center;
-  color: white;
-}
-
-.pink-photo {
-  width: 20vw;
-}
-
-.intro-p {
-  font-size: 20px;
-  color: white;
-}
 
 .author-spans {
   font-size: 20px;
@@ -492,9 +431,114 @@ a:active {
   display: none;
 }
 
-.salmon-species-container {
+/* Salmon Species -> */
+
+#salmon-species-container {
   display: flex;
-  justify-content: center;
+  flex-direction: row;
+  justify-content: space-around;
   align-items: center;
-  overflow-y: scroll;
+  height: 80vh;
 }
+
+#salmon-species-list {
+  width: 18%;
+  margin-left: 2%;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  height: 70%;
+  padding-top: 2px;
+}
+
+#salmon-species-list p {
+  font-size: 26px;
+  margin: 10px;
+}
+
+#salmon-species-list h3 {
+  height: fit-content;
+  padding: 10px;
+  border-top: solid 1px black;
+  border-left: solid 1px black;
+  text-align: center;
+  font-size: 30px;
+  margin: 0;
+  color: white;
+}
+
+#salmon-species-list h3:hover {
+  cursor: pointer;
+}
+
+#salmon-species-list .current-fish-button {
+  background-color: blue;
+  color: black;  
+}
+
+#salmon-species-list h3:last-of-type {
+  border-bottom: solid 1px black;
+}
+
+#salmon-species-items {
+  width: 78%;
+  height: 70%;
+  margin-right: 2%;
+}
+
+.chinook-photo {
+  width: 30vw;
+}
+
+.coho-photo {
+  width: 30vw;
+}
+
+.sockeye-photo {
+  width: 20vw;
+}
+
+.chum-photo {
+  width: 30vw;
+}
+
+.pink-photo {
+  width: 20vw;
+}
+
+.intro-p {
+  font-size: 20px;
+  color: white;
+  margin: 0;
+}
+
+#salmon-species-items .current-fish {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  border: solid 1px black;
+  background-color: blue;
+}
+
+.fish-title {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 400px;
+  height: 20px;
+}
+
+.fish-title h6 {
+  font-size: 30px;
+  margin: 0;
+}
+
+#chinook-container img {
+  height: 30vh;
+  width: auto;
+}
+
+/* <- Salmon Species */

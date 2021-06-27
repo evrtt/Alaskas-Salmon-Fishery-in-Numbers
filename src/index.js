@@ -42,6 +42,4 @@ window.addEventListener("DOMContentLoaded", (e) => {
   const navData = document.getElementById('nav-data-span')
   navData.addEventListener('click', () => toData())
   
-  const current = document.querySelector('.current')
-  document.querySelector('.current-button').addEventListener('click',() => toIntro(current))
 }, false);
