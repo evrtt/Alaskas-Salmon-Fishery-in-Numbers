@@ -21,7 +21,7 @@ export const drawTransitionWave = () => {
   }
 
   const context = canvas.getContext('2d');
-  const radius = 1000
+  const radius = 800
 
   window.requestAnimationFrame(() => drawFrame(iterator))
 
@@ -30,7 +30,7 @@ export const drawTransitionWave = () => {
 
     const width = (Math.floor(window.innerWidth / 1000) + 1) * 1000
     canvas.width = context.width = width
-    const height = canvas.height = context.height = 420
+    const height = canvas.height = context.height = 220
     const numLoops = (width) / 1000 + 2
     let changeSmallX;
     let moveCenter;

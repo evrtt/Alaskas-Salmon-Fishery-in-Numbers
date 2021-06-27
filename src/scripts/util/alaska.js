@@ -269,7 +269,7 @@ export const renderAK = () => {
     .attr('y', areaTitleLocation[1])
     .attr('font-size', 30)
     .attr('fill', 'white')
-    .text('click any area for data')
+    .text('Click area for data')
 
   d3.select("#alaska-svg")
     .attr('x', switchButtonLocation[0])
@@ -379,7 +379,7 @@ export const hover = (title) => {
 
 const unhover = (title) => {
   d3.select('#area-title')
-    .text('mouseover area for name, click for data')
+    .text('Click area for data')
 
   document.getElementById(`${title.split(' ').join('-').split('/').join('')}-rect`)
     .style.fillOpacity = '0.2'

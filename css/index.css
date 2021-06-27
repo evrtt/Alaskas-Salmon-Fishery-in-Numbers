@@ -368,7 +368,7 @@ a:active {
   border-top: solid 1px black;
   border-left: solid 1px black;
   text-align: center;
-  font-size: 30px;
+  font-size: 25px;
   margin: 0;
   color: white;
   background-color: #0671c9;
@@ -397,7 +397,7 @@ a:active {
 .intro-p {
   font-size: 20px;
   color: white;
-  margin: 0;
+  margin: 2px;
 }
 
 #salmon-species-items .current-fish {
@@ -408,7 +408,7 @@ a:active {
   align-items: center;
   justify-content: space-around;
   border: solid 1px black;
-  background-color: "#BF9AC4";
+  background-color: #BF9AC4;
 }
 
 .fish-title {

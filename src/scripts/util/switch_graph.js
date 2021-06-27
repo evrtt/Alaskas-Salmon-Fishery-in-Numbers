@@ -64,7 +64,7 @@ const unhoverByYear = (title) => {
 
 const unhoverByArea = (title) => {
   d3.select('#area-title')
-    .text('mouseover area for name, click for data')
+    .text('Click area for data')
 
   document.getElementById(`${title.split(' ').join('-').split('/').join('')}-rect`)
     .style.fillOpacity = '0.2'
