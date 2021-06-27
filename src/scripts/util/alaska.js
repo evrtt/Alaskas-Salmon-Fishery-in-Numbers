@@ -344,6 +344,7 @@ export const renderAK = () => {
     .attr('y', switchButtonLocation[1] + height / 50)
     .text('View data by area')
     .attr('font-size', height / 40)
+    .attr('fill', 'white')
 
   d3.select(`#alaska-svg`)
     .append('text')
@@ -351,6 +352,7 @@ export const renderAK = () => {
     .attr('y', switchButtonLocation[1] + height / 25 + 1.3 * (height / 50))
     .text('View data by year')
     .attr('font-size', height / 40)
+    .attr('fill', 'white')
 
 
   document.getElementById('alaska-svg').focus()

@@ -59,10 +59,10 @@ export const renderBubbles = (data, year) => {
 
   const colorKey = [
     { species: "Chinook (King)", y: projection([-177, 67.3])[1] },
-    { species: "Chum (Dog)", y: projection([-177, 67.3])[1] + 80 },
-    { species: "Coho (Silver)", y: projection([-177, 67.3])[1] + 160 },
-    { species: "Pink (Humpy)", y: projection([-177, 67.3])[1] + 240 },
-    { species: "Sockeye (Red)", y: projection([-177, 67.3])[1] + 320 },
+    { species: "Chum (Dog)", y: projection([-177, 67.3])[1] + 50 },
+    { species: "Coho (Silver)", y: projection([-177, 67.3])[1] + 100 },
+    { species: "Pink (Humpy)", y: projection([-177, 67.3])[1] + 150 },
+    { species: "Sockeye (Red)", y: projection([-177, 67.3])[1] + 200 },
   ]
 
   const sizeKey = [
@@ -124,16 +124,17 @@ export const renderBubbles = (data, year) => {
     .join('circle')
     .attr('cx', colorKeyCircleX)
     .attr('cy', d => d.y)
-    .attr('r', 20)
+    .attr('r', 12)
     .attr('fill', d => fishColor(d.species))
 
   d3.select(".colorKey")
     .selectAll("text")
     .data(colorKey)
     .join('text')
-    .attr('x', colorKeyCircleX - 20)
-    .attr('y', d => d.y + 35)
+    .attr('x', colorKeyCircleX - 12)
+    .attr('y', d => d.y + 24)
     .text(d => d.species)
+    .attr('fill', 'white')
 
   d3.select("#alaska-svg")
     .append("g")
