@@ -358,7 +358,7 @@ a:active {
 }
 
 #salmon-species-list p {
-  font-size: 26px;
+  font-size: 20px;
   margin: 10px;
 }
 
@@ -412,10 +412,10 @@ a:active {
 }
 
 .fish-title {
-  width: 92%;
-  margin: 4%;
+  width: 94%;
+  margin: 3%;
   height: fit-content;
-  font-size: 22px;
+  font-size: 20px;
   color: black;
 }
 

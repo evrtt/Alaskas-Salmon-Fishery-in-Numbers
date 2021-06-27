@@ -161,9 +161,9 @@ export const renderBubbles = (data, year) => {
     .append('text')
     .text('Year: ')
     .attr('x', yearTextLocation[0])
-    .attr('y', yearTextLocation[1] + 35)
+    .attr('y', yearTextLocation[1] + 25)
     .attr('fill', 'white')
-    .attr('font-size', 30)
+    .attr('font-size', 20)
 
   const years = genYears()
 
@@ -175,13 +175,35 @@ export const renderBubbles = (data, year) => {
     .join("text")
     .text(d => d)
     .attr('x', yearTextLocation[0] + 80)
-    .attr('y', yearTextLocation[1] + 35)
+    .attr('y', yearTextLocation[1] + 25)
     .attr("class", d => `char-${d}-text`)
     .attr('font-size', 0)
     .attr('fill', 'white')
 
   d3.select('.char-1979-text')
-    .attr('font-size', 30)
+    .attr('font-size', 20)
+
+  d3.select("#alaska-svg")
+    .append("g")
+    .append('text')
+    .attr('id', 'amount-word')
+    .text('Pounds: ')
+    .attr('x', yearTextLocation[0])
+    .attr('y', yearTextLocation[1] + 50)
+    .attr('font-size', 20)
+    .attr('fill', 'white')
+    
+  d3.select("#alaska-svg")
+    .append("g")
+    .attr("id", "amount-text")
+    .append('text')
+    .text('Mouseover bubbles to see # of lbs.')
+    .attr('x', yearTextLocation[0] + 80)
+    .attr('y', yearTextLocation[1] + 50)
+    .attr('fill', 'white')
+    .attr('font-size', 20)
+
+
     
   const lineGenerator = d3.line()
   data.forEach(area => {
@@ -275,7 +297,7 @@ export const changeBubblesYear = (data, year) => {
     .attr('font-size', 0)
 
   d3.select(`.char-${year}-text`)
-    .attr('font-size', 30)
+    .attr('font-size', 20)
   
   data.forEach(area => {
   

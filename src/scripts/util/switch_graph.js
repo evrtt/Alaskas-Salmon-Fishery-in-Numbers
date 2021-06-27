@@ -56,7 +56,7 @@ export const switchGraphLower = (amt, toGraph) => {
 
 const unhoverByYear = (title) => {
   d3.select('#area-title')
-    .text('mouseover area for name')
+    .text('Mouseover area for name')
 
   document.getElementById(`${title.split(' ').join('-').split('/').join('')}-rect`)
     .style.fillOpacity = '0.2'
@@ -73,42 +73,56 @@ const unhoverByArea = (title) => {
 const switchBoundingBoxes = (toGraph) => {
 
   d3.select('#area-title')
-    .text('hover over area for name')
+    .text('Mouseover area for name')
 
   const width = window.innerWidth;
   const height = window.innerHeight;
-
+  
   const projection = d3.geoMercator()
-    .fitExtent(
-      [
-        [10, 60],
-        [width - 10, height - 60],
-      ],
-      alaskaGeoJson
+  .fitExtent(
+    [
+      [10, 60],
+      [width - 10, height - 60],
+    ],
+    alaskaGeoJson
     )
-
-  const path = d3.geoPath()
+    
+    const path = d3.geoPath()
     .projection(projection)
-
-  const salmonAreas = areas.map(
-    (el, idx) => ({
-      title: el.title,
-      identifier: el.identifier,
-      rect: el.rect.map(pair => projection(pair)),
-      line: el.line.map(pair => projection(pair))
-    })
-  )
+    
+    const salmonAreas = areas.map(
+      (el, idx) => ({
+        title: el.title,
+        identifier: el.identifier,
+        rect: el.rect.map(pair => projection(pair)),
+        line: el.line.map(pair => projection(pair))
+      })
+    )
+    
+  const areaTitleLocation = projection([-177, 70.8])
 
   if (toGraph === 'byYear') {
+
+    d3.select('#area-word')
+      .attr('font-size', 20)
+
+    d3.select("#area-title")
+      .attr('font-size', 20)
+
     salmonAreas.forEach(area => {
       d3.select(`#${area.title.split(' ').join('-').split('/').join('')}-rect`)
         .attr("stroke", "white")
         .on("click", null)
         .on("mouseenter", () => hover(area.title))
         .on("mouseout", () => unhoverByYear(area.title))
-
     })
   } else {
+    d3.select('#area-word')
+      .attr('font-size', 30)
+
+    d3.select("#area-title")
+      .attr('font-size', 30)
+
     salmonAreas.forEach(area => {
       d3.select(`#${area.title.split(' ').join('-').split('/').join('')}-rect`)
         .attr("stroke", "none")
