@@ -473,7 +473,7 @@ a:active {
 }
 
 #salmon-species-list .current-fish-button {
-  background-color: blue;
+  background-color: #BF9AC4;
   color: black;  
 }
 
@@ -521,7 +521,7 @@ a:active {
   align-items: center;
   justify-content: space-around;
   border: solid 1px black;
-  background-color: blue;
+  background-color: "#BF9AC4";
 }
 
 .fish-title {
@@ -529,7 +529,7 @@ a:active {
   margin: 4%;
   height: fit-content;
   font-size: 22px;
-  color: white;
+  color: black;
 }
 
 #chinook-container img {

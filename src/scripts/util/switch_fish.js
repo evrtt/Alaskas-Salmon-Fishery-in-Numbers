@@ -13,16 +13,11 @@ export const setFishButtonCallbacks = () => {
 
   const pinkButton = document.getElementById('pink-button')
   pinkButton.addEventListener('mouseenter', () => switchFish('pink'))
-
-  console.log(chinookButton, cohoButton, sockeyeButton, chumButton, pinkButton)
 }
 
 const switchFish = (fish) => {
 
   const currentFish = document.querySelector('.current-fish')
-
-
-  console.log(fish)
   if(currentFish.id.split('-')[0] === fish) {
     null
   } else {
@@ -33,7 +28,33 @@ const switchFish = (fish) => {
   
     currentFish.classList.toggle('current-fish')
     currentFish.classList.toggle('display-none')
+    currentFishButton.style.backgroundColor = '#5aaff4'
     currentFishButton.classList.toggle('current-fish-button')
+    switch (fish) {
+      case 'chinook':
+        newFishButton.style.backgroundColor = "#BF9AC4"
+        newFish.style.backgroundColor = "#BF9AC4"
+        break;
+      case 'coho':
+        newFishButton.style.backgroundColor = "#A0A0A0"
+        newFish.style.backgroundColor = "#A0A0A0"
+        break;
+      case 'sockeye':
+        newFishButton.style.backgroundColor = "#E28989"
+        newFish.style.backgroundColor = "#E28989"
+        break;
+      case 'chum':
+        newFishButton.style.backgroundColor = "#9AC4A8"
+        newFish.style.backgroundColor = "#9AC4A8"
+        break;
+      case 'pink':
+        newFishButton.style.backgroundColor = "#ECCECE"
+        newFish.style.backgroundColor = "#ECCECE"
+        break;
+      default:
+        null
+        break;
+    }
     newFishButton.classList.toggle('current-fish-button')
     newFish.classList.toggle('current-fish')
     newFish.classList.toggle('display-none')
