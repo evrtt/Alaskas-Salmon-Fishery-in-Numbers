@@ -132,6 +132,7 @@ export const raiseWave = (amt, direction, toView, fromView) => {
   
   const waveTop = document.getElementsByClassName('wave-top')[0]
   const waveBottom = document.getElementsByClassName('wave-bottom')[0]
+  waveTop.style.zIndex = 1;
   let changeZIndex0 = false;
   let switchWaveTopZIndex = true;
   
@@ -251,49 +252,6 @@ export const lowerWave = (amt, direction, prevButton, nextButton, toView, fromVi
       console.log(current, 'current')
       console.log(nextButton, 'nextButton', prevButton, 'prevButton')
     }
-  } else if (direction === 'down') {
-    if (amt > window.innerHeight) {
-      amt -= Math.sqrt(100)
-      const vertOffset = 85 + (window.innerHeight - amt) / 20
-      if (vertOffset >= 105) {
-        prevButton[0].style.display = "none"
-      } else {
-        prevButton[0].style.top = (`${vertOffset}%`)
-      }
-      waveTop.style.bottom = `${amt}px`
-      waveBottom.style.height = `${amt}px`
-      window.requestAnimationFrame(
-        () => lowerWave(amt, direction, prevButton, nextButton, toView, fromView)
-      )
-    } else if (amt > 0) {
-      amt -= Math.sqrt(100 + (window.innerHeight - amt))
-      const vertOffset = 85 + (window.innerHeight - amt) / 20
-      if (vertOffset >= 105) {
-      prevButton[0].style.display = "none"
-      } else {
-      prevButton[0].style.top = (`${vertOffset}%`)
-      }
-      waveTop.style.bottom = `${amt}px`
-      waveBottom.style.height = `${amt}px`
-      window.requestAnimationFrame(
-        () => lowerWave(amt, direction, prevButton, nextButton, toView, fromView)
-      )
-    } else if(amt < 0 && amt > -420) {
-      amt -= Math.sqrt(100 + (window.innerHeight - amt))
-      prevButton[0].classList.toggle('current-button')
-      prevButton[0].classList.toggle('next-button')
-      prevButton[0].style.top = '85%'
-      waveTop.style.bottom = `${amt}px`
-      waveBottom.style.height = 0
-      window.requestAnimationFrame(
-        () => lowerWave(amt, direction, prevButton, nextButton, toView, fromView)
-      )
-    } else if (amt < -420) {
-      waveTop.remove()
-      const current = document.querySelector('.current')
-      console.log(current, 'current')
-      console.log(nextButton, 'nextButton', prevButton, 'prevButton')
-    }
   } else if (direction === 'up' && !prevButton) {
     if (amt - window.innerHeight >= 0) {
       amt -= Math.sqrt(((1.01 * amt) - window.innerHeight) / 2)
@@ -324,6 +282,50 @@ export const lowerWave = (amt, direction, prevButton, nextButton, toView, fromVi
       }
       nextButton[0].classList.toggle('current-button')
       nextButton[0].classList.toggle('next-button')
+      const current = document.querySelector('.current')
+      console.log(current, 'current')
+      console.log(nextButton, 'nextButton', prevButton, 'prevButton')
+    }
+  } else if (direction === 'down') {
+    if (amt > window.innerHeight) {
+      amt -= Math.sqrt(100)
+      const vertOffset = 85 + (window.innerHeight - amt) / 20
+      if (vertOffset >= 105) {
+        prevButton[0].style.display = "none"
+      } else {
+        prevButton[0].style.top = (`${vertOffset}%`)
+      }
+      waveTop.style.bottom = `${amt}px`
+      waveBottom.style.height = `${amt}px`
+      window.requestAnimationFrame(
+        () => lowerWave(amt, direction, prevButton, nextButton, toView, fromView)
+      )
+    } else if (amt > 0) {
+      amt -= Math.sqrt(100 + (window.innerHeight - amt))
+      const vertOffset = 85 + (window.innerHeight - amt) / 20
+      if (vertOffset >= 105) {
+        prevButton[0].style.display = "none"
+      } else {
+        prevButton[0].style.top = (`${vertOffset}%`)
+      }
+      waveTop.style.bottom = `${amt}px`
+      waveBottom.style.height = `${amt}px`
+      window.requestAnimationFrame(
+        () => lowerWave(amt, direction, prevButton, nextButton, toView, fromView)
+      )
+    } else if (amt < 0 && amt > -420) {
+      amt -= Math.sqrt(100 + (window.innerHeight - amt))
+      prevButton[0].classList.toggle('current-button')
+      prevButton[0].classList.toggle('next-button')
+      prevButton[0].style.top = '85%'
+      waveTop.style.zIndex = 1
+      waveTop.style.bottom = `${amt}px`
+      waveBottom.style.height = 0
+      window.requestAnimationFrame(
+        () => lowerWave(amt, direction, prevButton, nextButton, toView, fromView)
+      )
+    } else if (amt < -420) {
+      waveTop.remove()
       const current = document.querySelector('.current')
       console.log(current, 'current')
       console.log(nextButton, 'nextButton', prevButton, 'prevButton')

@@ -20,8 +20,8 @@ const height = () => window.innerHeight;
 export const projection = d3.geoMercator()
   .fitExtent(
     [
-      [10, 10],
-      [width() - 10, height() - 10],
+      [10, 60],
+      [width() - 10, height() - 60],
     ],
     alaskaGeoJson
   )

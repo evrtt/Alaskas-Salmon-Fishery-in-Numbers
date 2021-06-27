@@ -19,9 +19,11 @@ export const renderYears = () => {
     yrs.push(i)
   }
 
-  d3.select("#alaska")
-    .append("text")
+  
+  d3.select(".data-container")
+    .append("div")
     .attr("class", "years-container")
+    .attr('z-index', 0)
     .selectAll("span")
     .data(yrs)
     .join("span")
@@ -43,7 +45,7 @@ export const renderBubbles = (data) => {
     .fitExtent(
       [
         [10, 10],
-        [width - 10, height - 10],
+        [width - 10, height - 60],
       ],
       alaskaGeoJson
     )
@@ -261,6 +263,7 @@ export const changeBubblesYear = (data) => {
   
       if (newAreaData.length > 0 && !document.getElementById(`${compactName}-line`)) {
         d3.select("#alaska-svg")
+          .append('g')
           .append("path")
           .attr("id", `${compactName}-line`)
           .attr('d', line)
