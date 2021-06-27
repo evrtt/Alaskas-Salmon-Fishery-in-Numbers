@@ -42,6 +42,8 @@ const rScale = d3.scaleSqrt()
 
 export const renderBubbles = (data, year) => {
 
+  console.log(data)
+
   const width = window.innerWidth;
   const height = window.innerHeight;
 
@@ -136,6 +138,18 @@ export const renderBubbles = (data, year) => {
     .text(d => d.species)
     .attr('fill', 'white')
 
+  d3.select('.colorKey')
+    .selectAll('rect')
+    .data(colorKey)
+    .join('rect')
+    .attr('class', d => `${d.species.split(' ')[0]}-color-rect`)
+    .attr('x', colorKeyCircleX - 17)
+    .attr('y', d => d.y - 17)
+    .attr('height', 50)
+    .attr('width', 110)
+    .attr('stroke', 'none')
+    .attr('fill', 'none')
+
   d3.select("#alaska-svg")
     .append("g")
     .attr("class", 'sizeKey')
@@ -195,8 +209,8 @@ export const renderBubbles = (data, year) => {
     
   d3.select("#alaska-svg")
     .append("g")
-    .attr("id", "amount-text")
     .append('text')
+    .attr("id", "amount-text")
     .text('Mouseover bubbles to see # of lbs.')
     .attr('x', yearTextLocation[0] + 80)
     .attr('y', yearTextLocation[1] + 50)
@@ -240,14 +254,22 @@ export const renderBubbles = (data, year) => {
       .style("zIndex", 5)
       .text(area.name)
       .selectAll("circle")
-      .data(newAreaData, d => `${compactName}${d.species}`)
+      .data(newAreaData)
       .join("circle")
       .attr("fill", d => d.color)
-      .attr("class", "species")
+      .attr("class", d => `${compactName}${d.species}`)
       .text(d => d.species)
       .attr("r", d => rScale(d.pounds))
-      .on("mouseenter", () => hoverBubble(area.title))
-      .on("mouseout", () => unhoverBubble(area.title))
+      .on("mouseenter", (d) => hoverBubble(
+        area.title, 
+        `${compactName}`,
+        d.target.innerHTML
+      ))
+      .on("mouseout", d => unhoverBubble(
+        area.title, 
+        `${compactName}`, 
+        d.target.innerHTML
+      ))
 
     const ticked = () => {
       d3.select(`.${compactName}`)
@@ -269,20 +291,46 @@ export const renderBubbles = (data, year) => {
   })
 }
 
-const hoverBubble = (title) => {
+const hoverBubble = (title, selector, species) => {
+
   d3.select('#area-title')
     .text(`${title}`)
 
-  document.getElementById(`${title}-rect`)
+  document.getElementById(`${title.split(' ').join('-').split('/').join('').split('--').join('')}-rect`)
     .style.fillOpacity = '0.3'
+
+  let data = d3.select(`.${selector}${species}`)
+    .attr('stroke', 'white')
+    .data()
+
+  d3.select('#amount-text')
+    .text(`${data[0].pounds}`)
+
+  console.log(`${data[0].species}-color-rect`)
+
+  d3.select(`.${data[0].species}-color-rect`)
+    .attr('stroke', 'white')
 }
 
-const unhoverBubble = (title) => {
-  d3.select('#area-title')
-    .text('mouseover area for name')
+const unhoverBubble = (title, selector, species) => {
 
-  document.getElementById(`${title}-rect`)
+  d3.select('#area-title')
+    .text('Mouseover area for name')
+
+  document.getElementById(`${title.split(' ').join('-').split('/').join('').split('--').join('')}-rect`)
     .style.fillOpacity = '0.2'
+
+  let data = d3.select(`.${selector}${species}`)
+    .attr('stroke', 'none')
+    .data()
+
+  d3.select('#amount-text')
+    .text(`Mouseover bubbles to see # of lbs.`)
+
+  console.log(`${data[0].species}-color-rect`)
+
+  d3.select(`.${data[0].species}-color-rect`)
+    .attr('stroke', 'none')
 }
 
 export const changeBubblesYear = (data, year) => {
@@ -330,9 +378,19 @@ export const changeBubblesYear = (data, year) => {
         .selectAll("circle")
         .data(newAreaData, d => `${compactName}${d.species}`)
         .join("circle")
-        .attr("class", "species")
+        .attr("class", d => `${compactName}${d.species}`)
         .attr("text", d => d.species)
         .attr("fill", d => d.color)
+        .on("mouseenter", (d) => hoverBubble(
+          area.title,
+          `${compactName}`,
+          d.target.innerHTML
+        ))
+        .on("mouseout", d => unhoverBubble(
+          area.title,
+          `${compactName}`,
+          d.target.innerHTML
+        ))
         .transition()
         .duration(250)
         .attr("r", d => rScale(d.pounds))
@@ -341,6 +399,17 @@ export const changeBubblesYear = (data, year) => {
         .selectAll("circle")
         .attr("cx", d => d.x)
         .attr("cy", d => d.y)
+        .on("mouseenter", (d) => hoverBubble(
+          area.title,
+          `${compactName}`,
+          d.target.innerHTML
+        ))
+        .on("mouseout", d => unhoverBubble(
+          area.title,
+          `${compactName}`,
+          d.target.innerHTML
+        ))
+        
         
       const simulation = d3.forceSimulation(newAreaData)
         .force('center', d3.forceCenter(area.line[1][0], area.line[1][1]))

@@ -112,6 +112,7 @@ const switchBoundingBoxes = (toGraph) => {
     salmonAreas.forEach(area => {
       d3.select(`#${area.title.split(' ').join('-').split('/').join('')}-rect`)
         .attr("stroke", "white")
+        .attr('cursor', 'auto')
         .on("click", null)
         .on("mouseenter", () => hover(area.title))
         .on("mouseout", () => unhoverByYear(area.title))
@@ -126,6 +127,7 @@ const switchBoundingBoxes = (toGraph) => {
     salmonAreas.forEach(area => {
       d3.select(`#${area.title.split(' ').join('-').split('/').join('')}-rect`)
         .attr("stroke", "none")
+        .attr('cursor', 'pointer')
         .on("click", () => zoom(area, path))
         .on("mouseenter", () => hover(area.title))
         .on("mouseout", () => unhoverByArea(area.title))

@@ -10,7 +10,7 @@ export default () => {
     byYear[d["Year"]][d["Salmon Area Name"]]
       .push({
         species: d["Species Code"],
-         pounds: parseInt(d["Pounds"]),
+        pounds: parseInt(d["Pounds"]),
         value: parseInt(d["Estimated Exvessel Value (Nominal)"]),
         numFish: parseInt(d["Number Of Fish"])
       })
@@ -18,6 +18,7 @@ export default () => {
     byArea[d["Salmon Area Name"]] ||= {};
     byArea[d["Salmon Area Name"]][d["Year"]] ||= {};
     byArea[d["Salmon Area Name"]][d["Year"]][d["Species Code"]] = {
+      species: d["Species Code"],
       pounds: d["Pounds"],
       value: d["Estimated Exvessel Value (Nominal)"],
       numFish: d["Number Of Fish"]
