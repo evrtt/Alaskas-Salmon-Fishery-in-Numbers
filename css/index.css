@@ -1,36 +1,17 @@
-/* #scroller {
-  width: 100vw;
-  height: auto;
-}
-
-#frames {
-display: block;
-width: 100vw;
-z-index: 1;
-} */
-
 #splash {
-  background-color: #5aaff4;
+  background-color: #0671c9;
   height: 100vh
 }
 
 #intro {
-  background-color: #5aaff4;
+  background-color: #0671c9;
   height: 100vh;
 }
 
 #salmon-species {
-  background-color: #5aaff4;
+  background-color: #0671c9;
   height: 100vh;
 }
-/* #scroll-3 {
-  background-color: #0372cd;
-  height: 100vh;
-}
-#scroll-4 {
-  background-color: #0060ae;
-  height: 100vh;
-} */
 
 .scroll-0-container {
   width: 100%;
@@ -48,55 +29,8 @@ left: 0px;
 max-width: 100%;
 height: 100vh;
 width: 100vw;
-background-color: #5aaff4;
+background-color: #0671c9;
 }
-
-/* .data-0 {
-  background-color: #0b70c3;
-  transition: background 200ms ease-in
-}
-.data-1 {
-  background-color: #0b70c3;
-  transition: background 500ms ease-in
-}
-.data-2 {
-  background-color: #0b70c3;
-  transition: background 500ms ease-in
-}
-.data-3 {
-  background-color: #0b70c3;
-  transition: background 500ms ease-in
-}
-.data-4 {
-  background-color: #0b70c3;
-  transition: background 500ms ease-in
-} */
-
-/* #frame-0{
-  
-} */
-/* #frame-1{
-
-} */
-/* #frame-2{
-
-} */
-/* #frame-3{
-
-} */
-/* #frame-4{
-
-} */
-
-/* .data-on{
-  display: inline-block;
-  height: 100%;
-  width: 100%;
-}
-
-.data-off{
-  display: none;
-} */
 
 .data-container {
   height: 100vh;
@@ -147,14 +81,6 @@ background-color: #5aaff4;
   height: 28px;
   width: 100px;
 }
-
-/* .static-wave-top {
-  display: block;
-  position: relative;
-  height: 50vh;
-  width: 100vw;
-  bottom: 0;
-} */
   
 .wave-top {
   display: block;
@@ -192,7 +118,7 @@ background-color: #5aaff4;
   font-size: 50px;
   text-align: center;
   font-family: Arial, Helvetica, sans-serif; 
-  color: #5aaff4;
+  color: #0671c9;
   font-weight: 800;
   z-index: 5;
   position: absolute;
@@ -201,18 +127,11 @@ background-color: #5aaff4;
   transform: translate(-50%, -50%);
 }
 
-/* .current-button:hover {
-  cursor: pointer;
-  border: solid 1px white;
-  color: white;
-  border-radius: 8px;
-} */
-
 .next-button {
   font-size: 50px;
   text-align: center;
   font-family: Arial, Helvetica, sans-serif; 
-  color: #5aaff4;
+  color: #0671c9;
   font-weight: 800;
   z-index: 5;
   position: absolute;
@@ -226,19 +145,10 @@ background-color: #5aaff4;
 .moving-scroll-down {
   font-size: 50px;
   font-family: Arial, Helvetica, sans-serif; 
-  color: #5aaff4;
+  color: #0671c9;
   font-weight: 800;
   position: relative;
 }
-
-/* .scroll-down-arrow {
-  font-size: 60px;
-  font-family: Arial, Helvetica, sans-serif; 
-  color: #5aaff4;
-  font-weight: 800;
-  position: relative;
-  bottom: -2vh;
-} */
 
 .hidden {
   display: none;
@@ -283,24 +193,23 @@ background-color: #5aaff4;
 
 #nav span {
   padding: 3px 10px 3px 10px;
-  border: solid 1px black;
+  border: solid 1px white;
   border-radius: 8px;
   background-color: white;
 }
 
 #nav .span-selected {
   padding: 3px 10px 3px 10px;
-  border: solid 1px #5aaff4;
+  border: solid 1px #0671c9;
   border-radius: 8px;
   background-color: white;
-  color: #5aaff4;
+  color: #0671c9;
 }
 
 #nav span:hover{
   cursor: pointer;
   color: blue;  
   background-color: white;
-  border-color: blue;
 }
 
 #nav-data-container {
@@ -418,8 +327,6 @@ a:active {
   cursor: pointer;
 }
 
-
-
 .author-spans {
   font-size: 20px;
   display: flex;
@@ -431,8 +338,6 @@ a:active {
 .display-none {
   display: none;
 }
-
-/* Salmon Species -> */
 
 #salmon-species-container {
   display: flex;
@@ -466,6 +371,7 @@ a:active {
   font-size: 30px;
   margin: 0;
   color: white;
+  background-color: #0671c9;
 }
 
 #salmon-species-list h3:hover {
@@ -479,6 +385,7 @@ a:active {
 
 #salmon-species-list h3:last-of-type {
   border-bottom: solid 1px black;
+  background-color: #0671c9;
 }
 
 #salmon-species-items {
@@ -486,26 +393,6 @@ a:active {
   height: 70%;
   margin-right: 2%;
 }
-
-/* .chinook-photo {
-  width: 30vw;
-}
-
-.coho-photo {
-  width: 0vw;
-}
-
-.sockeye-photo {
-  width: 30vw;
-}
-
-.chum-photo {
-  width: 35vw;
-}
-
-.pink-photo {
-  width: 30vw;
-} */
 
 .intro-p {
   font-size: 20px;

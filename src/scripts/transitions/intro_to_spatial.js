@@ -80,12 +80,5 @@ export const genBubbles = (year, swtch) => {
     data: currentYear[area.name]
   }))
 
-  swtch === "set" ? renderBubbles(data) : changeBubblesYear(data)
-}
-
-export const introToSpatial = (yr) => {
-  
-  // renderYears();
-  genBubbles(yr, "set");
-  
+  swtch === "set" ? renderBubbles(data, year) : changeBubblesYear(data, year)
 }

@@ -1,6 +1,8 @@
 import { genBubbles } from '../transitions/intro_to_spatial.js'
 import { clearCharts, renderYears } from './bubble_chart.js'
-import { areas } from './alaska.js'
+import { areas, zoom } from './alaska.js'
+import { alaskaGeoJson } from '../../index.js'
+import { hover } from './alaska.js'
 
 export const switchGraphRaise = (amt, toGraph) => {
   const waveTop = document.getElementsByClassName('wave-top')[0]
@@ -52,20 +54,68 @@ export const switchGraphLower = (amt, toGraph) => {
   }
 }
 
+const unhoverByYear = (title) => {
+  d3.select('#area-title')
+    .text('mouseover area for name')
+
+  document.getElementById(`${title.split(' ').join('-').split('/').join('')}-rect`)
+    .style.fillOpacity = '0.2'
+}
+
+const unhoverByArea = (title) => {
+  d3.select('#area-title')
+    .text('mouseover area for name, click for data')
+
+  document.getElementById(`${title.split(' ').join('-').split('/').join('')}-rect`)
+    .style.fillOpacity = '0.2'
+}
+
 const switchBoundingBoxes = (toGraph) => {
 
+  d3.select('#area-title')
+    .text('hover over area for name')
+
+  const width = window.innerWidth;
+  const height = window.innerHeight;
+
+  const projection = d3.geoMercator()
+    .fitExtent(
+      [
+        [10, 60],
+        [width - 10, height - 60],
+      ],
+      alaskaGeoJson
+    )
+
+  const path = d3.geoPath()
+    .projection(projection)
+
+  const salmonAreas = areas.map(
+    (el, idx) => ({
+      title: el.title,
+      identifier: el.identifier,
+      rect: el.rect.map(pair => projection(pair)),
+      line: el.line.map(pair => projection(pair))
+    })
+  )
+
   if (toGraph === 'byYear') {
-    areas.forEach(area => {
+    salmonAreas.forEach(area => {
       d3.select(`#${area.title.split(' ').join('-').split('/').join('')}-rect`)
         .attr("stroke", "white")
-        .attr('fill', 'none')
+        .on("click", null)
+        .on("mouseenter", () => hover(area.title))
+        .on("mouseout", () => unhoverByYear(area.title))
+
     })
   } else {
-    areas.forEach(area => {
+    salmonAreas.forEach(area => {
       d3.select(`#${area.title.split(' ').join('-').split('/').join('')}-rect`)
         .attr("stroke", "none")
-        .attr("fill", "white")
-        .attr("fill-opacity", "0.1")
+        .on("click", () => zoom(area, path))
+        .on("mouseenter", () => hover(area.title))
+        .on("mouseout", () => unhoverByArea(area.title))
+
     })
   }
 }

@@ -189,8 +189,9 @@ export const renderAK = () => {
     })
   )
   
-  const areaTitleLocation = projection([-160, 68])
+  const areaTitleLocation = projection([-177, 70.8])
   const switchButtonLocation = projection([-142, 53.6])
+
 
   const svg = d3.select("#data")
     .append("svg")
@@ -252,14 +253,23 @@ export const renderAK = () => {
     .append('rect')
     .attr('id', 'change-to-num-fish')
   
+  d3.select('#alaska-svg')
+    .append('text')
+    .attr('id', 'area-word')
+    .attr('x', areaTitleLocation[0])
+    .attr('y', areaTitleLocation[1])
+    .attr('font-size', 30)
+    .attr('fill', 'white')
+    .text('Area:')
 
   d3.select("#alaska-svg")
     .append("text")
     .attr('id', 'area-title')
-    .attr('x', areaTitleLocation[0])
+    .attr('x', areaTitleLocation[0] + 80)
     .attr('y', areaTitleLocation[1])
-    .attr('font-size', '12px')
+    .attr('font-size', 30)
     .attr('fill', 'white')
+    .text('click any area for data')
 
   d3.select("#alaska-svg")
     .attr('x', switchButtonLocation[0])
@@ -328,19 +338,6 @@ export const renderAK = () => {
         .attr('stroke', 'none')
     }
 
-  // d3.select('#alaska-svg')
-  //   .append('circle')
-  //   .attr('id', 'switch-circle')
-  //   .attr('cx', switchButtonLocation[0] + height / 50)
-  //   .attr('cy', switchButtonLocation[1] + height / 50)
-  //   .attr('r', height/60)
-  //   .attr('width', height / 25)
-  //   .attr('stroke', 'none')
-  //   .attr('fill', 'blue')
-  
-
-  
-
   d3.select(`#alaska-svg`)
     .append('text')
     .attr('x', switchButtonLocation[0] + height / 25 + 5)
@@ -372,14 +369,9 @@ export const clearAK = () => {
 
 }
 
-const hover = (title) => {
+export const hover = (title) => {
   d3.select('#area-title')
     .text(`${title}`)
-
-  d3.select('#area-title')
-    .transition()
-    .duration(400)
-    .attr('font-size', '20px')
 
   document.getElementById(`${title.split(' ').join('-').split('/').join('')}-rect`)
     .style.fillOpacity = '0.3'
@@ -387,9 +379,7 @@ const hover = (title) => {
 
 const unhover = (title) => {
   d3.select('#area-title')
-    .transition()
-    .duration(400)
-    .attr('font-size', '0px')
+    .text('mouseover area for name, click for data')
 
   document.getElementById(`${title.split(' ').join('-').split('/').join('')}-rect`)
     .style.fillOpacity = '0.2'
@@ -405,7 +395,7 @@ const unhoverZoomOutButton = () => {
     .attr('fill-opacity', '0.7')
 }
 
-const zoom = (area, alaska) => {
+export const zoom = (area, alaska) => {
   
   const path = document.getElementById(`${area.title.split(' ').join('-').split('/').join('')}-rect`)
   const rects = document.getElementsByClassName('.visible-rect')
@@ -434,7 +424,7 @@ const zoom = (area, alaska) => {
 
     d3.select('#zoom-out-button')
       .attr('x', x - ((width / 2) * 0.97) / scale)
-      .attr('y', y - ((height / 2) * 0.78) / scale)
+      .attr('y', y - ((height / 2) * 0.72) / scale)
       .attr('font-size', 80 / scale)
       .on("click", () => zoom(area, alaska))
       .on('mouseover', hoverZoomOutButton)

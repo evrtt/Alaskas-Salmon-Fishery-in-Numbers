@@ -28,7 +28,7 @@ const switchFish = (fish) => {
   
     currentFish.classList.toggle('current-fish')
     currentFish.classList.toggle('display-none')
-    currentFishButton.style.backgroundColor = '#5aaff4'
+    currentFishButton.style.backgroundColor = '#0671c9'
     currentFishButton.classList.toggle('current-fish-button')
     switch (fish) {
       case 'chinook':

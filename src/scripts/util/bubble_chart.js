@@ -11,21 +11,25 @@ export const clearCharts = () => {
     .remove()
 }
 
-export const renderYears = () => {
-  
+const genYears = () => {
   let yrs = []
 
   for (let i = 1979; i < 2021; i++) {
     yrs.push(i)
   }
+  return yrs
+}
 
-  
+export const renderYears = () => {
+
+  const years = genYears()
+
   d3.select(".data-container")
     .append("div")
     .attr("class", "years-container")
     .attr('z-index', 0)
     .selectAll("span")
-    .data(yrs)
+    .data(years)
     .join("span")
     .text(d => d)
     .attr("class", "year-span")
@@ -36,7 +40,7 @@ const rScale = d3.scaleSqrt()
 .domain([0, 300000000])
 .range([0, 50])
 
-export const renderBubbles = (data) => {
+export const renderBubbles = (data, year) => {
 
   const width = window.innerWidth;
   const height = window.innerHeight;
@@ -44,19 +48,21 @@ export const renderBubbles = (data) => {
   const projection = d3.geoMercator()
     .fitExtent(
       [
-        [10, 10],
+        [10, 60],
         [width - 10, height - 60],
       ],
       alaskaGeoJson
     )
 
   const colorKeyCircleX = projection([-177, 69.3])[0]
+  const yearTextLocation = projection([-177, 70.8])
+
   const colorKey = [
-    { species: "Chinook / King", y: projection([-177, 69.3])[1] },
-    { species: "Chum / Dog", y: projection([-177, 69.3])[1] + 80 },
-    { species: "Coho / Silver", y: projection([-177, 69.3])[1] + 160 },
-    { species: "Pink / Humpy", y: projection([-177, 69.3])[1] + 240 },
-    { species: "Sockeye / Red", y: projection([-177, 69.3])[1] + 320 },
+    { species: "Chinook (King)", y: projection([-177, 67.3])[1] },
+    { species: "Chum (Dog)", y: projection([-177, 67.3])[1] + 80 },
+    { species: "Coho (Silver)", y: projection([-177, 67.3])[1] + 160 },
+    { species: "Pink (Humpy)", y: projection([-177, 67.3])[1] + 240 },
+    { species: "Sockeye (Red)", y: projection([-177, 67.3])[1] + 320 },
   ]
 
   const sizeKey = [
@@ -147,6 +153,34 @@ export const renderBubbles = (data) => {
     .attr('x', d => d.textPositionX)
     .attr('y', d => d.textPositionY)
     .text(d => d.pounds)
+
+  d3.select("#alaska-svg")
+    .append("g")
+    .attr("id", "year-word")
+    .append('text')
+    .text('Year: ')
+    .attr('x', yearTextLocation[0])
+    .attr('y', yearTextLocation[1] + 35)
+    .attr('fill', 'white')
+    .attr('font-size', 30)
+
+  const years = genYears()
+
+  d3.select("#alaska-svg")
+    .append("g")
+    .attr("class", "years-texts")
+    .selectAll("text")
+    .data(years)
+    .join("text")
+    .text(d => d)
+    .attr('x', yearTextLocation[0] + 80)
+    .attr('y', yearTextLocation[1] + 35)
+    .attr("class", d => `char-${d}-text`)
+    .attr('font-size', 0)
+    .attr('fill', 'white')
+
+  d3.select('.char-1979-text')
+    .attr('font-size', 30)
     
   const lineGenerator = d3.line()
   data.forEach(area => {
@@ -192,8 +226,6 @@ export const renderBubbles = (data) => {
       .on("mouseenter", () => hoverBubble(area.title))
       .on("mouseout", () => unhoverBubble(area.title))
 
-
-
     const ticked = () => {
       d3.select(`.${compactName}`)
         .selectAll("circle")
@@ -209,7 +241,6 @@ export const renderBubbles = (data) => {
       .force('collision', d3.forceCollide().radius(d => rScale(d.pounds) + 0.5))
       .on("tick", ticked)
 
-
   }
 
   })
@@ -217,12 +248,7 @@ export const renderBubbles = (data) => {
 
 const hoverBubble = (title) => {
   d3.select('#area-title')
-    .text(`${title},`)
-
-  d3.select('#area-title')
-    .transition()
-    .duration(400)
-    .attr('font-size', '20px')
+    .text(`${title}`)
 
   document.getElementById(`${title}-rect`)
     .style.fillOpacity = '0.3'
@@ -230,20 +256,25 @@ const hoverBubble = (title) => {
 
 const unhoverBubble = (title) => {
   d3.select('#area-title')
-    .transition()
-    .duration(400)
-    .attr('font-size', '0px')
+    .text('mouseover area for name')
 
   document.getElementById(`${title}-rect`)
     .style.fillOpacity = '0.2'
 }
 
-export const changeBubblesYear = (data) => {
+export const changeBubblesYear = (data, year) => {
 
   const lineGenerator = d3.line()
   const rScale = d3.scaleSqrt()
     .domain([0, 300000000])
     .range([0, 50])
+
+  d3.select('.years-texts')
+    .selectAll('text')
+    .attr('font-size', 0)
+
+  d3.select(`.char-${year}-text`)
+    .attr('font-size', 30)
   
   data.forEach(area => {
   
@@ -295,9 +326,8 @@ export const changeBubblesYear = (data) => {
         .force('charge', d3.forceManyBody().strength(d => rScale(d.pounds)))
         .force('collision', d3.forceCollide().radius(d => rScale(d.pounds) + 0.5))
         .on("tick", ticked)
-
+      
     }
-
   })
 } 
 
