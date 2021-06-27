@@ -5,6 +5,7 @@ import {
   toData
 } from '../transitions/transitions.js'
 import { setFishButtonCallbacks } from './switch_fish.js'
+import { clearCharts } from './bubble_chart.js'
 
 export const drawTransitionWave = () => {
 
@@ -166,6 +167,7 @@ export const raiseWave = (amt, direction, toView, fromView) => {
 
     } else if (direction === 'up') {
       if(fromView.id === 'data'){
+        clearCharts()
         clearAK()
       } else {
         prevButton = [

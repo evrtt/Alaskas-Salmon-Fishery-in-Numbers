@@ -9,6 +9,7 @@ export const switchGraphRaise = (amt, toGraph) => {
 
   if (amt >= window.innerHeight - 1) {
     if(toGraph === 'byYear') {
+      renderYears()
       genBubbles('1979', 'set')
       switchBoundingBoxes(toGraph)
     } else {
@@ -34,23 +35,20 @@ export const switchGraphLower = (amt, toGraph) => {
     amt -= Math.sqrt(100)
     waveTop.style.bottom = `${amt}px`
     waveBottom.style.height = `${amt}px`
-    window.requestAnimationFrame(() => switchGraphLower(amt, toGraph))
+    window.requestAnimationFrame(() => switchGraphLower(amt))
   } else if (amt > 0) {
     amt -= Math.sqrt(100 + (window.innerHeight - amt))
     waveTop.style.bottom = `${amt}px`
     waveBottom.style.height = `${amt}px`
-    window.requestAnimationFrame(() => switchGraphLower(amt, toGraph))
+    window.requestAnimationFrame(() => switchGraphLower(amt))
   } else if (amt < 0 && amt > -420) {
     amt -= Math.sqrt(100 + (window.innerHeight - amt))
     waveTop.style.bottom = `${amt}px`
     waveTop.style.zIndez = 1
     waveBottom.style.height = 0
-    window.requestAnimationFrame(() => switchGraphLower(amt, toGraph))
+    window.requestAnimationFrame(() => switchGraphLower(amt))
   } else if (amt < -420) {
     waveTop.remove()
-    if (toGraph === 'byYear') {
-      renderYears()
-    }
   }
 }
 
