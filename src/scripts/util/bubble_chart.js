@@ -21,7 +21,7 @@ export const renderYears = () => {
 
   
   d3.select(".data-container")
-    .append("div")
+    .append("g")
     .attr("class", "years-container")
     .attr('z-index', 0)
     .selectAll("span")
