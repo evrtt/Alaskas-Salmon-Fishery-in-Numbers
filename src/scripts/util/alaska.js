@@ -400,7 +400,8 @@ export const zoom = (area, alaska) => {
   
   if (path.classList.contains('unzoomed-rect')) {
     
-
+    d3.select(`#${area.title.split(' ').join('-').split('/').join('')}-rect`)
+      .on('mouseout', null)
     
     path.classList.remove('unzoomed-rect')
     path.classList.add('zoomed-rect')
@@ -416,7 +417,7 @@ export const zoom = (area, alaska) => {
 
     d3.select("#alaska-svg")
       .transition()
-      .duration(1000)
+      .duration(1300)
       .style("stroke-width", `${0.5 / scale}px`)
       .attr("transform", `translate(${translate})scale(${scale})`)
 
@@ -438,10 +439,87 @@ export const zoom = (area, alaska) => {
       .attr('stroke', 'none')
       .attr('fill', 'none')
 
+    d3.select('#area-word')
+      .transition()
+      .duration(780)
+      .attr('font-size', 20 / scale)
+      .attr('x', x - ((width / 2) * 0.8) / scale)
+      .attr('y', y - ((height / 2) * 0.73) / scale)
+
+    d3.select('#area-title')
+      .text(area.title)
+      .transition()
+      .duration(780)
+      .attr('font-size', 20 / scale)
+      .attr('x', x - ((width / 2) * 0.8) / scale + 70 / scale)
+      .attr('y', y - ((height / 2) * 0.73) / scale)
+
+    setTimeout(() => {
+
+      d3.select("#alaska-svg")
+        .append("g")
+        .attr('class', 'amount-g')
+        .append('text')
+        .attr('id', 'amount-word')
+        .text('Pounds: ')
+        .attr('x', x - ((width / 2) * 0.8) / scale)
+        .attr('y', y - ((height / 2) * 0.73) / scale + 30 / scale)
+        .attr('font-size', 20 / scale)
+        .attr('fill', 'white')
+  
+      d3.select(".amount-g")
+        .append('text')
+        .attr("id", "amount-text")
+        .text('Mouseover column for # of lbs.')
+        .attr('x', x - ((width / 2) * 0.8) / scale + 70 / scale)
+        .attr('y', y - ((height / 2) * 0.73) / scale + 30 / scale)
+        .attr('fill', 'white')
+        .attr('font-size', 20 / scale)
+
+      d3.select("#alaska-svg")
+        .append("g")
+        .attr("id", "year-word")
+        .append('text')
+        .text('Year: ')
+        .attr('x', x - ((width / 2) * 0.8) / scale)
+        .attr('y', y - ((height / 2) * 0.73) / scale + 60 / scale)
+        .attr('fill', 'white')
+        .attr('font-size', 20 / scale)
+
+      d3.select('#year-word')
+        .append('text')
+        .attr('id', 'year-text')
+        .text('Mouseover bar for year')
+        .attr('x', x - ((width / 2) * 0.8) / scale + 70 / scale)
+        .attr('y', y - ((height / 2) * 0.73) / scale + 60 / scale)
+        .attr('fill', 'white')
+        .attr('font-size', 20 / scale)
+
+    }, 500)
+
     renderAreaChart(area, 'pounds', x, y, scale)
 
   } else if (path.classList.contains('zoomed-rect')) {
-    
+    setTimeout(unhover(area.title), 1000)
+    setTimeout(() => {
+      d3.select('.amount-g').remove();
+      d3.select('#year-word').remove();
+    } , 500)
+
+    d3.select(`#${area.title.split(' ').join('-').split('/').join('')}-rect`)
+      .on("mouseout", () => unhover(area.title))
+
+    const projection = d3.geoMercator()
+      .fitExtent(
+        [
+          [10, 60],
+          [width - 10, height - 60],
+        ],
+        alaskaGeoJson
+      )
+
+    const areaTitleLocation = projection([-177, 70.8])
+
     path.classList.remove('zoomed-rect')
     path.classList.add('unzoomed-rect')
 
@@ -478,5 +556,22 @@ export const zoom = (area, alaska) => {
       .delay(500)
       .attr('fill', 'white')
       .attr('fill-opacity', '0.1')
+
+    d3.select('#area-word')
+      .transition()
+      .duration(1000)
+      .delay(280)
+      .attr('x', areaTitleLocation[0])
+      .attr('y', areaTitleLocation[1])
+      .attr('font-size', 30)
+
+    d3.select("#area-title")
+      .transition()
+      .duration(1000)
+      .delay(280)
+      .attr('x', areaTitleLocation[0] + 80)
+      .attr('y', areaTitleLocation[1])
+      .attr('font-size', 30)
+      .text('Click area for data')
   }
 }

@@ -43,6 +43,9 @@ const altTitles = [
 
 export const renderAreaChart = (area, type, x, y, scale) => {
 
+  // const width = window.innerHeight
+  // const height = window.innerWidth
+
   const identifier = altTitles.includes(area.title) ? area.identifier : area.title
   const areaData = catchData["byArea"][identifier]
   let scaled = scaleData(areaData, type)
@@ -76,7 +79,7 @@ export const renderAreaChart = (area, type, x, y, scale) => {
     .attr('class', "area-chart-g")
     
   renderChartScale(x, y, scale, maxY, type)
-  renderColorKey(x, y, scale, maxY, type)
+  setTimeout(() => renderColorKey(x, y, scale, maxY, type), 500)
 
   d3.select(".area-chart-g")
     .selectAll('rect')
@@ -97,6 +100,23 @@ export const renderAreaChart = (area, type, x, y, scale) => {
     .attr("height", d => d.height)
     .attr('fill-opacity', '1')
 
+  // d3.select('#area-word')
+  //   .transition()
+  //   .duration(600)
+  //   .attr('font-size', 20 / scale)
+  //   .attr('x', x - ((width / 2) * 0.5) / scale)
+  //   .attr('y', y - ((height / 2) * 0.72) / scale)
+
+  // d3.select('#area-title')
+  //   .text(area.title)
+  //   .transition()
+  //   .duration(600)
+  //   .attr('font-size', 20 / scale)
+  //   .attr('x', x - ((width / 2) * 0.5) / scale + 70 / scale)
+  //   .attr('y', y - ((height / 2) * 0.72) / scale)
+
+  d3.select(`#${area.title.split(' ').join('-').split('/').join('')}-rect`)
+    .attr('fill-opacity', '0.1')
 }
 
 const hoverRect = (text) => {
@@ -112,8 +132,11 @@ const hoverRect = (text) => {
   d3.select(`.${species}-color-rect`)
     .attr('stroke', 'white')
 
-  // d3.select('.amount-text')
-  //   .text(pounds)
+  d3.select('#amount-text')
+    .text(pounds)
+
+  d3.select('#year-text')
+    .text(year)
 }
 
 const unhoverRect = (text) => {
@@ -127,8 +150,11 @@ const unhoverRect = (text) => {
   d3.select(`.${species}-color-rect`)
     .attr('stroke', 'none')
 
-  // d3.select('.amount-text')
-  //   .text('Mouseover bar for # of lbs.')
+  d3.select('#amount-text')
+    .text('Mouseover bar for # of lbs.')
+
+  d3.select('#year-text')
+    .text('Mouseover bar for year')
 }
 
 const renderChartScale = (x, y, scale, maxY, type) => {

@@ -217,8 +217,6 @@ export const renderBubbles = (data, year) => {
     .attr('fill', 'white')
     .attr('font-size', 20)
 
-
-    
   const lineGenerator = d3.line()
   data.forEach(area => {
 
