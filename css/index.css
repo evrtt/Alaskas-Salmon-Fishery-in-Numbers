@@ -164,8 +164,8 @@
   top: 0;
   right: 0;
   height: 40px;
-  width: 40vw;
-  max-width: 280px;
+  width: 20vw;
+  max-width: 120px;
   display: flex;
   flex-direction: row;
   justify-content: space-around;
