@@ -22,9 +22,12 @@ const scaleData = (area, type) => {
     let obj = {}
     
     Object.entries(entry[1]).forEach(fish => {
+
       let species = fish[0]
       let amt = lScale(fish[1][type])
       obj[`${species}`] = amt
+      obj[`${species[0].toUpperCase() + species.slice(1)}Pounds`] = fish[1][type]
+      obj[`${species}Year`] = entry[0]
     })
     return obj
   })
@@ -51,17 +54,23 @@ export const renderAreaChart = (area, type, x, y, scale) => {
   const xIncrement = (window.innerWidth / 49) / scale
   const areaChart = []
   
-  stackedData.forEach((stack) => {
-    stack.forEach((rect, idx) => {
+  stackedData.forEach((stack, idx1) => {
+    stack.forEach((rect, idx2) => {
+
       areaChart.push({
-        x: x - (window.innerWidth / 2 / scale) + 6 * xIncrement + idx * xIncrement,
+        x: x - (window.innerWidth / 2 / scale) + 6 * xIncrement + idx2 * xIncrement,
         y: y + ((window.innerHeight / 2) - 60) / scale - (rect[1] / scale),
         height: (rect[1] - rect[0]) / scale,
         width: xIncrement / 1.2,
-        species: stack.key
+        species: stack.key,
+        pounds: rect['data'][`${stack.key}Pounds`],
+        year: rect['data'][`${stack.key}Year`]
       })
     })
   })
+
+  console.log(areaChart)
+
   d3.select("#alaska-svg")
     .append('g')
     .attr('class', "area-chart-g")
@@ -78,12 +87,48 @@ export const renderAreaChart = (area, type, x, y, scale) => {
     .attr("width", d => d.width)
     .attr("fill", d => fishColor(d.species))
     .attr('fill-opacity', '0')
+    .text(d => `${d.species}-${d.year}-${d.pounds}`)
+    .attr('class', d => `area-chart-${d.species}-${d.year}`)
+    .on('mouseover', d => hoverRect(d.target.innerHTML))
+    .on('mouseout', d => unhoverRect(d.target.innerHTML))
     .transition()
     .delay(300)
     .duration(800)
     .attr("height", d => d.height)
     .attr('fill-opacity', '1')
 
+}
+
+const hoverRect = (text) => {
+  
+  const textArr = text.split('-')
+  const species = textArr[0]
+  const year = textArr[1]
+  const pounds = textArr[2]
+
+  d3.select(`.area-chart-${species}-${year}`)
+    .attr('stroke', 'white')
+
+  d3.select(`.${species}-color-rect`)
+    .attr('stroke', 'white')
+
+  // d3.select('.amount-text')
+  //   .text(pounds)
+}
+
+const unhoverRect = (text) => {
+  const textArr = text.split('-')
+  const species = textArr[0]
+  const year = textArr[1]
+
+  d3.select(`.area-chart-${species}-${year}`)
+    .attr('stroke', 'none')
+
+  d3.select(`.${species}-color-rect`)
+    .attr('stroke', 'none')
+
+  // d3.select('.amount-text')
+  //   .text('Mouseover bar for # of lbs.')
 }
 
 const renderChartScale = (x, y, scale, maxY, type) => {
@@ -242,16 +287,17 @@ const renderColorKey = (x, y, scale, maxY, type) => {
       .attr('fill', 'white')
       .attr('font-size', 20 / scale)
 
-    // d3.select('.colorKey')
-    //   .selectAll('rect')
-    //   .data(colorKey)
-    //   .join('rect')
-    //   .attr('class', d => `${d.species.split(' ')[0]}-color-rect`)
-    //   .attr('x', colorKeyCircleX - 17)
-    //   .attr('y', d => d.y - 17)
-    //   .attr('height', 50)
-    //   .attr('width', 110)
-    //   .attr('stroke', 'none')
-    //   .attr('fill', 'none')
+
+    colorKey.forEach(color => {
+      d3.select('.colorKey')
+        .append('rect')
+        .attr('class', `${color.species.split(' ')[0]}-color-rect`)
+        .attr('x', colorKeyX - 5 / scale)
+        .attr('y', color.y - 5 / scale)
+        .attr('height', 30 / scale)
+        .attr('width', 180 / scale)
+        .attr('stroke', 'none')
+        .attr('fill', 'none')
+    })
 }
 

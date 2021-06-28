@@ -414,15 +414,6 @@ export const zoom = (area, alaska) => {
     const translate = [width / 2 - scale * x, height / 2 - scale * y]
     console.log(translate, 'translate')
 
-    // const colorKeyX = x + ((width / 2) * 0.4) / scale
-    // const colorKey = [
-    //   { species: "Chinook (King)", y: y - ((height / 2) * 0.84) / scale },
-    //   { species: "Chum (Dog)", y: y - ((height / 2) * 0.84) / scale + 12 / scale },
-    //   { species: "Coho (Silver)", y: y - ((height / 2) * 0.84) / scale + 24 / scale },
-    //   { species: "Pink (Humpy)", y: y - ((height / 2) * 0.84) / scale + 36 / scale },
-    //   { species: "Sockeye (Red)", y: y - ((height / 2) * 0.84) / scale + 48 / scale }
-    // ]
-
     d3.select("#alaska-svg")
       .transition()
       .duration(1000)
@@ -446,39 +437,6 @@ export const zoom = (area, alaska) => {
       .delay(500)
       .attr('stroke', 'none')
       .attr('fill', 'none')
-
-    // d3.select("#alaska-svg")
-    //   .append("g")
-    //   .attr("class", 'colorKey')
-    //   .selectAll("rect")
-    //   .data(colorKey)
-    //   .join('rect')
-    //   .attr('x', colorKeyX)
-    //   .attr('y', d => d.y)
-    //   .attr('height', 10 / scale)
-    //   .attr('width', 30 / scale)
-    //   .attr('fill', d => fishColor(d.species))
-
-    // // d3.select(".colorKey")
-    // //   .selectAll("text")
-    // //   .data(colorKey)
-    // //   .join('text')
-    // //   .attr('x', colorKeyCircleX - 12)
-    // //   .attr('y', d => d.y + 24)
-    // //   .text(d => d.species)
-    // //   .attr('fill', 'white')
-
-    // // d3.select('.colorKey')
-    // //   .selectAll('rect')
-    // //   .data(colorKey)
-    // //   .join('rect')
-    // //   .attr('class', d => `${d.species.split(' ')[0]}-color-rect`)
-    // //   .attr('x', colorKeyCircleX - 17)
-    // //   .attr('y', d => d.y - 17)
-    // //   .attr('height', 50)
-    // //   .attr('width', 110)
-    // //   .attr('stroke', 'none')
-    // //   .attr('fill', 'none')
 
     renderAreaChart(area, 'pounds', x, y, scale)
 
