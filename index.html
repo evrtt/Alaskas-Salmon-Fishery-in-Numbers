@@ -6,45 +6,188 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="index.css"/>
-    <script type="module" src="change_frame.js"></script>
-    <script src="scroller.js"></script>
+    <script src="https://d3js.org/d3.v6.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/index.css"/>
+    <link rel='shortcut icon' type='image/x-icon' href="./salmon-favicon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@100;300;400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">    
+    <script type="module" src="./src/index.js"></script>
 
     <title>Document</title>
   </head>
 
   <body>
     <div id="header">
-
+      <div id="personal-links">
+        <a
+          href="https://github.com/evrtt/Alaskas-Salmon-Fishery-in-Numbers" 
+          target="_blank"
+          rel="noopener noreferrer" 
+        >
+          <i class="fa fa-github"></i>
+        </a>
+        <a
+          href="www.linkedin.com/in/everett-smith-924798153"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <i class="fa fa-linkedin"></i>
+        </a>
+        <!-- <a>
+          <i class="fa fa-angellist"></i>
+        </a>
+        <div class="author-spans">
+          <a class='.ES' href=""><span>Everett Smith</span></a>
+        </div> -->
+      </div>
+      <div id='nav'>
+        <span id='nav-splash-span' class="span-selected">Welcome</span>
+        <hr id='hr-1' size="3" color="white" width="7%">
+        <span id='nav-intro-span'>Introduction</span>
+        <hr id='hr-2' size="3" color="white" width="7%">
+        <span id='nav-salmon-species-span'>Species</span>
+        <hr id='hr-3' size="3" color="white" width="7%">
+        <span id='nav-data-span'>Data</span>
+      </div>
     </div>
-    <div id="scroller" >
-      <div id="frames">
-        <section class="scroll-0">Frame 1</section>
-        <section class="scroll-1">Frame 2</section>
-        <section class="scroll-2">Frame 3</section>
-        <section class="scroll-3">Frame 4</section>
-        <section class="scroll-4">Frame 5</section>
+    <div class="data-container">
+      <section id="splash" class="current">
+          <div class="splash-container">
+            <h1>
+              Alaska's Salmon Fishery
+            </h1>
+            <h3>
+              1979 - 2020
+            </h3>
+            <p>
+              A data visualisation of 41 years of catch and price data from
+              the Salmon Fishing Industry in Alaska.
+              All data was sourced from the
+              <a 
+                href="https://www.adfg.alaska.gov/index.cfm?adfg=CommercialByFisherySalmon.main" 
+                target="_blank"
+                rel="noopener noreferrer" 
+                class="ADFG-link"
+              >
+                Alaska Department of Fish and Game.
+              </a>
+            </p>
+          </div>
+      </section>
+      <section id="intro" class="display-none">
+        <div class="intro-container">
+          <p class="intro-p-1">
+            Alaska's salmon fishing industry is one of the world's most
+            sustainable fisheries, having managed to produce billions of pounds
+            of wildcaught salmon and maintain the worlds largest remaining 
+            salmon populations for decades.
+          </p>
+          <p class="intro-p-2">
+            Salmon fishing is a highly unpredictable business due to the 
+            natural variations in fish migrations and restrictions imposed by 
+            strict fishing management, a challenge made increasingly difficult 
+            by climate change.
+          </p>
+          <p class="intro-p-3">
+            Curious about these variations, I created a visualisation of the
+            state's data of the annual Salmon catch in pounds from 1979 to 2020. 
+            The data is split between eleven different areas and between the five different
+            salmon species fished in Alaska.
+          </p>
+        </div>
+      </section>
+      <section id="salmon-species" class="display-none">
+        <div id="salmon-species-page">
+          <div id="salmon-species-container">
+            <div id="salmon-species-list">
+              <p class="intro-p">
+                The five species of Pacific Salmon fished in Alaska are...
+              </p>
+              <div >
+                <h3 id='chinook-button' class="current-fish-button">Chinook</h3>
+                <h3 id='coho-button' >Coho</h3>
+                <h3 id='sockeye-button'>Sockeye</h3>
+                <h3 id='chum-button'>Chum</h3>
+                <h3 id='pink-button'>Pink</h3>
+              </div>
+            </div>
+            <div id="salmon-species-items">
+              <div id="chinook-container" class="current-fish">
+                <p class='fish-title'>
+                  Chinook (King) Salmon usually weigh 10 - 50 pounds in maturity
+                  but can weigh up to 126 pounds. They typically measure between
+                  24 and 36 inches but can grow to 58 inches inches.
+                  Chinook mature in approximately 3 - 8 years. 
+                  They spawn (reproduce) early in the summer in large rivers
+                  and are typically the earliest salmon to be commercially fished 
+                  in Alaska. Chinook are caught in the lowest numbers and are the 
+                  most expensive of the five species.Chinook are processed into 
+                  fillets that can be quite pricey and are prized for their rich, 
+                  fatty flavor.
+                </p>
+                <img src="https://www.takemefishing.org/tmf/assets/images/fish/king-salmon-464x170.png" class="chinook-photo">
+              </div>
+              <div id="coho-container" class="display-none">
+                <p class='fish-title'>
+                  Coho (Silver) Salmon typically weigh 8 - 12 pounds and average 
+                  28 inches in length as adults. Coho mature in approximately 
+                  4 years and spawn (reproduce) during the late summer and 
+                  fall in a variety of lake, river and stream environemnts. 
+                  Coho typically are the third most valued of the five species 
+                  and produce for fillets, amongth other products.  
+                </p>                
+                <img src="https://www.takemefishing.org/tmf/assets/images/fish/coho-salmon-464x170.png" class="coho-photo">
+              </div>
+              <div id="sockeye-container" class="display-none">
+                <p class='fish-title'>
+                  Sockeye (Red) Salmon weigh 5 - 15 pounds and average 24
+                  inches in length as adults. Sockeye mature in 4 - 5 years and 
+                  spawn in two 'groups', one in early summer the other in late 
+                  summer to fall in rivers and streams near lakes. 
+                  Newly hatched salmon often stay in lakes for 1 - 2 years 
+                  before migrating back to the ocean. Sockeye salmon are the 
+                  second most valuable of the five species and usually are processed 
+                  into fillets and smoked. They are the caught in the second highest 
+                  volumes in Alaska.
+                </p>
+                <img src="https://www.takemefishing.org/tmf/assets/images/fish/sockeye-salmon-464x170.png" class="sockeye-photo">
+              </div>
+              <div id="chum-container" class="display-none">
+                <p class='fish-title'>
+                  Chum (Dog) Salmon typically weigh 10 - 20 pounds and average 
+                  24 inches in length as adults. They spawn in early to mid-summer
+                  in smaller rivers and streams and intertidal zones. 
+                  They migrate directly back to the ocean and mature for 3 - 5 years.
+                  Chum are the second least valuable of the five species and 
+                  are mostly processed into canned or other less fresh products.
+                </p>
+                <img src="https://www.takemefishing.org/tmf/assets/images/fish/chum-salmon-464x170.png" class="chum-photo">
+              </div>
+              <div id="pink-container" class="display-none">
+                <p class='fish-title'>
+                  Pink (Humpy) Salmon typically weigh 4 - 5 pounds and average 
+                  20 inches as adults. They spawn in mid-summer in smaller streams 
+                  after maturing for 1 - 2 years. 
+                  After hatching they migrate directly to marine or estuarine environments. 
+                  Pinks are the least valuable of the five species but are caught 
+                  in the highest numbers. They are mostly processed into canned 
+                  or other less fresh products.
+                </p>
+                <img src="https://www.takemefishing.org/tmf/assets/images/fish/pink-salmon-464x170.png" class="pink-photo">
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <div id='intro-button' class="current-button">Welcome</div>
+      <div id='salmon-species-button' class="next-button">Introduction</div>
+      <div id='data-button' class="next-button">Salmon Species</div>
+      <div id="data" class="display-none">
       </div>
-      <div class="data">
-      </div>
-      <!-- <div id="frame-0" class="data-on">
-        <div class="content-0"></div>
-      </div>
-      <div id="frame-1" class="data-off">
-        <div class="content-1"></div>
-      </div>
-      <div id="frame-2" class="data-off">
-        <div class="content-2"></div>
-      </div>
-      <div id="frame-4" class="data-off">
-        <div class="content-3"></div>
-      </div>
-      <div id="frame-5" class="data-off">
-        <div class="content-4"></div>
-      </div> -->
-    </div>
-    <div id="footer">
-    
+      <canvas class='wave-top'></canvas>
+      <canvas class='wave-bottom'></canvas>
     </div>
   </body>
 

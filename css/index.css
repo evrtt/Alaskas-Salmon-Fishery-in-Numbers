@@ -1,0 +1,458 @@
+#splash {
+  background-color: #0671c9;
+  height: 100vh;
+  font-family: 'Raleway', sans-serif;
+}
+
+#intro {
+  background-color: #0671c9;
+  height: 100vh;
+  font-family: 'Raleway', sans-serif;
+
+}
+
+#salmon-species {
+  background-color: #0671c9;
+  height: 100vh;
+  font-family: 'Raleway', sans-serif;
+
+}
+
+.scroll-0-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#data {
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  max-width: 100%;
+  height: 100vh;
+  width: 100vw;
+  background-color: #0671c9;
+}
+
+.data-container {
+  height: 100vh;
+  width: 100vw;
+  overflow-x: hidden;
+  font-family: 'Raleway', sans-serif;
+
+}
+
+.years-container {
+  height: 50px;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  overflow-x: scroll;
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  background-color: none;
+  animation: slide 0.5s forwards;
+  animation-delay: 2s;
+  padding-bottom: 8px;
+  z-index: 0;
+}
+
+.year-span {
+  height: 24px;
+  width: 60px;
+  margin-left: 8px;
+  margin-right: 8px;
+  font-size: 24px;
+  padding: 6px;
+  border-radius: 8px;
+  border: none;
+  background-color: rgb(230, 230, 230);
+  width: 100px;
+  text-align: center;
+  z-index: 0;
+}
+
+.year-span:hover {
+  transition: margin 100ms, padding 100ms, font-size 100ms, height 100ms;
+  margin-left: 2px;
+  margin-right: 2px;
+  padding: 8px;
+  cursor: pointer;
+  font-size: 28px;
+  height: 28px;
+  width: 100px;
+}
+  
+.wave-top {
+  display: block;
+  position: fixed;
+  bottom: 0;
+}
+
+.wave-bottom {
+  display: block;
+  width: 110vw;
+  background-color: blue;
+  height: 0;
+  position: fixed;
+  bottom: 0;
+  z-index: 1;
+}
+
+#hidden-wave {
+  display: none;
+}
+
+#button-container{
+  position: fixed;
+  bottom: 20%;
+  width: 100%;
+  height: fit-content;
+  justify-content: center;
+  flex-direction: row;  
+  align-items: center;
+  background-color: none;
+  z-index: 5;
+}
+
+.current-button {
+  font-size: 50px;
+  text-align: center;
+  font-family: 'Raleway', sans-serif;  color: #0671c9;
+  font-weight: 800;
+  z-index: 5;
+  position: absolute;
+  left: 50%;
+  top: 85%;
+  transform: translate(-50%, -50%);
+}
+
+.next-button {
+  font-size: 50px;
+  text-align: center;
+  font-family: 'Raleway', sans-serif;  color: #0671c9;
+  font-weight: 800;
+  z-index: 5;
+  position: absolute;
+  left: 120%;
+  top: 85%;
+  transform: translate(-50%, -50%);
+  display: none;
+  width: fit-content
+}
+
+.moving-scroll-down {
+  font-size: 50px;
+  font-family: 'Raleway', sans-serif;  color: #0671c9;
+  font-weight: 800;
+  position: relative;
+}
+
+.hidden {
+  display: none;
+}
+
+#personal-links {
+  z-index: 10;
+  position: fixed;
+  top: 0;
+  right: 0;
+  height: 40px;
+  width: 20vw;
+  max-width: 120px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  color: rgb(44, 44, 44);
+  padding: 3px;
+  font-size: 30px;
+  background-color: white;
+  border-radius: 0 0 0 8px;
+  font-family: 'Raleway', sans-serif;
+}
+
+.ES {
+  color:rgb(0, 0, 0);
+}
+
+.ES:hover {
+  color: blue;
+}
+
+#nav {
+  position: fixed;
+  font-size: 20px;
+  font-weight: 600;
+  color: rgb(0, 0, 0);
+  top: 0;
+  left: 0;
+  height: 50px;
+  width: 60vw;
+  max-width: 700px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background-color: none;
+  margin-left: 5px;
+  z-index: 10;
+  font-family: 'Raleway', sans-serif;
+}
+
+
+#nav span {
+  padding: 3px 10px 3px 10px;
+  border: solid 1px white;
+  border-radius: 8px;
+  background-color: white;
+}
+
+#nav .span-selected {
+  padding: 3px 10px 3px 10px;
+  border: solid 1px #0671c9;
+  border-radius: 8px;
+  background-color: white;
+  color: #0671c9;
+}
+
+#nav span:hover{
+  cursor: pointer;
+  color: blue;  
+  background-color: white;
+}
+
+#nav-data-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+}
+
+#footer a:hover {
+  color: rgb(82, 82, 82);
+}
+
+.splash-container{
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: white;
+}
+
+.splash-container h1 {
+  font-size: 9vh;
+  margin-top: 0;
+  margin-bottom: 10px;
+}
+
+.splash-container h3 {
+  font-size: 4vh;
+  margin-bottom: 20px;
+  margin-top: 0;
+}
+
+.splash-container p {
+  font-size: 3vh;
+  width: 60vw;
+  margin-top: 0;
+}
+
+section {
+  display: block;
+  width: 100vw;
+}
+
+body {
+  margin: 0;
+}
+
+.intro-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 70%;
+}
+
+.intro-container p {
+  font-size: 2.8vh;
+  color: white;
+  width: 90vw;
+}
+.scroll-2-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  height: 100%;
+}
+.scroll-3-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  height: 100%;
+}
+.scroll-4-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  height: 100%;
+}
+
+a:link {
+  color: black;
+  background-color: transparent;
+  text-decoration: none;
+}
+
+a:visited {
+  color: black;
+  background-color: transparent;
+  text-decoration: none;
+}
+
+a:hover {
+  color: blue;
+  background-color: transparent;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+a:active {
+  color: yellow;
+  background-color: transparent;
+  text-decoration: underline;
+}
+
+.created-by-p{
+  font-size: 1vh;
+  font-weight: 200;
+  text-align: center;
+  cursor: pointer;
+}
+
+.author-spans {
+  font-size: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.display-none {
+  display: none;
+}
+
+#salmon-species-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  height: 80vh;
+}
+
+#salmon-species-list {
+  width: 18%;
+  margin-left: 2%;
+  display: flex;
+  justify-content: space-around;
+  flex-direction: column;
+  height: 70%;
+  padding-top: 2px;
+}
+
+#salmon-species-list p {
+  font-size: 20px;
+  margin: 10px;
+}
+
+#salmon-species-list h3 {
+  height: fit-content;
+  padding: 5px;
+  border-top: solid 1px black;
+  border-left: solid 1px black;
+  text-align: center;
+  font-size: 25px;
+  margin: 0;
+  color: white;
+  background-color: #0671c9;
+}
+
+#salmon-species-list h3:hover {
+  cursor: pointer;
+}
+
+#salmon-species-list .current-fish-button {
+  background-color: #BF9AC4;
+  color: black;  
+}
+
+#salmon-species-list h3:last-of-type {
+  border-bottom: solid 1px black;
+  background-color: #0671c9;
+}
+
+#salmon-species-items {
+  width: 78%;
+  height: 70%;
+  margin-right: 2%;
+}
+
+.intro-p {
+  font-size: 20px;
+  color: white;
+  margin: 2px;
+}
+
+#salmon-species-items .current-fish {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  border: solid 1px black;
+  background-color: #BF9AC4;
+}
+
+.fish-title {
+  width: 94%;
+  margin: 3%;
+  height: fit-content;
+  font-size: 20px;
+  color: black;
+}
+
+#chinook-container img {
+  height: 40vh;
+  width: auto;
+}
+#coho-container img {
+  height: 30vh;
+  width: auto;
+}
+#sockeye-container img {
+  height: 20vh;
+  width: auto;
+}
+#chum-container img {
+  height: 30vh;
+  width: auto;
+}
+#pink-container img {
+  height: 20vh;
+  width: auto;
+}
+
+/* <- Salmon Species */

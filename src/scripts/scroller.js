@@ -1,26 +1,26 @@
-import changeFrame from './change_frame';
+import changeFrame from './change_frame.js';
 
-let createObservers = () => {
+const createObservers = () => {
   
-  let callback = (entries, observer) => {
-
-    let data = document.querySelector('.data')
+  let counter = []
+  let callback = (entries) => {
+    let data = document.querySelector('#data')
     let dataClasses = data.className.split(" ")
-    console.log(dataClasses)
-
     entries.forEach(entry => {
       const frameNum = entry.target.className.split("-")[1]
       const frameClass = `data-${frameNum}`
       let frameId = `frame-${frameNum}`
+      console.log(entry.intersectionRatio)
+      console.log(entry.intersectionRect)
       if (entry.isIntersecting) {
-        console.log(frameNum)
-        entry.target.style.backgroundColor = 'red'
+        // entry.target.style.backgroundColor = 'red'
         data.classList.add(frameClass)
+        counter.push(frameNum)
       } else {
         if (dataClasses.includes(frameClass)) {
             data.classList.remove(frameClass)
         }
-        entry.target.style.backgroundColor = 'green'
+        // entry.target.style.backgroundColor = 'green'
       }
       
       // Each entry describes an intersection change for one observed
@@ -33,22 +33,23 @@ let createObservers = () => {
       //   entry.target
       //   entry.time
     });
-    
-
-    if(dataClasses.length > 2) {
-      changeFrame(dataClasses);
+    let next;
+    let last;
+    if(counter.length > 1) {
+      next = counter[1]
+      last = counter[0]
+      counter = [next];
+      changeFrame(next, last)
     }
+  // if(dataClasses.length > 1) {
   };
 
-  let observer = new IntersectionObserver(callback, {threshold: 0.51});
+  let observer = new IntersectionObserver(callback, {threshold: [0.0, 1.0]});
   
   for (let i = 0; i < 5; i++) {
     let target = document.querySelector(`.scroll-${i}`);
     observer.observe(target);
   }
+};
 
-}
-
-window.addEventListener("load", (e) => {
-  createObservers();
-}, false);
+export default createObservers;
