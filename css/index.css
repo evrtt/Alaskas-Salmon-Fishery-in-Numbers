@@ -175,13 +175,22 @@
   font-size: 30px;
   background-color: white;
   border-radius: 0 0 0 8px;
+  font-family: 'Raleway', sans-serif;
+}
+
+.ES {
+  color:rgb(0, 0, 0);
+}
+
+.ES:hover {
+  color: blue;
 }
 
 #nav {
   position: fixed;
   font-size: 20px;
   font-weight: 600;
-  color: black;
+  color: rgb(0, 0, 0);
   top: 0;
   left: 0;
   height: 50px;
@@ -308,7 +317,7 @@ a:link {
 }
 
 a:visited {
-  color: darkblue;
+  color: black;
   background-color: transparent;
   text-decoration: none;
 }
