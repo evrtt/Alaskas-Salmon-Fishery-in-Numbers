@@ -43,7 +43,7 @@ To accomodate a massive range in numbers, D3's linear scaling function was used 
 To accomodate five seperate peices of data in one column in a bar chart, 
 D3's stacking function was used to join the catch data of the five species for each year. 
 
-## Varied Viewing options of the data
+## Varied Data Viewing Options
 
 In order to view the data by year or by area, D3 was used in conjunction with two functions to convert a 
 CSV file into tow seperate javascript objects.
