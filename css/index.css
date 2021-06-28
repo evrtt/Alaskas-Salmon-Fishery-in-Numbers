@@ -1,16 +1,21 @@
 #splash {
   background-color: #0671c9;
-  height: 100vh
+  height: 100vh;
+  font-family: 'Raleway', sans-serif;
 }
 
 #intro {
   background-color: #0671c9;
   height: 100vh;
+  font-family: 'Raleway', sans-serif;
+
 }
 
 #salmon-species {
   background-color: #0671c9;
   height: 100vh;
+  font-family: 'Raleway', sans-serif;
+
 }
 
 .scroll-0-container {
@@ -23,19 +28,21 @@
 }
 
 #data {
-position: fixed;
-top: 0px;
-left: 0px;
-max-width: 100%;
-height: 100vh;
-width: 100vw;
-background-color: #0671c9;
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  max-width: 100%;
+  height: 100vh;
+  width: 100vw;
+  background-color: #0671c9;
 }
 
 .data-container {
   height: 100vh;
   width: 100vw;
   overflow-x: hidden;
+  font-family: 'Raleway', sans-serif;
+
 }
 
 .years-container {
@@ -117,8 +124,7 @@ background-color: #0671c9;
 .current-button {
   font-size: 50px;
   text-align: center;
-  font-family: Arial, Helvetica, sans-serif; 
-  color: #0671c9;
+  font-family: 'Raleway', sans-serif;  color: #0671c9;
   font-weight: 800;
   z-index: 5;
   position: absolute;
@@ -130,8 +136,7 @@ background-color: #0671c9;
 .next-button {
   font-size: 50px;
   text-align: center;
-  font-family: Arial, Helvetica, sans-serif; 
-  color: #0671c9;
+  font-family: 'Raleway', sans-serif;  color: #0671c9;
   font-weight: 800;
   z-index: 5;
   position: absolute;
@@ -144,8 +149,7 @@ background-color: #0671c9;
 
 .moving-scroll-down {
   font-size: 50px;
-  font-family: Arial, Helvetica, sans-serif; 
-  color: #0671c9;
+  font-family: 'Raleway', sans-serif;  color: #0671c9;
   font-weight: 800;
   position: relative;
 }
@@ -189,7 +193,9 @@ background-color: #0671c9;
   background-color: none;
   margin-left: 5px;
   z-index: 10;
+  font-family: 'Raleway', sans-serif;
 }
+
 
 #nav span {
   padding: 3px 10px 3px 10px;

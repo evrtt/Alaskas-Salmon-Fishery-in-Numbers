@@ -451,7 +451,7 @@ export const zoom = (area, alaska) => {
       .transition()
       .duration(780)
       .attr('font-size', 20 / scale)
-      .attr('x', x - ((width / 2) * 0.8) / scale + 70 / scale)
+      .attr('x', x - ((width / 2) * 0.8) / scale + 80 / scale)
       .attr('y', y - ((height / 2) * 0.73) / scale)
 
     setTimeout(() => {
@@ -463,7 +463,7 @@ export const zoom = (area, alaska) => {
         .attr('id', 'amount-word')
         .text('Pounds: ')
         .attr('x', x - ((width / 2) * 0.8) / scale)
-        .attr('y', y - ((height / 2) * 0.73) / scale + 30 / scale)
+        .attr('y', y - ((height / 2) * 0.73) / scale + 60 / scale)
         .attr('font-size', 20 / scale)
         .attr('fill', 'white')
   
@@ -471,8 +471,8 @@ export const zoom = (area, alaska) => {
         .append('text')
         .attr("id", "amount-text")
         .text('Mouseover column for # of lbs.')
-        .attr('x', x - ((width / 2) * 0.8) / scale + 70 / scale)
-        .attr('y', y - ((height / 2) * 0.73) / scale + 30 / scale)
+        .attr('x', x - ((width / 2) * 0.8) / scale + 80 / scale)
+        .attr('y', y - ((height / 2) * 0.73) / scale + 60 / scale)
         .attr('fill', 'white')
         .attr('font-size', 20 / scale)
 
@@ -482,7 +482,7 @@ export const zoom = (area, alaska) => {
         .append('text')
         .text('Year: ')
         .attr('x', x - ((width / 2) * 0.8) / scale)
-        .attr('y', y - ((height / 2) * 0.73) / scale + 60 / scale)
+        .attr('y', y - ((height / 2) * 0.73) / scale + 30 / scale)
         .attr('fill', 'white')
         .attr('font-size', 20 / scale)
 
@@ -490,8 +490,8 @@ export const zoom = (area, alaska) => {
         .append('text')
         .attr('id', 'year-text')
         .text('Mouseover bar for year')
-        .attr('x', x - ((width / 2) * 0.8) / scale + 70 / scale)
-        .attr('y', y - ((height / 2) * 0.73) / scale + 60 / scale)
+        .attr('x', x - ((width / 2) * 0.8) / scale + 80 / scale)
+        .attr('y', y - ((height / 2) * 0.73) / scale + 30 / scale)
         .attr('fill', 'white')
         .attr('font-size', 20 / scale)
 
