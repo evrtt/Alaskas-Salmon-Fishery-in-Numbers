@@ -32,12 +32,6 @@ const scaleData = (area, type) => {
   return { result, maxY }
 }
 
-const renderKey = () => {
-
-}
-
-
-
 const altTitles = [
   "Yukon River",
   "Southeast Alaska",
@@ -73,6 +67,7 @@ export const renderAreaChart = (area, type, x, y, scale) => {
     .attr('class', "area-chart-g")
     
   renderChartScale(x, y, scale, maxY, type)
+  renderColorKey(x, y, scale, maxY, type)
 
   d3.select(".area-chart-g")
     .selectAll('rect')
@@ -209,5 +204,54 @@ const renderChartScale = (x, y, scale, maxY, type) => {
 
   })
     
+}
+
+const renderColorKey = (x, y, scale, maxY, type) => {
+
+  const width = window.innerWidth
+  const height = window.innerHeight
+
+  const colorKeyX = x + ((width / 2) * 0.52) / scale
+  const colorKey = [
+    { species: "Chinook (King)", y: y - ((height / 2) * 0.81) / scale },
+    { species: "Chum (Dog)", y: y - ((height / 2) * 0.81) / scale + 30 / scale },
+    { species: "Coho (Silver)", y: y - ((height / 2) * 0.81) / scale + 60 / scale },
+    { species: "Pink (Humpy)", y: y - ((height / 2) * 0.81) / scale + 90 / scale },
+    { species: "Sockeye (Red)", y: y - ((height / 2) * 0.81) / scale + 120 / scale }
+  ]
+
+  d3.select("#alaska-svg")
+      .append("g")
+      .attr("class", 'colorKey')
+      .selectAll("rect")
+      .data(colorKey)
+      .join('rect')
+      .attr('x', colorKeyX)
+      .attr('y', d => d.y)
+      .attr('height', 18 / scale)
+      .attr('width', 30 / scale)
+      .attr('fill', d => fishColor(d.species))
+
+    d3.select(".colorKey")
+      .selectAll("text")
+      .data(colorKey)
+      .join('text')
+      .attr('x', colorKeyX + 40 / scale)
+      .attr('y', d => d.y + 16 / scale)
+      .text(d => d.species)
+      .attr('fill', 'white')
+      .attr('font-size', 20 / scale)
+
+    // d3.select('.colorKey')
+    //   .selectAll('rect')
+    //   .data(colorKey)
+    //   .join('rect')
+    //   .attr('class', d => `${d.species.split(' ')[0]}-color-rect`)
+    //   .attr('x', colorKeyCircleX - 17)
+    //   .attr('y', d => d.y - 17)
+    //   .attr('height', 50)
+    //   .attr('width', 110)
+    //   .attr('stroke', 'none')
+    //   .attr('fill', 'none')
 }
 
