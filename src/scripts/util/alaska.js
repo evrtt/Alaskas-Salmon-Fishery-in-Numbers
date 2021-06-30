@@ -286,7 +286,6 @@ export const renderAK = () => {
     .attr('fill-opacity', '0.4')
     .attr('cursor', 'pointer')
     .on('click', () => {
-      console.log(document.getElementById('by-area-rect'))
       if (document.getElementsByClassName('colorKey').length === 1) {
         drawTransitionWave();
         switchGraphRaise(15, 'byArea')
@@ -413,7 +412,6 @@ export const zoom = (area, alaska) => {
     const y = (rect[1][1] + rect[2][1]) / 2
     const scale = 0.95 / Math.max(dx / width, dy / height)
     const translate = [width / 2 - scale * x, height / 2 - scale * y]
-    console.log(translate, 'translate')
 
     d3.select("#alaska-svg")
       .transition()

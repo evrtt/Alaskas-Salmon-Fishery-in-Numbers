@@ -241,18 +241,13 @@ export const lowerWave = (amt, direction, prevButton, nextButton, toView, fromVi
       waveBottom.style.height = '0px'
       waveTop.style.zIndex = 0
       if (toView.id === 'salmon-species') {
-        console.log(toView.style.zIndex)
-        console.log(toView)
         document.getElementById('salmon-species-list').style.zIndex = 1
-        console.log(toView.style.zIndex)
       }      prevButton[0].classList.toggle('current-button')
       prevButton[0].classList.toggle('next-button')
       prevButton[0].style.top = '85%'
       nextButton[0].classList.toggle('current-button')
       nextButton[0].classList.toggle('next-button')
       const current = document.querySelector('.current')
-      console.log(current, 'current')
-      console.log(nextButton, 'nextButton', prevButton, 'prevButton')
     }
   } else if (direction === 'up' && !prevButton) {
     if (amt - window.innerHeight >= 0) {
@@ -278,15 +273,11 @@ export const lowerWave = (amt, direction, prevButton, nextButton, toView, fromVi
       waveTop.style.zIndex = 0
       waveBottom.style.height = '0px'
       if (toView.id === 'salmon-species') {
-        console.log(toView.style.zIndex)
         document.getElementById('salmon-species-list').style.zIndex = 1
-        console.log(toView.style.zIndex)
       }
       nextButton[0].classList.toggle('current-button')
       nextButton[0].classList.toggle('next-button')
       const current = document.querySelector('.current')
-      console.log(current, 'current')
-      console.log(nextButton, 'nextButton', prevButton, 'prevButton')
     }
   } else if (direction === 'down') {
     if (amt > window.innerHeight) {
@@ -329,8 +320,6 @@ export const lowerWave = (amt, direction, prevButton, nextButton, toView, fromVi
     } else if (amt < -420) {
       waveTop.remove()
       const current = document.querySelector('.current')
-      console.log(current, 'current')
-      console.log(nextButton, 'nextButton', prevButton, 'prevButton')
     }
   }
 }

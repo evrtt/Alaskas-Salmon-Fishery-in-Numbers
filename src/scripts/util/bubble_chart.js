@@ -42,8 +42,6 @@ const rScale = d3.scaleSqrt()
 
 export const renderBubbles = (data, year) => {
 
-  console.log(data)
-
   const width = window.innerWidth;
   const height = window.innerHeight;
 
@@ -304,8 +302,6 @@ const hoverBubble = (title, selector, species) => {
   d3.select('#amount-text')
     .text(`${data[0].pounds}`)
 
-  console.log(`${data[0].species}-color-rect`)
-
   d3.select(`.${data[0].species}-color-rect`)
     .attr('stroke', 'white')
 }
@@ -324,8 +320,6 @@ const unhoverBubble = (title, selector, species) => {
 
   d3.select('#amount-text')
     .text(`Mouseover bubbles to see # of lbs.`)
-
-  console.log(`${data[0].species}-color-rect`)
 
   d3.select(`.${data[0].species}-color-rect`)
     .attr('stroke', 'none')
