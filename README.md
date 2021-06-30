@@ -1,6 +1,6 @@
-![](https://media.giphy.com/media/YsNVlqrQkvLuaeILSO/giphy.gif)
-
 # Alaska's Salmon Fishery in Numbers
+
+![](https://media.giphy.com/media/YsNVlqrQkvLuaeILSO/giphy.gif)
 
 Welcome to Alaska's Salmon Fishery, an interactive data visualization of the 
 salmon catch in Alaska measured in pounds from 1997 to 2020.
