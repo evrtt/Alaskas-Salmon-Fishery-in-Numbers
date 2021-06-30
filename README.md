@@ -1,3 +1,5 @@
+(https://media.giphy.com/media/YsNVlqrQkvLuaeILSO/giphy.gif)
+
 # Alaska's Salmon Fishery in Numbers
 
 Welcome to Alaska's Salmon Fishery, an interactive data visualization of the 
