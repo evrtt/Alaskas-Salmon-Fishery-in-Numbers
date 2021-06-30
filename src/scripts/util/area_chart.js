@@ -72,8 +72,6 @@ export const renderAreaChart = (area, type, x, y, scale) => {
     })
   })
 
-  console.log(areaChart)
-
   d3.select("#alaska-svg")
     .append('g')
     .attr('class', "area-chart-g")
