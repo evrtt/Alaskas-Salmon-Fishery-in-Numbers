@@ -1,4 +1,4 @@
-(https://media.giphy.com/media/YsNVlqrQkvLuaeILSO/giphy.gif)
+![](https://media.giphy.com/media/YsNVlqrQkvLuaeILSO/giphy.gif)
 
 # Alaska's Salmon Fishery in Numbers
 
